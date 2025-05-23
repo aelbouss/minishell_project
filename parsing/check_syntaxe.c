@@ -6,11 +6,11 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:15:31 by memahamo          #+#    #+#             */
-/*   Updated: 2025/05/11 18:39:41 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/05/20 21:27:11 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 ////////////////////////////////////////////////////////////////////////
 // Checks if all quotes (single and double) in the input line are closed
@@ -139,7 +139,7 @@ int check_syntax(t_minishell *mshell, t_cmd *line, t_cline **list, char **env)
             else 
             {    
                 making_list(line, list);
-               // env_list(mshell,env); 
+               //env_list(mshell,env); 
             }
         }
     }    

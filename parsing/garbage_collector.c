@@ -6,11 +6,11 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:48:37 by memahamo          #+#    #+#             */
-/*   Updated: 2025/05/02 16:28:46 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/05/20 21:27:18 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 
 t_gc    *ft_gc_new(void *ptr) // create new node and  add  inside  it the  allocated  block

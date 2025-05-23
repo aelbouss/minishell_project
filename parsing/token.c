@@ -6,11 +6,11 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:25:20 by memahamo          #+#    #+#             */
-/*   Updated: 2025/04/30 16:31:14 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:33:45 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 //////////////////////////////////////////
 // Skips characters until the second quote
