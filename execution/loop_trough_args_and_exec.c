@@ -47,7 +47,7 @@ int	loking_for_executables(t_minishell *p , t_env *lst)
 	pid_t	pid;
 	int	status;
 
-	if (!p || !lst)
+	if (!p || !lst || !p->list->options || !p->list->options[0])
 		return (1);
 	p->execution = &exec;
 	if (initialize_utils(&exec, p, lst) == 1)
@@ -58,9 +58,6 @@ int	loking_for_executables(t_minishell *p , t_env *lst)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (p->list->r_list)
-			if (handle_operators(p->list->r_list) != 0)
-				return (1);
 		execve(cmd, p->list->options, p->execution->gep);
 		perror("execve() failed\n");
 	}
@@ -75,47 +72,28 @@ int	loking_for_executables(t_minishell *p , t_env *lst)
 
 int	loking_for_builtins(t_minishell *p)
 {
+	if (!p->list->options || ! p->list->options[0])
+		return (1);
 	if (ft_strcmp(p->list->options[0], "cd") == 0)
-	{
 		return(ft_cd(p, p->list->options[1]), 0);
-	}
 	if (ft_strcmp(p->list->options[0], "echo") == 0)
-	{
-		ft_echo(p, p->list->options);
-		return (0);
-	}
+		return(ft_echo(p, p->list->options), 0);
 	if (ft_strcmp(p->list->options[0], "pwd") == 0)
-	{
-		ft_pwd(p);
-		return (0);
-	}
+		return (ft_pwd(p), 0);
 	if (ft_strcmp(p->list->options[0], "export") == 0)
-	{
-		ft_export(p);
-		return (0);
-	}
+		return (ft_export(p), 0);
 	if (ft_strcmp(p->list->options[0], "env") == 0)
-	{
-		ft_env(p);
-		return (0);
-	}
+		return(ft_env(p), 0);
 	if (ft_strcmp(p->list->options[0], "unset") == 0)
-	{
-		if (ft_unset(p,&p->env_head) == 1)
-			printf("errrrrrrrrrrrrrrrrrrrrrrrrrr\n");
-		return (0);
-	}
+		return(ft_unset(p,&p->env_head), 0);
 	if (ft_strcmp(p->list->options[0], "exit") == 0)
-	{
-		ft_exit(p);
-		return (0);
-	}
+		return(ft_exit(p), 0);
 	else
 		return (1);
 	return (0);
 }
 
-int handle_operators(t_redr *operator)
+int handle_operators(t_redr *operator, char **commands)
 {
 	if (!operator)
 		return (1);
@@ -123,7 +101,7 @@ int handle_operators(t_redr *operator)
 	{
 		if (ft_strcmp(operator->str, ">") == 0)
 		{
-			if (redirection_out(operator->file) != 0)
+			if (redirection_out(operator->file, commands) != 0)
 				return (1);
 		}
 		else if (ft_strcmp(operator->str, "<") == 0)
@@ -133,7 +111,7 @@ int handle_operators(t_redr *operator)
 		}
 		else if(ft_strcmp(operator->str, ">>") == 0)
 		{
-			if (append_to(operator->file) != 0)
+			if (append_to(operator->file, commands) != 0)
 				return (1);
 		}
 		else if (ft_strcmp(operator->str, "<<") == 0)
@@ -155,8 +133,8 @@ int	ft_loop_and_exec(t_minishell *p, t_env *lst)
 		return (1);
 	while (p->list)
 	{
-		/*if (handle_operators(p->list->r_list) != 0)
-			return (1);*/
+		if (p->list->r_list)
+			handle_operators(p->list->r_list,p->list->options);
 		if (loking_for_builtins(p) == 1)
 			loking_for_executables(p, lst);
 		p->list = p->list->next;

@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/05/23 15:31:44 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:53:34 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,17 +141,18 @@ char	**extract_splited_path(char *path);
 void	clean_2d_array(char **arr);
 char	*join_and_free(char	**sp, char *s2, int i);
 char	*check_executable(char **sp, char **incmd);
-int loking_for_builtins(t_minishell *p);
+int	loking_for_builtins(t_minishell *p);
 int	loking_for_executables(t_minishell *p , t_env *lst);
 int	ft_loop_and_exec(t_minishell *p, t_env *lst);
 char	**turn_list_to_arr(t_env *lst, t_minishell *p);
 char	*concat_and_free(char	*s1, char *s2);
 char	**_split(char const *s, char c);
-int handle_operators(t_redr *operator);
-int	redirection_out(char *file);
+int handle_operators(t_redr *operator, char **commands);
+int	redirection_out(char *file, char **commands);
 int	redirection_in(char *file);
-int	append_to(char *file);
+int	append_to(char *file, char	**commands);
 int	heardoc(char *keyword);
 int	reduplicate_streams(int in, int out);
+int	is_builtin(char *str);
 
 #endif

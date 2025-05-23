@@ -4,7 +4,7 @@ int	heardoc(char *keyword)
 {
 	char	*line;
 	int	fd[2];
-	char	*fl;
+
 
 	if (!keyword)
 		return (1);
@@ -13,29 +13,16 @@ int	heardoc(char *keyword)
 	while (1)
 	{
 		line = readline("heardoc> ");
-		if (!line)
-		{
-			close(fd[0]);
-			close(fd[1]);
-			return (perror("Bad Allocation\n"), 1);
-		}
-		if (ft_strcmp(keyword, line) == 0)
+		if (!line || ft_strcmp(keyword, line) == 0)
 		{
 			close(fd[1]);
-			break ;
+			dup2(fd[0], STDIN_FILENO);
+			close (fd[0]);
+			return (0);
 		}
-		fl = ft_strjoin(line, "\n");
-		if (!fl)
-		{
-			free(line);
-			close(fd[0]);
-			close(fd[1]);
-			return (1);
-		}
-		write(fd[1], fl, ft_strlen(fl));
+		write(fd[1], line, ft_strlen(line));
+		write(fd[1], "\n" , 1);
 		free(line);
 	}
-	dup2(fd[0], STDIN_FILENO);
-	//close (fd[0])
-	return (0);
+	return (1);
 }
