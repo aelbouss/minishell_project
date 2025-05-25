@@ -124,20 +124,62 @@ int handle_operators(t_redr *operator, char **commands)
 	return (0);
 }
 
+int	handle_pipes(int i, int	**pipes, int np)
+{
+	if (i == 0)
+	{
+		printf("reached  this 1\n");
+		if (dup2(pipes[i][1], STDOUT_FILENO) == -1)
+					return (1);
+		return (0);
+	}
+	else if (i == np)
+	{
+		printf("reached this 2\n");
+		if (dup2(pipes[i - 1][0], STDIN_FILENO) == -1)
+			return (1);
+		return (0);
+	}
+	else
+	{
+		if (dup2(pipes[i - 1][1], STDOUT_FILENO) == -1)
+			return (1);
+		if (dup2(pipes[i - 1][0], STDIN_FILENO) == -1)
+			return (1);
+		return (0);
+	}
+	printf("heere\n");
+	return (0);
+}
+
 int	ft_loop_and_exec(t_minishell *p, t_env *lst)
 {
-	//pid_t	pid;
-	//int	status;
+	int	i;
 
-	if (!p || !p->list || !p->list->options)
+	if (!p || !p->list || !lst)
 		return (1);
+
+	p->np = (count_nodes(p->list) - 1);
+	if (p->np > 0)
+	{
+		p->pipes = open_pipes(p->np, p);
+		if (!p->pipes)
+			return (perror("pipe") ,1);
+	}
+	i = 0;
 	while (p->list)
 	{
-		if (p->list->r_list)
-			handle_operators(p->list->r_list,p->list->options);
+		//if (p->list->r_list)
+			//handle_operators(p->list->r_list,p->list->options);
+		if (p->np > 0 && i <= p->np)
+		{
+			if (handle_pipes(i, p->pipes, p->np) !=  0)
+				return (1);
+		}
 		if (loking_for_builtins(p) == 1)
 			loking_for_executables(p, lst);
 		p->list = p->list->next;
+		i++;
 	}
 	return (0);
 }

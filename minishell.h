@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/05/23 20:53:34 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/05/24 21:51:02 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ typedef struct s_redr
     char *file;
     t_types type;
     int check;
-    int o_in;
-    int o_out;
     struct s_redr *next;
 }               t_redr;
 
@@ -103,6 +101,8 @@ typedef struct s_minishell // the  tempale  that  combine all  the  struct .
     t_cline *list;
     t_exec  *execution; // pointer  for  execution  struct .
     t_env   *env_head; //pointer  for list of  envs
+    int     **pipes;
+    int np;
 }               t_minishell;
 
 size_t				ft_strlen(const char *s);
@@ -154,5 +154,8 @@ int	append_to(char *file, char	**commands);
 int	heardoc(char *keyword);
 int	reduplicate_streams(int in, int out);
 int	is_builtin(char *str);
-
+int	pipes_handling(t_cline *lst, t_minishell *p);
+int	count_nodes(t_cline *lst);
+int	**open_pipes(int np, t_minishell *p);
+int	handle_pipes(int i, int	**pipes, int np);
 #endif
