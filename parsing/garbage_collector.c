@@ -6,11 +6,11 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:48:37 by memahamo          #+#    #+#             */
-/*   Updated: 2025/05/30 15:18:21 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/04 15:14:31 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 t_gc	*ft_gc_new(void *ptr)
 {
