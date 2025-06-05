@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/05/28 21:27:58 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:57:01 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <unistd.h>
+# include <sys/wait.h>
 // #include "../minishell / libft.h "
 
 typedef enum s_types
@@ -44,6 +45,12 @@ typedef struct s_gc
 	void			*add;
 	struct s_gc		*next;
 }					t_gc;
+
+typedef	struct	s_fg
+{
+	void			*add;
+	struct s_fg		*next;
+}					t_fg;
 
 // 'typedef struct s_chi7aja
 // {
@@ -90,15 +97,27 @@ typedef struct s_env
 {
 	char			*name;
 	char			*value;
+	int				flag;
 	struct s_env	*next;
 }					t_env;
+
+typedef	struct	s_exec
+{
+	char	*path;
+	char	**sp;
+	char	**gep;
+}	t_exec;
 
 typedef struct s_data_shell
 {
 	t_cmd			line;
 	t_cline			*list;
 	t_env			*env_list;
+	t_exec			*exec;
 	int				exit_status;
+	int				nc;
+	t_fg			*fgc;
+	int				r_sign;
 }					t_data_shell;
 
 typedef struct s_exp_info
@@ -109,6 +128,8 @@ typedef struct s_exp_info
 	char			*mdf_option;
 	char			*return_fnct;
 }					t_exp_info;
+
+
 
 //////////////////////////// libft ////////////////////////////
 
@@ -183,8 +204,7 @@ void				add_to_list(t_gc **list, t_gc *node);
 t_gc				*ft_gc_new(void *ptr);
 void				free_gc(t_gc **list);
 void				token_line(t_data_shell *mshell, t_cmd *file);
-int					check_syntax(t_data_shell *mshell, t_cmd *line,
-						t_cline **list, char **env);
+int					check_syntax(t_data_shell *mshell, t_cmd *line, t_cline **list);
 void				making_list(t_cmd *file, t_cline **list);
 void				check_to_split(t_data_shell *mshell, t_cline *tmp,
 						t_exp_info *vr, int *j);
@@ -212,5 +232,59 @@ void				error_function(t_data_shell *mshell);
 void				expand(t_data_shell *mshell);
 char				*check_expnd(t_data_shell *mshell, t_cline *tmp);
 void				apply_signals(t_data_shell *mshell);
+
+
+//////////////////////////////// envs /////////////////////////
+
+char	*extract_name(t_data_shell *p, char *str);
+char	*extract_value(t_data_shell *p, char *str);
+int	split_each_env(t_data_shell *p,	char *str, char **name, char **value);
+t_env	*build_node(t_data_shell *p,  char *str);
+int	build_env_list(t_data_shell *p, char *str);
+void	add_to_linkedlist(t_env **lst, t_env *new);
+void	create_env_list(t_data_shell *p, char **envp);
+char	**turn_list_to_arr(t_env *lst, t_data_shell *p);
+int		list_len(t_cline *lst);
+char	*concat_and_free(t_data_shell *p, char *s1, char *s2);
+
+
+///////////////////////////////// builtins ///////////////////////////////////
+
+int		check_is_builtin(t_cline *node, t_data_shell *p, t_env *lst);
+int		ft_cd(t_data_shell *p, t_env *env_lst ,char *path);
+int		ft_echo(char **args);
+int		ft_pwd(t_data_shell *p);
+int		ft_env(t_data_shell *p);
+int		ft_unset(t_data_shell *p, t_env **lst);
+char	*get_env_value(t_data_shell *p, t_env *eh, char *env_name);
+int		check_to_modify(t_data_shell *p, char *name, char *new_value);
+int		ft_export(t_data_shell *p, t_cline *node);
+int		search_for_char(char *s, int n);
+
+//////////////////////////// execution /////////////////////////
+
+char	*extract_path_env(char **envp);
+char	**get_splited_path(char *path, t_data_shell *p);
+char	*build_absolute_path(char *path, char *cmd, t_data_shell *p);
+char	*check_if_exe(char **envp, char *cmd, t_data_shell *p);
+int		execute_exe(char **cmd, char **envp , t_data_shell *p);
+int		loop_and_execute(t_cline *lst, char **envp, t_data_shell *p);
+char	**s_split(t_data_shell *p ,char const *s, char c);
+int		heardoc(char *keyword);
+int	handle_operators(t_data_shell *p  ,t_redr *operator, char	**commands);
+
+/////////////////////////// final garbage ///////////////////////////////
+
+t_fg	*fg_new(void *ptr);
+void	*fg_malloc(size_t allocate, t_fg **list);
+void	fg_add_to_list(t_fg **list, t_fg *node);
+void	fg_free_gc(t_fg **list);
+char	*fg_stdup(t_data_shell *p ,const char *src, int len);
+char	**fg_split(t_data_shell *p ,char const *s, char c);
+char	*s_strdup(t_data_shell *p, char *src);
+char	*s_substr(t_data_shell *p, const char *s, unsigned int start, size_t len);
+int	build_env_list(t_data_shell *p, char *str);
+
+
 
 #endif

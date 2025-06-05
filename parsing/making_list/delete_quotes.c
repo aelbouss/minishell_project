@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   delete_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:11:52 by memahamo          #+#    #+#             */
-/*   Updated: 2025/05/28 21:31:46 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:23:57 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 char	*ft_no(t_data_shell *mshell, char *str, int *j)
 {

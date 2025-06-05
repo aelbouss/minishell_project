@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntaxe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:15:31 by memahamo          #+#    #+#             */
-/*   Updated: 2025/05/28 21:36:21 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/06/03 16:29:34 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	check_quotes(t_cmd *line)
 {
@@ -101,7 +101,7 @@ void	env_list(t_data_shell *mshell, char **env)
 	i = 0;
 }
 
-int	check_syntax(t_data_shell *mshell, t_cmd *line, t_cline **list, char **env)
+int	check_syntax(t_data_shell *mshell, t_cmd *line, t_cline **list)
 {
 	if (line->rl)
 	{
@@ -116,7 +116,7 @@ int	check_syntax(t_data_shell *mshell, t_cmd *line, t_cline **list, char **env)
 			else
 			{
 				making_list(line, list);
-				env_list(mshell, env);
+			//	env_list(mshell, env);
 				expand(mshell);
 				red_expand(mshell);
 				delete_quotes(mshell);
