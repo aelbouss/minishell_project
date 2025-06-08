@@ -30,7 +30,7 @@ void	create_env_list(t_data_shell *p, char **envp)
 			printf("Bad Allocation\n");
 			return ;
 		}
-		add_to_linkedlist(&(p->env_list), newnode);
+		add_to_linkedlist(&p->env_list, newnode);
 		i++;
 	}
 }

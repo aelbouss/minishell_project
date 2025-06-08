@@ -19,8 +19,14 @@ void	fg_add_to_list(t_fg **list, t_fg *node)
 {
 	t_fg	*tmp;
 
-	if (!list || !(*list))
+	if (!list || !node)
+		return ;
+	
+	if (!(*list))
+	{
 		*list = node;
+		return ;
+	}
 	else
 	{
 		tmp = *list;
@@ -33,6 +39,7 @@ void	fg_add_to_list(t_fg **list, t_fg *node)
 void	*fg_malloc(size_t allocate, t_fg **list)
 {
 	void	*tmp;
+
 
 	tmp = malloc(allocate);
 	if (!tmp)

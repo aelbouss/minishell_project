@@ -41,7 +41,7 @@ char	*s_substr(t_data_shell *p, const char *s, unsigned int start, size_t len)
 	size_t	j;
 	char	*str;
 
-	str = (char*)fg_malloc((sizeof(*s) * (len + 1)), &p->fgc);
+	str = (char *)fg_malloc((sizeof(*s) * (len + 1)), &p->fgc);
 	if (!str)
 		return (NULL);
 	i = 0;
