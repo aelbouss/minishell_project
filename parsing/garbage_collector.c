@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:48:37 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/04 15:14:31 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/06 23:52:11 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	add_to_list(t_gc **list, t_gc *node)
 {
 	t_gc	*tmp;
 
-	if (!list || !(*list))
+	if (list == NULL || (*list) == NULL)
 		*list = node;
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:00:25 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/05 15:08:10 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/08 14:23:17 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ int	main(int ac, char **av, char **env)
 	t_exec	container;
 	int	fd_i;
 	int	fd_o;
-
-	create_env_list(&mshell, env);
+	
 	((void)ac), ((void)av);
 	mshell.line.head = NULL; 
 	mshell.exit_status = 0;
+	mshell.fgc = NULL;
+	mshell.env_list = NULL;
+	create_env_list(&mshell, env);
 	mshell.exec = &container;
 	fd_i = dup(STDIN_FILENO);
 	fd_o = dup(STDOUT_FILENO);
@@ -52,3 +54,5 @@ int	main(int ac, char **av, char **env)
 	}
 	return (0);
 }
+
+// debug  why  the  pipes wasnt  work 

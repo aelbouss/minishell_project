@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/05 14:57:01 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:33:05 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,7 +271,10 @@ int		execute_exe(char **cmd, char **envp , t_data_shell *p);
 int		loop_and_execute(t_cline *lst, char **envp, t_data_shell *p);
 char	**s_split(t_data_shell *p ,char const *s, char c);
 int		heardoc(char *keyword);
-int	handle_operators(t_data_shell *p  ,t_redr *operator, char	**commands);
+int		handle_operators(t_data_shell *p  ,t_redr *operator, char	**commands);
+int		**open_pipes(t_data_shell *p);
+void	close_pipes(int **pipes);
+int	handle_pipes(int np, int **pipes, int idx);
 
 /////////////////////////// final garbage ///////////////////////////////
 

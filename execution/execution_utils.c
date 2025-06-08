@@ -72,7 +72,7 @@ char	*check_if_exe(char **envp, char *cmd, t_data_shell *p)
 	while (p->exec->sp[i])
 	{
 		fcmd = build_absolute_path(p->exec->sp[i], cmd, p);
-		if (!cmd)
+		if (!fcmd)
 			return (NULL);
 		if (access(fcmd, X_OK) == 0)
 			return (fcmd);

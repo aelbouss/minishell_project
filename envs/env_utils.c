@@ -56,7 +56,7 @@ t_env	*build_node(t_data_shell *p,  char *str)
 {
 	t_env	*node;
 
-	node = malloc(sizeof(t_env));
+	node = fg_malloc(sizeof(t_env), &p->fgc);
 	if (!node)
 		return (NULL);
 	if (split_each_env(p, str, &node->name, &node->value)!= 0)
