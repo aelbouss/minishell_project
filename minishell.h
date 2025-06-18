@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/17 15:48:11 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:32:21 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct s_data_shell
 	int				r_sign;
 }					t_data_shell;
 
+
 typedef struct s_exp_info
 {
 	char			**expand_result;
@@ -128,9 +129,10 @@ typedef struct s_exp_info
 	int				count_word;
 	char			*mdf_option;
 	char			*return_fnct;
+	char			q_char;
+	int				len;
+	int				j2;
 }					t_exp_info;
-
-
 
 //////////////////////////// libft ////////////////////////////
 
@@ -196,6 +198,7 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+char				*join_q(t_data_shell *mshell, char const *s1, char s2);
 
 ///////////////////////////////////////////////////////////////////
 
@@ -227,13 +230,15 @@ char				*ft_strjoin(t_data_shell *mshell, char const *s1,
 void				delete_quotes(t_data_shell *mshell);
 int					error_function(t_data_shell *mshell);
 
-// char				**ft_split_2(t_data_shell *mshell, char const *s, char c);
-///
-
 void				expand(t_data_shell *mshell);
 char				*check_expnd(t_data_shell *mshell, t_cline *tmp);
 void				apply_signals(t_data_shell *mshell);
-
+void				her_fcts(t_data_shell *mshell, char *line);
+char				*out_quotes_her(t_data_shell *mshell, char *line, int *j);
+char				*no_expand_her(t_data_shell *mshell, char *str, int *j,
+						char c);
+char				*expand_inside_dq_her(t_data_shell *mshell, char *str,
+						t_exp_info *her);
 
 //////////////////////////////// envs /////////////////////////
 

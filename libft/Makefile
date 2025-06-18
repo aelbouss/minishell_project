@@ -6,7 +6,7 @@
 #    By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/31 17:04:05 by memahamo          #+#    #+#              #
-#    Updated: 2025/05/28 18:07:50 by memahamo         ###   ########.fr        #
+#    Updated: 2025/06/18 15:26:43 by memahamo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SRC= ft_isalpha.c\
      ft_strchr_copy.c\
      ft_strncmp_copy.c\
      split_spaces.c\
-     # expand_split.c
+     ft_strjoin_copy.c
  
 OBJ= $(SRC:.c=.o)
 CC= cc
