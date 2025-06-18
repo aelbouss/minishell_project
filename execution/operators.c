@@ -82,12 +82,6 @@ int	handle_operators(t_data_shell *p  ,t_redr *operator, char	**commands)
 				return (1);
 			p->r_sign = 1;
 		}
-		else if (ft_strcmp(operator->str, "<<") == 0)
-		{
-			if (heardoc(operator->file) != 0)
-				return (1);
-			p->r_sign = 1;
-		}
 		operator = operator->next;
 	}
 	return (0);

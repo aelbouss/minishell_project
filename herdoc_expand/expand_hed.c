@@ -6,7 +6,7 @@
 /*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 00:16:09 by mery              #+#    #+#             */
-/*   Updated: 2025/06/18 14:25:15 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/06/18 21:35:34 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*dq_fct_her(t_data_shell *mshell, char *str, t_exp_info *her)
 		return (no_expand(mshell, str, &(her->j2)));
 }
 
-void	her_fcts(t_data_shell *mshell, char *line)
+char	*her_fcts(t_data_shell *mshell, char *line)
 {
 	char		*new;
 	char		*new2;
@@ -77,5 +77,6 @@ void	her_fcts(t_data_shell *mshell, char *line)
 			new = no_expand(mshell, line, &(her.j2));
 		new2 = ft_strjoin(mshell, new2, new);
 	}
-	printf("test check : ----%s-----\n", new2);
+	free(line);
+	return new2;
 }

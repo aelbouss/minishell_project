@@ -6,7 +6,7 @@
 /*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:11:52 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/18 15:40:29 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:15:13 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,19 @@ void	delete_quotes(t_data_shell *mshell)
 // tmp = mshell->list;
 // while(tmp)
 // {
-//     printf ("------------------\n");
-//     tmp2 = tmp->r_list;
-//     i = 0;
-//     while(tmp->options[i])
-//     {
-//         printf("options : %s\n",tmp->options[i]);
-//         i++;
-//     }
-//     while(tmp2)
-//     {
-//         printf("red : %d file: %s flag: %d\n",
-//  tmp2->type, tmp2->file, tmp2->ambiguous);
-//         tmp2 = tmp2->next;
-//     }
-//     tmp = tmp->next;
-//     printf ("------------------\n");
+// 	printf ("------------------\n");
+// 	tmp2 = tmp->r_list;
+// 	i = 0;
+// 	while(tmp->options[i])
+// 	{
+// 		printf("options : %s\n",tmp->options[i]);
+// 		i++;
+// 	}
+// 	while(tmp2)
+// 	{
+// 		printf("red : %d file: %s flag: %d\n", tmp2->type, tmp2->file, tmp2->ambiguous);
+// 		tmp2 = tmp2->next;
+// 	}
+// 	tmp = tmp->next;
+// 	printf ("------------------\n");
 // }

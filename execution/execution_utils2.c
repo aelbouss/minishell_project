@@ -39,7 +39,33 @@ int	core_process(t_data_shell *p,  char **envp, t_cline *lst, int **aop, int i)
 	clear_ressources(p);
     exit(0);
 }
+void	count_her(t_data_shell *mshell)
+{
+	t_cline *tmp1;
+	t_redr *tmp2;
+	int count;
 
+	count = 0;
+	tmp1 = mshell->list;
+	while(tmp1)
+	{
+		tmp2 = tmp1->r_list;
+		while(tmp2)
+		{
+			if(tmp2->type == 1)
+				count++;
+			if (count >16)
+			{
+				ft_putstr_fd("max  here-docs  is  16\n", 2);
+				free_gc(&(mshell->line.head));
+				fg_free_gc(mshell->fgc);
+				exit(2);
+			}
+			tmp2 = tmp2->next;		
+		}
+		tmp1 = tmp1->next;
+	}
+}
 int many_commands(t_data_shell *p, t_cline *lst, char **envp)
 {
     pid_t *pids;
@@ -47,6 +73,8 @@ int many_commands(t_data_shell *p, t_cline *lst, char **envp)
 	int	status;
     int **aop;
     int i;
+	t_cline *sub_l;
+	t_redr	*rl;
 
     if (!p || !lst || !lst->options)
         return (1);
@@ -55,10 +83,25 @@ int many_commands(t_data_shell *p, t_cline *lst, char **envp)
         return (perror("Bad Allocation\n"), 1);
     pids = gc_malloc((sizeof(pid_t) * p->nc), &p->line.head);
 	i = 0;
+	sub_l = lst;
+	while (sub_l)
+	{
+		rl = sub_l->r_list;
+		while (rl)
+		{
+			if (ft_strcmp(rl->str, "<<") == 0)
+			{
+				heardoc(rl->file);
+			}
+			rl = rl-> next;
+		}
+	}
+
     while(lst)
     {
 		handle_operators(p, lst->r_list, lst->options);
         pid = fork();
+		// heredoc
 		if (pid < 0)
 			return (perror ("fork failed"), 1);
         if (pid == 0)

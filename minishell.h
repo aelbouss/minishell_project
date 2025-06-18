@@ -6,7 +6,7 @@
 /*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/18 15:32:21 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/06/18 21:34:38 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_redr
 	char			*file;
 	int				ambiguous;
 	t_types			type;
+	char			h_path[10];
 	struct s_redr	*next;
 }					t_redr;
 
@@ -119,6 +120,7 @@ typedef struct s_data_shell
 	int				nc;
 	t_fg			*fgc;
 	int				r_sign;
+	
 }					t_data_shell;
 
 
@@ -233,7 +235,7 @@ int					error_function(t_data_shell *mshell);
 void				expand(t_data_shell *mshell);
 char				*check_expnd(t_data_shell *mshell, t_cline *tmp);
 void				apply_signals(t_data_shell *mshell);
-void				her_fcts(t_data_shell *mshell, char *line);
+char				*her_fcts(t_data_shell *mshell, char *line);
 char				*out_quotes_her(t_data_shell *mshell, char *line, int *j);
 char				*no_expand_her(t_data_shell *mshell, char *str, int *j,
 						char c);
