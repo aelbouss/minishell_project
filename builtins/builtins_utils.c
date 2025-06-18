@@ -16,6 +16,8 @@ int	check_is_builtin(t_cline *node, t_data_shell *p, t_env *lst)
 		return (ft_pwd(p), 0);
 	if (ft_strcmp(node->options[0], "unset") == 0)
 		return (ft_unset(p, &p->env_list), 0);
+	if (ft_strcmp(node->options[0], "exit") == 0)
+		return (ft_exit(node, p), 0);
 	return (1);
 }
 
@@ -31,4 +33,31 @@ int	search_for_char(char *s, int n)
 		i++;
 	}
 	return (0);
+}
+
+int	print_envs(t_env *lst)
+{
+	while (lst)
+	{
+		if (lst->name)
+		{
+			printf("declare -x ");
+			printf("%s",lst->name);
+		}
+		if (lst->value)
+		{
+			printf("=");
+			printf("%s",lst->value);
+		}
+		printf("\n");
+		lst = lst -> next;
+	}
+	return (0);
+}
+
+int	is_valid_identifier(int c)
+{
+	if (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) || (c == '_'))
+		return (0);
+	return (1);
 }

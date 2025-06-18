@@ -87,14 +87,20 @@ int	execute_exe(char **cmd, char **envp , t_data_shell *p)
 	int	status;
 	char	*fcmd;
 
-	if (!cmd || !envp || ! p)
+	if (!envp || ! p)
 		return(perror("Bad Address\n"), 1);
-	fcmd = check_if_exe(envp, cmd[0], p);
-	if (!fcmd)
-		return (printf("%s not found\n",cmd[0]),1);
+	if (!cmd || !*cmd )
+		return (0);
 	pid = fork();
 	if (pid == 0)
 	{
+		fcmd = check_if_exe(envp, cmd[0], p);
+		if (!fcmd)
+		{
+			printf("%s : command not found\n",cmd[0]);
+			clear_ressources(p);
+			exit(127);
+		}
 		execve(fcmd, cmd, p->exec->gep);
 		return(perror("perror"), 1);
 	}

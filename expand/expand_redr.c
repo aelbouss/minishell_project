@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   expand_redr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 06:20:28 by memahamo          #+#    #+#             */
-/*   Updated: 2025/05/28 21:29:17 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:46:32 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	error_function(t_data_shell *mshell)
+int 	error_function(t_data_shell *mshell)
 {
 	ft_putstr_fd("ERROR\n Syntaxe invalide\n", 2);
 	free_gc(&(mshell->line.head));
+	return (1);
 }
 
 char	*out_quotes_red(t_data_shell *mshell, char *tmp, int *j)

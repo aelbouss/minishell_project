@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:15:31 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/03 16:29:34 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:49:46 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,17 +106,16 @@ int	check_syntax(t_data_shell *mshell, t_cmd *line, t_cline **list)
 	if (line->rl)
 	{
 		if (check_quotes(line) == 1)
-			error_function(mshell);
+			return(error_function(mshell));
 		else
 		{
 			line->token_list = NULL;
 			token_line(mshell, line);
 			if (check_validate_syntax(line) == 1)
-				error_function(mshell);
+				return (error_function(mshell));
 			else
 			{
 				making_list(line, list);
-			//	env_list(mshell, env);
 				expand(mshell);
 				red_expand(mshell);
 				delete_quotes(mshell);

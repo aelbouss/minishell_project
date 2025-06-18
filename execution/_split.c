@@ -28,7 +28,7 @@ static	int	wordlen(const char *str, char c)
 	return (start);
 }
 
-static char	*ft_stdup(const char *src, int len)
+static char	*ft_stdup(t_data_shell *p ,const char *src, int len)
 {
 	char	*str;
 	int		i;
@@ -36,7 +36,7 @@ static char	*ft_stdup(const char *src, int len)
 	i = 0;
 	if (!src)
 		return (NULL);
-	str = (char *)malloc((len + 1) * sizeof(char));
+	str = (char *)fg_malloc((len + 1) * sizeof(char), &p->fgc);
 	if (!str)
 		return (NULL);
 	while (i < len)
@@ -76,7 +76,7 @@ char	**s_split(t_data_shell *p ,char const *s, char c)
 			i++;
 		else
 		{
-			str[j++] = ft_stdup((s + i), wordlen((s + i), c));
+			str[j++] = ft_stdup(p ,(s + i), wordlen((s + i), c));
 			if (!str[j - 1])
 			{
 				return (free_split(str, j - 1), NULL);

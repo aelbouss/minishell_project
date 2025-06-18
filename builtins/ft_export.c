@@ -1,25 +1,5 @@
 #include "../minishell.h"
 
-int	print_envs(t_env *lst)
-{
-	while (lst)
-	{
-		if (lst->name)
-		{
-			printf("declare -x ");
-			printf("%s",lst->name);
-		}
-		if (lst->value)
-		{
-			printf("=");
-			printf("%s",lst->value);
-		}
-		printf("\n");
-		lst = lst -> next;
-	}
-	return (0);
-}
-
 void	ft_select_flag(char *s, int *p)
 {
 	int	i;
@@ -89,12 +69,35 @@ int	check_to_modify(t_data_shell *p, char *name, char *new_value)
 	return (1);
 }
 
-int ft_export(t_data_shell *p, t_cline *node)
+int	creation_routine(t_data_shell *p, t_cline *node)
 {
+	int		flag;
 	char	**arr;
 	t_env	*new;
-	int		flag;
 
+	flag = 0;
+	arr = fg_split(p, node->options[1], '=');
+	if (!arr)
+		return (perror("Bad Allocation\n"), 1);
+	if (check_to_modify(p, arr[0], arr[1]) == 0)
+		return (0);
+	ft_select_flag(node->options[1], &flag);
+	if (is_valid_identifier(arr[0][0])!= 0)
+	{
+		printf("Minishell : export: %s : not a valid identifier\n",arr[0]);
+		p->exit_status = 1;
+		return (1);
+	}
+	new = create_node(p, arr[0], arr[1], flag);
+	if (!new)
+		return (perror("Bad Allocation\n"), 1);
+	add_to_linkedlist(&p->env_list, new);
+	return (0);
+}
+
+int ft_export(t_data_shell *p, t_cline *node)
+{
+	
 	if (!p || !p->env_list)
 		return (perror("export failed\n") , 1);
 	if (!node->options[1])
@@ -104,17 +107,8 @@ int ft_export(t_data_shell *p, t_cline *node)
 	}
 	else
 	{
-		flag = 0;
-		arr = fg_split(p, node->options[1], '=');
-		if (!arr)
-			return (perror("Bad Allocation\n"), 1);
-		if (check_to_modify(p, arr[0], arr[1]) == 0)
-			return (0);
-		ft_select_flag(node->options[1], &flag);
-		new = create_node(p, arr[0], arr[1], flag);
-		if (!new)
-			return (perror("Bad Allocation\n"), 1);
-		add_to_linkedlist(&p->env_list, new);
+		if (creation_routine(p, node) == 1)
+			return (1);
 	}
 	return (0);
 }

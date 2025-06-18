@@ -58,12 +58,13 @@ char	**turn_list_to_arr(t_env *lst, t_data_shell *p)
 	if (!lst || !p)
 		return (perror("Bad Allocation\n") ,NULL);
 	tmp = lst;
+	i = 0;
 	while (tmp)
 	{
 		tmp = tmp->next;
 		i++;
 	}
-	arr = gc_malloc((sizeof(char *) * i), &p->line.head);
+   	arr = gc_malloc((sizeof(char *) * (i+1)), &p->line.head);
 	if (!arr)
 		return (perror("Bad Allocation\n"), NULL);
 	i = 0;

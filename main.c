@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:00:25 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/08 14:23:17 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/17 19:59:25 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int ac, char **av, char **env)
 	mshell.exit_status = 0;
 	mshell.fgc = NULL;
 	mshell.env_list = NULL;
+	mshell.nc = 0;
 	create_env_list(&mshell, env);
 	mshell.exec = &container;
 	fd_i = dup(STDIN_FILENO);
@@ -35,9 +36,9 @@ int	main(int ac, char **av, char **env)
 		mshell.line.rl = readline("MINISHELL : ");
 		if (mshell.line.rl)
 		{
-			check_syntax(&mshell, &mshell.line, &mshell.list);
 			add_history(mshell.line.rl);
-			loop_and_execute(mshell.list, env, &mshell);
+			if (check_syntax(&mshell, &mshell.line, &mshell.list) != 1)
+				loop_and_execute(mshell.list, env, &mshell);
 		}
 		else
 		{
@@ -55,4 +56,9 @@ int	main(int ac, char **av, char **env)
 	return (0);
 }
 
-// debug  why  the  pipes wasnt  work 
+// notes  for  the  project 
+/*
+	- check how  the  builtins and  heardoc work  in  bash .
+	- check cd , tests removing  PWD , OLDPWD.
+	- loop  trough all  an  open  all the  heardocs  .
+*/
