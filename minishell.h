@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/18 21:34:38 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/06/21 16:27:32 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,6 @@ typedef	struct	s_fg
 	struct s_fg		*next;
 }					t_fg;
 
-// 'typedef struct s_chi7aja
-// {
-//     char    *lex;
-//     size_t  size_lex;
-//     t_types lex_type;
-// }   t_lex;'
 
 typedef struct s_token
 {
@@ -80,7 +74,7 @@ typedef struct s_redr
 	char			*file;
 	int				ambiguous;
 	t_types			type;
-	char			h_path[10];
+	char			f_path[10];
 	struct s_redr	*next;
 }					t_redr;
 
@@ -263,7 +257,7 @@ int		ft_cd(t_data_shell *p, t_env *env_lst ,char *path);
 int		ft_echo(char **args);
 int		ft_pwd(t_data_shell *p);
 int		ft_env(t_data_shell *p);
-int	ft_exit(t_cline *node, t_data_shell *p);
+int		ft_exit(t_cline *node, t_data_shell *p);
 int		ft_unset(t_data_shell *p, t_env **lst);
 char	*get_env_value(t_data_shell *p, t_env *eh, char *env_name);
 int		check_to_modify(t_data_shell *p, char *name, char *new_value);
@@ -281,11 +275,13 @@ char	*check_if_exe(char **envp, char *cmd, t_data_shell *p);
 int		execute_exe(char **cmd, char **envp , t_data_shell *p);
 int		loop_and_execute(t_cline *lst, char **envp, t_data_shell *p);
 char	**s_split(t_data_shell *p ,char const *s, char c);
-int		heardoc(char *keyword);
 int		handle_operators(t_data_shell *p  ,t_redr *operator, char	**commands);
 int		**open_pipes(t_data_shell *p);
 void	close_pipes(int **pipes);
-int	handle_pipes(int np, int **pipes, int idx);
+int		handle_pipes(int np, int **pipes, int idx);
+int		heardoc(t_data_shell *mshell,  char *keyword, int fd);
+void	heardoc_heandler(t_data_shell *p, t_cline *lst);
+void	__setup_utils__(t_data_shell *mshell, char **envp, t_exec *container);
 
 /////////////////////////// final garbage ///////////////////////////////
 

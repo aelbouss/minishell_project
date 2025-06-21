@@ -4,6 +4,7 @@ int	one_cmd(t_data_shell *p, t_cline *lst, char **envp)
 {
 	if (!p || !lst || !lst->options || !*lst->options)
 		return (1);
+	heardoc_heandler(p, p->list);
 	while (lst)
 	{
 		handle_operators(p, lst->r_list, lst->options);
@@ -21,7 +22,7 @@ int	core_process(t_data_shell *p,  char **envp, t_cline *lst, int **aop, int i)
 	char	*fcmd;
 
 	if (!p || !lst->options || !*lst->options)	
-		return (1);
+		exit (1);
     if (handle_pipes(p->nc - 1, aop, i) != 0)
             exit(1);
     if (check_is_builtin(lst, p, p->env_list) != 0)
@@ -31,7 +32,7 @@ int	core_process(t_data_shell *p,  char **envp, t_cline *lst, int **aop, int i)
             execute_exe(lst->options, envp, p);
         else
 		{
-        	printf("%s : command not found\n", lst->options[0]);
+        	printf("(%s) : command not found\n", lst->options[0]);
 			clear_ressources(p);
 			exit (127);
 		}
@@ -58,7 +59,7 @@ void	count_her(t_data_shell *mshell)
 			{
 				ft_putstr_fd("max  here-docs  is  16\n", 2);
 				free_gc(&(mshell->line.head));
-				fg_free_gc(mshell->fgc);
+				fg_free_gc(&(mshell->fgc));
 				exit(2);
 			}
 			tmp2 = tmp2->next;		
@@ -66,77 +67,85 @@ void	count_her(t_data_shell *mshell)
 		tmp1 = tmp1->next;
 	}
 }
-int many_commands(t_data_shell *p, t_cline *lst, char **envp)
+
+void	_wait_childs_(pid_t	*pids, t_data_shell *p)
 {
-    pid_t *pids;
-	pid_t	pid;
-	int	status;
-    int **aop;
-    int i;
-	t_cline *sub_l;
-	t_redr	*rl;
+	int		i;
+	int		status;
 
-    if (!p || !lst || !lst->options)
-        return (1);
-    aop = open_pipes(p);
-    if (!aop)
-        return (perror("Bad Allocation\n"), 1);
-    pids = gc_malloc((sizeof(pid_t) * p->nc), &p->line.head);
+	if (!pids || ! p)
+		return ;
 	i = 0;
-	sub_l = lst;
-	while (sub_l)
+	while (i < p->nc)
 	{
-		rl = sub_l->r_list;
-		while (rl)
-		{
-			if (ft_strcmp(rl->str, "<<") == 0)
-			{
-				heardoc(rl->file);
-			}
-			rl = rl-> next;
-		}
-	}
-
-    while(lst)
-    {
-		handle_operators(p, lst->r_list, lst->options);
-        pid = fork();
-		// heredoc
-		if (pid < 0)
-			return (perror ("fork failed"), 1);
-        if (pid == 0)
-			core_process(p, envp, lst ,aop, i);
-        else if (pid > 0)
-            pids[i] = pid;
-        i++;
-        lst = lst->next;
-    }
-    close_pipes(aop);
-    for (int j = 0; j < p->nc ; j++)
-	{
-        waitpid(pids[j], &status, 0);
-		
-		if (j == p->nc - 1)
+		 waitpid(pids[i], &status, 0);
+		if (i == p->nc - 1)
    		{
         	if (WIFEXITED(status))
             	p->exit_status = WEXITSTATUS(status);
         	else if (WIFSIGNALED(status))
             	p->exit_status = 128 + WTERMSIG(status);
 		}
+		i++;
 	}
+}
+
+int	main_process(t_data_shell *p, t_cline *lst, char **envp)
+{
+	int		pid;
+	int		*pids;
+	int		**aop;
+	int		i;
+
+	aop = open_pipes(p);
+	if (!aop)
+        return (perror("Bad Allocation\n"), 1);
+    pids = gc_malloc((sizeof(pid_t) * p->nc), &p->line.head);
+	i = 0;
+	while(lst)
+    {
+		handle_operators(p, lst->r_list, lst->options);
+        pid = fork();
+		if (pid < 0)
+			return (perror ("fork failed"), 1);
+        if (pid == 0)
+			core_process(p, envp, lst ,aop, i);
+        else if (pid > 0)
+            pids[i++] = pid;
+        lst = lst->next;
+    }
+	 close_pipes(aop);
+	_wait_childs_(pids, p);
+	return (0);
+}
+
+int many_commands(t_data_shell *p, t_cline *lst, char **envp)
+{
+    if (!p || !lst || !lst->options)
+        	return (1);
+	heardoc_heandler(p, p->list);
+	main_process(p, lst, envp);
     return (0);
 }
 
 int	loop_and_execute(t_cline *lst, char **envp, t_data_shell *p)
 {
+	int fd_i;
+	int fd_o;
+
+	fd_i = dup(STDIN_FILENO);
+	fd_o = dup(STDOUT_FILENO);
+	count_her(p);
 	p->nc = list_len(lst);
 	if (p->nc > 1)
-	{
 		many_commands(p, lst, envp);
-	}
 	else
-	{
 		one_cmd(p, lst, envp);
+	if (p->r_sign != 0)
+	{
+		dup2(fd_i,STDIN_FILENO);
+		dup2(fd_o,STDOUT_FILENO);
+		p->r_sign = 0;
 	}
 	return (0);
 }

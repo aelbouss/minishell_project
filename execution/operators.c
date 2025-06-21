@@ -60,6 +60,8 @@ int	append_to(char *file, char	**commands)
 
 int	handle_operators(t_data_shell *p  ,t_redr *operator, char	**commands)
 {
+	int	fd;
+
 	if (!operator || !commands)
 		return (1);
 	while(operator)
@@ -81,6 +83,16 @@ int	handle_operators(t_data_shell *p  ,t_redr *operator, char	**commands)
 			if (append_to(operator->file, commands) != 0)
 				return (1);
 			p->r_sign = 1;
+		}
+		else if(ft_strcmp(operator->str, "<<") == 0)
+		{
+			fd = open(operator->f_path, O_RDWR);
+			if (fd < 0)
+				return (perror("error"), 1);
+			if (dup2(fd, STDIN_FILENO) == -1)
+				return (perror("dup2"), 1);
+			p->r_sign = 1;
+			close(fd);
 		}
 		operator = operator->next;
 	}

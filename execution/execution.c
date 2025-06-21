@@ -64,3 +64,16 @@ int	handle_pipes(int np, int **pipes, int idx)
 	close_pipes(pipes);
 	return (0);
 }
+
+void __setup_utils__(t_data_shell *mshell, char **envp, t_exec *container)
+{
+
+	mshell->line.head = NULL; 
+	mshell->exit_status = 0;
+	mshell->fgc = NULL;
+	mshell->env_list = NULL;
+	mshell->nc = 0;
+	mshell->r_sign = 0;
+	create_env_list(mshell, envp);
+	mshell->exec = container;
+}
