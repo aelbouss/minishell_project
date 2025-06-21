@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntaxe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:15:31 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/18 15:39:41 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:36:19 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,28 +125,3 @@ int	check_syntax(t_data_shell *mshell, t_cmd *line, t_cline **list)
 	return (0);
 }
 
-//     t_cline *tmp;
-//     tmp = *list;
-//     int i = 0;
-//     t_redr *t1 ;
-//     while(tmp)
-//     {
-//         t1 = tmp->r_list;
-//         i = 0;
-//         // printf(" ==== %s \n",&tmp->options[3]);
-//         while(tmp && tmp->options[i] != 0)
-//         {
-//             printf("i = %i | option  s: %s pipe check :
-// %d \n",i,tmp->options[i], tmp->is_true);
-//             i++;
-//         }
-//         printf("redrictions \n");
-//         while(t1)
-//         {
-//             printf("r : %s type : %u file : %s \n",t1->str ,
-// t1->type,t1->file);
-//             t1 = t1->next;
-//         }
-//         printf("next node \n");
-//         tmp = tmp->next;
-//     }

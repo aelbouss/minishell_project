@@ -2,7 +2,7 @@
 
 int	one_cmd(t_data_shell *p, t_cline *lst, char **envp)
 {
-	if (!p || !lst || !lst->options || !*lst->options)
+	if (!p || !lst)
 		return (1);
 	heardoc_heandler(p, p->list);
 	while (lst)
@@ -21,7 +21,7 @@ int	core_process(t_data_shell *p,  char **envp, t_cline *lst, int **aop, int i)
 {
 	char	*fcmd;
 
-	if (!p || !lst->options || !*lst->options)	
+	if (!p || !*lst->options)	
 		exit (1);
     if (handle_pipes(p->nc - 1, aop, i) != 0)
             exit(1);
