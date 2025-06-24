@@ -17,7 +17,7 @@ int	one_cmd(t_data_shell *p, t_cline *lst, char **envp)
 	return (0);
 }
 
-int	core_process(t_data_shell *p,  char **envp, t_cline *lst, int **aop, int i)
+int	core_process(t_data_shell *p, char **envp, t_cline *lst, int **aop, int i)
 {
 	char	*fcmd;
 

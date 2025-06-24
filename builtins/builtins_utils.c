@@ -2,10 +2,14 @@
 
 int	check_is_builtin(t_cline *node, t_data_shell *p, t_env *lst)
 {
-	if (!p || !node || !node->options || !node->options[0]|| !lst)
+	if (!p || !node || !node->options || !node->options[0] || !lst)
 		return (1);
 	if (ft_strcmp(node->options[0], "cd") == 0)
+	{
+		if (!node->options[1])
+			node->options[1] = NULL;
 		return (ft_cd(p, lst, node->options[1]), 0);
+	}
 	if (ft_strcmp(node->options[0], "env") == 0)
 		return (ft_env(p), 0);
 	if (ft_strcmp(node->options[0], "export") == 0)

@@ -20,14 +20,6 @@ int	count_heredoc(t_cline *lst)
 	return (cnt);
 }
 
-/*
----> loop trough all the list
----> if you face here_doc executen it in  shild  process open  a  file  and  run it  inside .
----> and  du plicate stdin to  the  fd of  the  fd
----> and loop and do this whenever you  face heredoc 
-
-*/
-
 void generate_name(int *n, t_redr *file)
 {
 	file->f_path[0] = '/';
@@ -79,17 +71,6 @@ void	heardoc_heandler(t_data_shell *p, t_cline *lst)
 		lst = lst->next;
 	}
 }
-
-int	file_opener(char *name)
-{
-	int	fd;
-
-	fd = open(name,  O_CREAT || O_RDWR || O_TRUNC);
-	if (fd < 0)
-		return (perror("error1"), 1);
-	return (fd);
-}
-
 
 pid_t	heardoc(t_data_shell *mshell,  char *keyword, int fd)
 {

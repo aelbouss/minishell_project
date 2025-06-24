@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/21 16:27:32 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/24 22:10:02 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,8 @@ void	create_env_list(t_data_shell *p, char **envp);
 char	**turn_list_to_arr(t_env *lst, t_data_shell *p);
 int		list_len(t_cline *lst);
 char	*concat_and_free(t_data_shell *p, char *s1, char *s2);
+void	secondary_env_list(t_data_shell *mshell);
+int		list_cnt(t_env *lst);
 
 
 ///////////////////////////////// builtins ///////////////////////////////////
@@ -265,6 +267,7 @@ int		ft_export(t_data_shell *p, t_cline *node);
 int		search_for_char(char *s, int n);
 int		print_envs(t_env *lst);
 int		is_valid_identifier(int c);
+int		file_opener(char *name);
 
 //////////////////////////// execution /////////////////////////
 
@@ -282,6 +285,9 @@ int		handle_pipes(int np, int **pipes, int idx);
 int		heardoc(t_data_shell *mshell,  char *keyword, int fd);
 void	heardoc_heandler(t_data_shell *p, t_cline *lst);
 void	__setup_utils__(t_data_shell *mshell, char **envp, t_exec *container);
+void	error_case(char **cmd,  t_data_shell *p);
+int		is_here_doc(t_data_shell *p, t_redr *operator);
+void	execve_fail(t_data_shell *p);
 
 /////////////////////////// final garbage ///////////////////////////////
 
@@ -293,6 +299,7 @@ char	*fg_stdup(t_data_shell *p ,const char *src, int len);
 char	**fg_split(t_data_shell *p ,char const *s, char c);
 char	*s_strdup(t_data_shell *p, char *src);
 char	*s_substr(t_data_shell *p, const char *s, unsigned int start, size_t len);
+char	*s_strjoin(t_data_shell * p,  char const *s1, char const *s2);
 int	build_env_list(t_data_shell *p, char *str);
 void	clear_ressources(t_data_shell *p);
 

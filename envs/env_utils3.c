@@ -20,6 +20,8 @@ char	*s_strdup(t_data_shell *p, char *src)
 	int		i;
 	int		size;
 
+	if (!src)
+		return (NULL);
 	size = 0;
 	while (src[size])
 		++size;
@@ -53,6 +55,32 @@ char	*s_substr(t_data_shell *p, const char *s, unsigned int start, size_t len)
 			str[j] = s[i];
 			j++;
 		}
+		i++;
+	}
+	str[j] = 0;
+	return (str);
+}
+
+char	*s_strjoin(t_data_shell * p,  char const *s1, char const *s2)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+
+	str = (char*)fg_malloc((sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1)), &p->fgc);
+	if (!str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i])
+	{
+		str[j++] = s1[i];
+		i++;
+	}
+	i = 0;
+	while (s2[i])
+	{
+		str[j++] = s2[i];
 		i++;
 	}
 	str[j] = 0;

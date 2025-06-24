@@ -51,19 +51,13 @@ char	*concat_and_free(t_data_shell *p, char *s1, char *s2)
 
 char	**turn_list_to_arr(t_env *lst, t_data_shell *p)
 {
-	int	i;
+	int		i;
 	char	**arr;
-	t_env	*tmp;
 
 	if (!lst || !p)
 		return (perror("Bad Allocation\n") ,NULL);
-	tmp = lst;
 	i = 0;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
+	i = list_cnt(lst);
    	arr = gc_malloc((sizeof(char *) * (i+1)), &p->line.head);
 	if (!arr)
 		return (perror("Bad Allocation\n"), NULL);

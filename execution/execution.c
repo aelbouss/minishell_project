@@ -65,15 +65,46 @@ int	handle_pipes(int np, int **pipes, int idx)
 	return (0);
 }
 
+void	secondary_env_list(t_data_shell *mshell)
+{
+	char	*pwd;
+	t_env	*node;
+	t_env	*node1;
+	t_env	*node2;
+	
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		return ;
+	pwd = s_strjoin(mshell, "PWD=", getcwd(NULL, 0));
+	if (!pwd)
+		return ;
+	node = build_node(mshell, pwd);
+	if (!node)
+		return ;
+	add_to_linkedlist(&mshell->env_list, node);
+	node1 = build_node(mshell, "SHLVL=1");
+	if (!node1)
+		return ;
+	add_to_linkedlist(&mshell->env_list, node1);
+	node2 = build_node(mshell, "_=/usr/bin/env");
+	if (!node)
+		return ;
+	add_to_linkedlist(&mshell->env_list, node2);
+}
+
 void __setup_utils__(t_data_shell *mshell, char **envp, t_exec *container)
 {
-
+	if (!mshell)
+		exit(1);
 	mshell->line.head = NULL; 
 	mshell->exit_status = 0;
 	mshell->fgc = NULL;
 	mshell->env_list = NULL;
 	mshell->nc = 0;
 	mshell->r_sign = 0;
-	create_env_list(mshell, envp);
+	if (envp[0])
+		create_env_list(mshell, envp);
+	else
+		secondary_env_list(mshell);
 	mshell->exec = container;
 }

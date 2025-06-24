@@ -28,7 +28,7 @@ int	modify_env_var(t_data_shell *p , t_env *lst, char *name, char *newvalue)
 
 	if (!p || !name || !newvalue)
 		return (1);
-	while (p)
+	while (lst)
 	{
 		if (ft_strcmp(lst->name, name) == 0)
 		{
@@ -55,18 +55,17 @@ int prev_path_case(t_data_shell *p, t_env *env_lst)
 	char	*prev;
 
 	old_pwd = s_strdup(p, get_env_value(p, env_lst, "PWD"));
-	if (!old_pwd)
-		return (perror("Bad Allocation\n"), 1);
 	prev = get_env_value(p, env_lst, "OLDPWD");
+	if (!prev)
+		return(printf("Minishell : cd  - :  No such file or directory\n") ,1);
 	if (chdir(prev) != 0)
 		return (printf("Minishell : cd %s:  No such file or directory\n", prev),p->exit_status = 1, 1);
 	curr_dir = getcwd(NULL, 0);
 	if (!curr_dir)
 		return (perror("Bad Allocation\n"), 1);
-	if (modify_env_var(p, env_lst, "OLDPWD", old_pwd) != 0)
-		return (perror("Error : failed  to change OLDPWD\n"), p->exit_status = 1, 1);
-	if (modify_env_var(p, env_lst, "PWD", curr_dir) != 0)
-		return (perror("Error : failed  to change  PWD\n"), p->exit_status = 1, 1);
+	modify_env_var(p, env_lst, "OLDPWD", old_pwd);
+	modify_env_var(p, env_lst, "PWD", curr_dir);
+	free(curr_dir);
 	return (0);
 }
 
@@ -77,6 +76,16 @@ int	ft_cd(t_data_shell *p, t_env *env_lst ,char *path)
 
 	if (!path || !p)
 		return (1);
+	if (!path)
+	{
+		curr_dir = get_env_value(p, env_lst, "HOME");
+		if (!curr_dir)
+		{
+			p->exit_status = 1;
+			return (perror("HOME is missed\n"),1);
+		}
+		return(chdir(curr_dir), 0);
+	}
 	if (ft_strcmp(path, "-") == 0)
 	{
 		if (prev_path_case(p, env_lst) != 1)
@@ -87,17 +96,12 @@ int	ft_cd(t_data_shell *p, t_env *env_lst ,char *path)
 		return (0);
 	}
 	old_pwd = s_strdup(p, get_env_value(p, env_lst, "PWD"));
-	if (!old_pwd)
-		return (perror("Bad Allocation\n"), 1);
 	if (chdir(path) != 0)
 		return (printf("Minishell : cd %s:  No such file or directory\n", path),p->exit_status = 1, 1);
 	curr_dir = getcwd(NULL, 0);
 	if (!curr_dir)
 		return (perror("Bad Allocation\n"), 1);
-	if (modify_env_var(p, env_lst, "OLDPWD", old_pwd) != 0)
-		return (perror("Error : failed  to change OLDPWD\n"), p->exit_status = 1, 1);
-	if (modify_env_var(p, env_lst, "PWD", curr_dir) != 0)
-		return (perror("Error : failed  to change  PWD\n"), p->exit_status = 1, 1);
-	//free(curr_dir);
+	modify_env_var(p, env_lst, "OLDPWD", old_pwd);
+	modify_env_var(p, env_lst, "PWD", curr_dir);
 	return (0);
 }
