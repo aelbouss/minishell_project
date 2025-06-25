@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/22 16:34:44 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/06/25 21:56:24 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,8 +283,8 @@ int		**open_pipes(t_data_shell *p);
 void	close_pipes(int **pipes);
 int		handle_pipes(int np, int **pipes, int idx);
 int		heardoc(t_data_shell *mshell,  char *keyword, int fd, int expand);
-void	heardoc_heandler(t_data_shell *p, t_cline *lst);
 void	__setup_utils__(t_data_shell *mshell, char **envp, t_exec *container);
+int	heardoc_heandler(t_data_shell *p, t_cline *lst);
 
 /////////////////////////// final garbage ///////////////////////////////
 

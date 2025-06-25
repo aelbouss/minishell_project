@@ -4,7 +4,8 @@ int	one_cmd(t_data_shell *p, t_cline *lst, char **envp)
 {
 	if (!p || !lst)
 		return (1);
-	heardoc_heandler(p, p->list);
+	if (heardoc_heandler(p, p->list) != 0)
+		return (1);
 	while (lst)
 	{
 		handle_operators(p, lst->r_list, lst->options);

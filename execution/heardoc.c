@@ -52,7 +52,7 @@ int	file_creation(char *name)
 }
 
 
-void	heardoc_heandler(t_data_shell *p, t_cline *lst)
+int	heardoc_heandler(t_data_shell *p, t_cline *lst)
 {
 	t_redr	*sl;
 	static int	idx;
@@ -62,7 +62,7 @@ void	heardoc_heandler(t_data_shell *p, t_cline *lst)
 
 	wait = 0;
 	if (!p || !lst)
-		return	;
+		return	(1);
 	while (lst)
 	{
 		sl = lst->r_list;
@@ -78,13 +78,14 @@ void	heardoc_heandler(t_data_shell *p, t_cline *lst)
 				if (WEXITSTATUS(wait) == 130)
 				{
 					p->exit_status = 130;
-					return ;
+					return (1);
 				}
 			}
 			sl = sl->next;
 		}
 		lst = lst->next;
 	}
+	return (0);
 }
 
 int	file_opener(char *name)
@@ -111,7 +112,6 @@ pid_t	heardoc(t_data_shell *mshell,  char *keyword, int fd, int expand)
 	{
 		while (1)
 	 	{
-         
 			signal(SIGINT, handler_2);
 			signal(SIGQUIT, SIG_IGN);
 	 		line = readline("heardoc> ");
