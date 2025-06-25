@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:00:25 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/24 14:52:21 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:58:15 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,3 +40,5 @@ int	main(int ac, char **av, char **env)
 	}
 	return (0);
 }
+
+// handle  the  case  of  is  a   directory   : ok

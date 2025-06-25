@@ -28,7 +28,7 @@ int	file_opener(char *name)
 
 	fd = open(name,  O_CREAT || O_RDWR || O_TRUNC);
 	if (fd < 0)
-		return (perror("error1"), 1);
+		return (perror("error"), 1);
 	return (fd);
 }
 

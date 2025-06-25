@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/24 22:10:02 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:23:01 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,6 +288,10 @@ void	__setup_utils__(t_data_shell *mshell, char **envp, t_exec *container);
 void	error_case(char **cmd,  t_data_shell *p);
 int		is_here_doc(t_data_shell *p, t_redr *operator);
 void	execve_fail(t_data_shell *p);
+int		__check_is_dir__(t_data_shell *p ,char *path);
+int		__check_permission(t_data_shell *p, char *path);
+void	wait_for_child(pid_t pid, t_data_shell *p);
+
 
 /////////////////////////// final garbage ///////////////////////////////
 
