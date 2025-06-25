@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mery <mery@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 20:07:00 by memahamo          #+#    #+#             */
-/*   Updated: 2025/05/30 16:22:37 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:39:31 by mery             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,13 @@ void	apply_signals(t_data_shell *mshell)
 	signal(SIGQUIT, SIG_IGN);
 	if (g_exit_status == 130)
 		mshell->exit_status = g_exit_status;
+}
+
+void	handler_2(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		exit(130);
+	}
 }

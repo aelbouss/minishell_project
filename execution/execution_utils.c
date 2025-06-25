@@ -1,5 +1,8 @@
 #include "../minishell.h"
 
+// |||||||||||||||||||| utils  needed  for  execution .
+
+// get path env ;
 
 char	*extract_path_env(char **envp)
 {
@@ -17,6 +20,8 @@ char	*extract_path_env(char **envp)
 	return (NULL);
 }
 
+// get the splited  path
+
 char	**get_splited_path(char *path, t_data_shell *p)
 {
 	char	**sp;
@@ -27,6 +32,8 @@ char	**get_splited_path(char *path, t_data_shell *p)
 	return (sp);
 }
 
+// join cmd with  /
+
 char	*build_absolute_path(char *path, char *cmd, t_data_shell *p)
 {
 	char	*fcmd;
@@ -34,15 +41,6 @@ char	*build_absolute_path(char *path, char *cmd, t_data_shell *p)
 
 	if (!path || !cmd || !p)
 		return (NULL);
-	if (cmd[0] == '.' && cmd[1] == '/')
-	{
-		if (__check_permission(p, cmd) != 0)
-			exit(126);
-	}
-	if (__check_is_dir__(p, cmd)!= 0) 
-		return (NULL);
-	if (access(cmd, X_OK) == 0)
-		return (cmd);
 	tmp = ft_strjoin(p, path, "/");
 	if (!tmp)
 		return (perror("Bad Allocation\n"), NULL);
@@ -52,6 +50,7 @@ char	*build_absolute_path(char *path, char *cmd, t_data_shell *p)
 	return (fcmd);
 }
 
+// check if  executable
 
 char	*check_if_exe(char **envp, char *cmd, t_data_shell *p)
 {
@@ -70,7 +69,6 @@ char	*check_if_exe(char **envp, char *cmd, t_data_shell *p)
 	if (!p->exec->sp)
 		return (NULL);
 	i = 0;
-
 	while (p->exec->sp[i])
 	{
 		fcmd = build_absolute_path(p->exec->sp[i], cmd, p);
@@ -86,6 +84,7 @@ char	*check_if_exe(char **envp, char *cmd, t_data_shell *p)
 int	execute_exe(char **cmd, char **envp , t_data_shell *p)
 {
 	int	pid;
+	int	status;
 	char	*fcmd;
 
 	if (!envp || ! p)
@@ -95,15 +94,21 @@ int	execute_exe(char **cmd, char **envp , t_data_shell *p)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (__check_is_dir__(p, cmd[0])!= 0) 
-			exit(126);
 		fcmd = check_if_exe(envp, cmd[0], p);
 		if (!fcmd)
-			error_case(cmd, p);
-		if (execve(fcmd, cmd, p->exec->gep) < 0)
-			execve_fail(p);
+		{
+			printf("%s : command not found\n",cmd[0]);
+			clear_ressources(p);
+			exit(127);
+		}
+		execve(fcmd, cmd, p->exec->gep);
+		return(perror("perror"), 1);
 	}
 	else
-		wait_for_child(pid, p);
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			p->exit_status = WEXITSTATUS(status);
+	}
 	return (0);
 }

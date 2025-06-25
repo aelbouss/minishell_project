@@ -6,7 +6,7 @@
 /*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:11:52 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/18 20:15:13 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:32:26 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ char	*ft_no(t_data_shell *mshell, char *str, int *j)
 	return (new);
 }
 
-char	*new_options(t_data_shell *mshell, char *tmp)
+char	*new_options(t_data_shell *mshell, t_redr *node, char *tmp)
 {
 	char	*new_options;
 	int		j;
 
 	j = 0;
+	if(node && node->type == 1)
+		node->h_expand = 1;
 	new_options = NULL;
 	while (tmp[j])
 	{
@@ -67,14 +69,14 @@ void	delete_quotes(t_data_shell *mshell)
 		{
 			if (ft_strchr(tmp->options[i], '\"') != NULL
 				|| ft_strchr(tmp->options[i], '\'') != NULL)
-				tmp->options[i] = new_options(mshell, tmp->options[i]);
+				tmp->options[i] = new_options(mshell, NULL, tmp->options[i]);
 			i++;
 		}
 		while (tmp2)
 		{
-			if (ft_strchr(tmp2->file, '\"') != NULL || ft_strchr(tmp2->file,
-					'\'') != NULL)
-				tmp2->file = new_options(mshell, tmp2->file);
+			if ((ft_strchr(tmp2->file, '\"') != NULL || ft_strchr(tmp2->file,
+					'\'') != NULL))
+				tmp2->file = new_options(mshell,tmp2, tmp2->file);
 			tmp2 = tmp2->next;
 		}
 		tmp = tmp->next;

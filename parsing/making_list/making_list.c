@@ -82,6 +82,7 @@ void	making_red_list(t_cmd *file, t_token *tmp, t_redr **new)
 	node->type = tmp->type;
 	node->file = tmp->next->line;
 	node->ambiguous = 0;
+	node->h_expand = 0;
 	node->next = NULL;
 }
 

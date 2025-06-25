@@ -20,6 +20,14 @@ int	count_heredoc(t_cline *lst)
 	return (cnt);
 }
 
+/*
+---> loop trough all the list
+---> if you face here_doc executen it in  shild  process open  a  file  and  run it  inside .
+---> and  du plicate stdin to  the  fd of  the  fd
+---> and loop and do this whenever you  face heredoc 
+
+*/
+
 void generate_name(int *n, t_redr *file)
 {
 	file->f_path[0] = '/';
@@ -49,8 +57,10 @@ void	heardoc_heandler(t_data_shell *p, t_cline *lst)
 	t_redr	*sl;
 	static int	idx;
 	int			fd;
+	int			wait;
 	pid_t		pid;
 
+	wait = 0;
 	if (!p || !lst)
 		return	;
 	while (lst)
@@ -62,9 +72,14 @@ void	heardoc_heandler(t_data_shell *p, t_cline *lst)
 			{
 				generate_name(&idx, sl);
 				fd = file_creation(sl->f_path);
-				pid = heardoc(p, sl->file, fd);
-				waitpid(pid, NULL, 0);
+				pid = heardoc(p, sl->file, fd, sl->h_expand);
+				waitpid(pid, &wait, 0);
 				close(fd);
+				if (WEXITSTATUS(wait) == 130)
+				{
+					p->exit_status = 130;
+					return ;
+				}
 			}
 			sl = sl->next;
 		}
@@ -72,7 +87,18 @@ void	heardoc_heandler(t_data_shell *p, t_cline *lst)
 	}
 }
 
-pid_t	heardoc(t_data_shell *mshell,  char *keyword, int fd)
+int	file_opener(char *name)
+{
+	int	fd;
+
+	fd = open(name,  O_CREAT | O_RDWR | O_TRUNC);
+	if (fd < 0)
+		return (perror("error1"), 1);
+	return (fd);
+}
+
+
+pid_t	heardoc(t_data_shell *mshell,  char *keyword, int fd, int expand)
 {
 	char	*line;
 	pid_t	pid;
@@ -85,12 +111,15 @@ pid_t	heardoc(t_data_shell *mshell,  char *keyword, int fd)
 	{
 		while (1)
 	 	{
+         
+			signal(SIGINT, handler_2);
+			signal(SIGQUIT, SIG_IGN);
 	 		line = readline("heardoc> ");
 		 	if (!line)
 				return (perror("error"), 1);
 			if (ft_strcmp(keyword, line) == 0)
 				break;
-			if( ft_strchr(line, '$') != NULL && (ft_strchr(keyword, '\'') != NULL || ft_strchr(keyword, '"') != NULL))
+			if( ft_strchr(line, '$') != NULL && expand == 0)
 				line = her_fcts(mshell, line);
 			write(fd, line, ft_strlen(line));
 			write(fd, "\n", 1);
