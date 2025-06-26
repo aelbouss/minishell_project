@@ -1,9 +1,8 @@
 #include "../minishell.h"
 
-
+/*
 int	clear_node(t_env *node)
 {
-
 	if (!node)
 		return (1);
 	if (node->name)
@@ -32,28 +31,26 @@ int ft_del_start(t_env **lst, t_data_shell *p, int *ptr)
 	}
 	return (0);
 }
+	*/
 
 int	ft_unset(t_data_shell *p, t_env **lst)
 {
 	int	i;
-	t_env	*holder;
+	int	*ptr;
 	t_env	*tmp;
 
 	if (!p || !lst || !*lst )
 		return (1);
 	i = 1;
-	ft_del_start(&p->env_list, p, &i);
 	tmp = (*lst);
 	while (tmp)
 	{
-		if (!p->list->options[i] || !tmp->next)
+		if (!p->list->options[i])
 			return (0);
-		if (ft_strcmp(tmp->next->name, p->list->options[i]) == 0)
+		if (ft_strcmp(tmp->name, p->list->options[i]) == 0)
 		{
-			holder = tmp->next;
-			tmp->next = tmp->next->next;
-			if (clear_node(holder) == 1)
-				return(perror("unset() failed\n"), 1);
+			ptr = &tmp->d_flag;	
+			*ptr = 1;
 			i++;
 			return (0);
 		}

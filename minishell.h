@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/26 17:25:29 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/26 22:59:46 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_env
 	char			*name;
 	char			*value;
 	int				flag;
+	int				d_flag;
 	struct s_env	*next;
 }					t_env;
 
@@ -270,6 +271,8 @@ int		ft_export(t_data_shell *p, t_cline *node);
 int		search_for_char(char *s, int n);
 int		print_envs(t_env *lst);
 int		is_valid_identifier(int c);
+int		home_path(t_data_shell *p, t_env *env_lst);
+int		modify_env_var(t_data_shell *p , t_env *lst, char *name, char *newvalue);
 
 //////////////////////////// execution /////////////////////////
 

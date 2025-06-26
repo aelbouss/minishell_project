@@ -9,12 +9,13 @@ int	ft_env(t_data_shell *p)
 		return (perror("env() failed\n"), 1);
 	while (ptr)
 	{
-			if (ptr->flag == 0)
+			if (ptr->flag == 0 && ptr->d_flag == 0)
 			{
 				if (ptr->name)
 					printf("%s",ptr->name);
 				if (ptr->value)
 					printf("=%s",ptr->value);
+				printf(" the D flag  is  : %d", ptr->d_flag);
 				printf("\n");
 			}
 		ptr = ptr->next;

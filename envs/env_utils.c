@@ -62,6 +62,7 @@ t_env	*build_node(t_data_shell *p,  char *str)
 	if (split_each_env(p, str, &node->name, &node->value)!= 0)
 		return (NULL);
 	node->flag = 0;
+	node->d_flag = 0;
 	node->next = NULL;
 	return (node);
 }

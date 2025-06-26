@@ -20,6 +20,8 @@ char	*s_strdup(t_data_shell *p, char *src)
 	int		i;
 	int		size;
 
+	if (!src)
+		return (NULL);
 	size = 0;
 	while (src[size])
 		++size;

@@ -39,17 +39,20 @@ int	print_envs(t_env *lst)
 {
 	while (lst)
 	{
-		if (lst->name)
+		if (lst->d_flag == 0)
 		{
-			printf("declare -x ");
-			printf("%s",lst->name);
+			if (lst->name)
+			{
+				printf("declare -x ");
+				printf("%s",lst->name);
+			}
+			if (lst->value)
+			{
+				printf("=");
+				printf("%s",lst->value);
+				printf("\n");
+			}
 		}
-		if (lst->value)
-		{
-			printf("=");
-			printf("%s",lst->value);
-		}
-		printf("\n");
 		lst = lst -> next;
 	}
 	return (0);
@@ -60,4 +63,27 @@ int	is_valid_identifier(int c)
 	if (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) || (c == '_'))
 		return (0);
 	return (1);
+}
+
+int		home_path(t_data_shell *p, t_env *env_lst)
+{
+	char	*old_pwd;
+	char	*curr_dir;
+	char	*home_path;
+
+	old_pwd = s_strdup(p, get_env_value(p, env_lst, "PWD"));
+	if (!old_pwd)
+		return (perror("Bad Allocation\n"), 1);
+	home_path = get_env_value(p, env_lst, "OLDPWD");
+	if (chdir(home_path) == -1)
+		return (printf("Minishell : missed home env\n"),p->exit_status = 1, 1);
+	curr_dir = getcwd(NULL, 0);
+	if (!curr_dir)
+		return (perror("Bad Allocation\n"), 1);
+	if (modify_env_var(p, env_lst, "OLDPWD", old_pwd) != 0)
+		return (1);
+	if (modify_env_var(p, env_lst, "PWD", curr_dir) != 0)
+		return (free(curr_dir), 1);
+	free(curr_dir);
+	return (0);
 }

@@ -34,6 +34,7 @@ t_env	*create_node(t_data_shell *p, char *name, char *value, int flag)
 	node->value = value;
 	node->next = NULL;
 	node->flag = flag;
+	node->d_flag = 0;
 	if (!value)
 	{
 		if (flag == 1)
