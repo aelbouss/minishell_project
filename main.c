@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mery <mery@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:00:25 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/25 19:25:35 by mery             ###   ########.fr       */
+/*   Updated: 2025/06/25 23:28:04 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ int	main(int ac, char **av, char **env)
 		}
 		else
 		{
-			ft_putstr_fd("exit\n", 2);
+			ft_putstr_fd("exit", 2);
 			free_gc(&mshell.line.head);
-			return (5200);
+			fg_free_gc(&mshell.fgc);
+			return (0);
 		}
 		free(mshell.line.rl);
 		free_gc(&mshell.line.head);

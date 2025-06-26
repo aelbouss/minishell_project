@@ -124,7 +124,8 @@ int many_commands(t_data_shell *p, t_cline *lst, char **envp)
 {
     if (!p || !lst || !lst->options)
         	return (1);
-	heardoc_heandler(p, p->list);
+	if (heardoc_heandler(p, p->list) != 0)
+		return (1);
 	main_process(p, lst, envp);
     return (0);
 }

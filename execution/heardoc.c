@@ -73,13 +73,11 @@ int	heardoc_heandler(t_data_shell *p, t_cline *lst)
 				generate_name(&idx, sl);
 				fd = file_creation(sl->f_path);
 				pid = heardoc(p, sl->file, fd, sl->h_expand);
+				signal(SIGINT, SIG_IGN);
 				waitpid(pid, &wait, 0);
 				close(fd);
 				if (WEXITSTATUS(wait) == 130)
-				{
-					p->exit_status = 130;
-					return (1);
-				}
+					return (p->exit_status = 130, 1);
 			}
 			sl = sl->next;
 		}
