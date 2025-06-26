@@ -20,24 +20,14 @@ int	one_cmd(t_data_shell *p, t_cline *lst, char **envp)
 
 int	core_process(t_data_shell *p,  char **envp, t_cline *lst, int **aop, int i)
 {
-	char	*fcmd;
+	//char	*fcmd;
 
 	if (!p || !*lst->options)	
 		exit (1);
     if (handle_pipes(p->nc - 1, aop, i) != 0)
             exit(1);
     if (check_is_builtin(lst, p, p->env_list) != 0)
-    {
-        fcmd = check_if_exe(envp, lst->options[0], p);
-        if(fcmd)
             execute_exe(lst->options, envp, p);
-        else
-		{
-        	printf("(%s) : command not found\n", lst->options[0]);
-			clear_ressources(p);
-			exit (127);
-		}
-    }
 	clear_ressources(p);
     exit(0);
 }

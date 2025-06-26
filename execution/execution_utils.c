@@ -41,6 +41,16 @@ char	*build_absolute_path(char *path, char *cmd, t_data_shell *p)
 
 	if (!path || !cmd || !p)
 		return (NULL);
+	if (cmd[0] == '.' && cmd[1] == '/')
+	{
+		if (__check_permission(p, cmd) != 0)
+		{
+			clear_ressources(p);
+			exit(126);
+		}
+	}
+	if (access(cmd, X_OK) == 0)
+		return (cmd);
 	tmp = ft_strjoin(p, path, "/");
 	if (!tmp)
 		return (perror("Bad Allocation\n"), NULL);
@@ -84,7 +94,6 @@ char	*check_if_exe(char **envp, char *cmd, t_data_shell *p)
 int	execute_exe(char **cmd, char **envp , t_data_shell *p)
 {
 	int	pid;
-	int	status;
 	char	*fcmd;
 
 	if (!envp || ! p)
@@ -94,21 +103,19 @@ int	execute_exe(char **cmd, char **envp , t_data_shell *p)
 	pid = fork();
 	if (pid == 0)
 	{
+		if (__check_is_dir__(p, cmd[0])!= 0)
+		{
+			fg_free_gc(&p->fgc);
+			free_gc(&p->line.head);
+			exit(126);
+		}
 		fcmd = check_if_exe(envp, cmd[0], p);
 		if (!fcmd)
-		{
-			printf("%s : command not found\n",cmd[0]);
-			clear_ressources(p);
-			exit(127);
-		}
+			error_case(cmd, p);
 		execve(fcmd, cmd, p->exec->gep);
-		return(perror("perror"), 1);
+			execve_fail(p);
 	}
 	else
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			p->exit_status = WEXITSTATUS(status);
-	}
+		wait_for_child(pid, p);
 	return (0);
 }

@@ -58,7 +58,7 @@ int prev_path_case(t_data_shell *p, t_env *env_lst)
 	if (!old_pwd)
 		return (perror("Bad Allocation\n"), 1);
 	prev = get_env_value(p, env_lst, "OLDPWD");
-	if (chdir(prev) != 0)
+	if (chdir(prev) == -1)
 		return (printf("Minishell : cd %s:  No such file or directory\n", prev),p->exit_status = 1, 1);
 	curr_dir = getcwd(NULL, 0);
 	if (!curr_dir)
@@ -67,6 +67,17 @@ int prev_path_case(t_data_shell *p, t_env *env_lst)
 		return (perror("Error : failed  to change OLDPWD\n"), p->exit_status = 1, 1);
 	if (modify_env_var(p, env_lst, "PWD", curr_dir) != 0)
 		return (perror("Error : failed  to change  PWD\n"), p->exit_status = 1, 1);
+	free(curr_dir);
+	return (0);
+}
+
+int	prev_dir(t_data_shell *p, t_env *env_lst)
+{
+	if (prev_path_case(p, env_lst) != 1)
+	{
+		p->exit_status = 1;
+		return (1);
+	}
 	return (0);
 }
 
@@ -79,12 +90,15 @@ int	ft_cd(t_data_shell *p, t_env *env_lst ,char *path)
 		return (1);
 	if (ft_strcmp(path, "-") == 0)
 	{
+		prev_dir(p, env_lst);
+		/*
 		if (prev_path_case(p, env_lst) != 1)
 		{
 			p->exit_status = 1;
 			return (1);
 		}
 		return (0);
+		*/
 	}
 	old_pwd = s_strdup(p, get_env_value(p, env_lst, "PWD"));
 	if (!old_pwd)
@@ -98,6 +112,6 @@ int	ft_cd(t_data_shell *p, t_env *env_lst ,char *path)
 		return (perror("Error : failed  to change OLDPWD\n"), p->exit_status = 1, 1);
 	if (modify_env_var(p, env_lst, "PWD", curr_dir) != 0)
 		return (perror("Error : failed  to change  PWD\n"), p->exit_status = 1, 1);
-	//free(curr_dir);
+	free(curr_dir);
 	return (0);
 }

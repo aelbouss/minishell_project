@@ -6,7 +6,12 @@ int	ft_pwd(t_data_shell *p)
 
   wdir = get_env_value(p, p->env_list, "PWD");
   if (!wdir)
+  {
     wdir = getcwd(NULL, 0);
+    printf("%s",wdir);
+    free(wdir);
+    return(0);
+  }
 	printf("%s\n",wdir);
   return (0);
 }

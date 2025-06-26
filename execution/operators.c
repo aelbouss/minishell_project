@@ -57,43 +57,41 @@ int	append_to(char *file, char	**commands)
 	return (0);
 }
 
-
+int	operator_handler(t_data_shell *p, t_redr *operator, char **commands)
+{
+	if (ft_strcmp(operator->str, ">") == 0)
+	{
+			if (redirection_out(operator->file, commands) != 0)
+				return (1);
+			return (p->r_sign = 1, 0);
+	}
+	else if (ft_strcmp(operator->str, "<") == 0)
+	{
+			if (redirection_in(operator->file) != 0)
+				return (1);
+			return (p->r_sign = 1, 0);
+	}
+	else if(ft_strcmp(operator->str, ">>") == 0)
+	{
+			if (append_to(operator->file, commands) != 0)
+				return (1);
+			return (p->r_sign = 1, 0);
+	}
+	else if(ft_strcmp(operator->str, "<<") == 0)
+	{	
+			if (is_here_doc(p, operator) != 0)
+				return (1);
+			return (p->r_sign = 1, 0);
+	}
+	return (1);
+}
 int	handle_operators(t_data_shell *p  ,t_redr *operator, char	**commands)
 {
-	int	fd;
-
 	if (!operator || !commands)
 		return (1);
 	while(operator)
 	{
-		if (ft_strcmp(operator->str, ">") == 0)
-		{
-			if (redirection_out(operator->file, commands) != 0)
-				return (1);
-			p->r_sign = 1;
-		}
-		else if (ft_strcmp(operator->str, "<") == 0)
-		{
-			if (redirection_in(operator->file) != 0)
-				return (1);
-			p->r_sign = 1;
-		}
-		else if(ft_strcmp(operator->str, ">>") == 0)
-		{
-			if (append_to(operator->file, commands) != 0)
-				return (1);
-			p->r_sign = 1;
-		}
-		else if(ft_strcmp(operator->str, "<<") == 0)
-		{
-			fd = open(operator->f_path, O_RDWR);
-			if (fd < 0)
-				return (perror("error"), 1);
-			if (dup2(fd, STDIN_FILENO) == -1)
-				return (perror("dup2"), 1);
-			p->r_sign = 1;
-			close(fd);
-		}
+		operator_handler(p, operator, commands);
 		operator = operator->next;
 	}
 	return (0);

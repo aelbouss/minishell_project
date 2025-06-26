@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/25 23:45:50 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:25:29 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,7 @@ void	create_env_list(t_data_shell *p, char **envp);
 char	**turn_list_to_arr(t_env *lst, t_data_shell *p);
 int		list_len(t_cline *lst);
 char	*concat_and_free(t_data_shell *p, char *s1, char *s2);
+void	secondary_env_list(t_data_shell *mshell);
 
 
 ///////////////////////////////// builtins ///////////////////////////////////
@@ -280,12 +281,20 @@ int		execute_exe(char **cmd, char **envp , t_data_shell *p);
 int		loop_and_execute(t_cline *lst, char **envp, t_data_shell *p);
 char	**s_split(t_data_shell *p ,char const *s, char c);
 int		handle_operators(t_data_shell *p  ,t_redr *operator, char	**commands);
+int		operator_handler(t_data_shell *p, t_redr *operator, char **commands);
 int		**open_pipes(t_data_shell *p);
 void	close_pipes(int **pipes);
 int		handle_pipes(int np, int **pipes, int idx);
 int		heardoc(t_data_shell *mshell,  char *keyword, int fd, int expand);
 void	__setup_utils__(t_data_shell *mshell, char **envp, t_exec *container);
-int	heardoc_heandler(t_data_shell *p, t_cline *lst);
+int		heardoc_heandler(t_data_shell *p, t_cline *lst);
+int		is_here_doc(t_data_shell *p, t_redr *operator);
+int		file_opener(char *name);
+int		__check_permission(t_data_shell *p, char *path);
+int		__check_is_dir__(t_data_shell *p ,char *path);
+void	error_case(char **cmd,  t_data_shell *p);
+void	execve_fail(t_data_shell *p);
+void	wait_for_child(pid_t pid, t_data_shell *p);
 
 /////////////////////////// final garbage ///////////////////////////////
 
@@ -297,7 +306,8 @@ char	*fg_stdup(t_data_shell *p ,const char *src, int len);
 char	**fg_split(t_data_shell *p ,char const *s, char c);
 char	*s_strdup(t_data_shell *p, char *src);
 char	*s_substr(t_data_shell *p, const char *s, unsigned int start, size_t len);
-int	build_env_list(t_data_shell *p, char *str);
+char	*s_strjoin(t_data_shell * p,  char const *s1, char const *s2);
+int		build_env_list(t_data_shell *p, char *str);
 void	clear_ressources(t_data_shell *p);
 
 #endif
