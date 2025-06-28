@@ -44,7 +44,7 @@ int		__check_permission(t_data_shell *p, char *path)
 	return (0);
 }
 
-void	here_doc_routine(t_redr	*sl, t_data_shell *p, int idx)
+int	here_doc_routine(t_redr	*sl, t_data_shell *p, int idx)
 {
 	pid_t	pid;
 	int		fd;
@@ -53,7 +53,7 @@ void	here_doc_routine(t_redr	*sl, t_data_shell *p, int idx)
 	generate_name(&idx, sl);
 	fd = file_creation(sl->f_path);
 	if (fd < 0)
-		return ;
+		return (1);
 	pid = heardoc(p, sl->file, fd, sl->h_expand);
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &wait, 0);
@@ -61,6 +61,14 @@ void	here_doc_routine(t_redr	*sl, t_data_shell *p, int idx)
 	if (WEXITSTATUS(wait) == 130)
 	{
 		p->exit_status = 130;
-		return ;
+		return (1);
 	}
+	return (0);
+}
+
+void	write_and_free(char	*line, int fd)
+{
+	write(fd, line, ft_strlen(line));
+	write(fd, "\n", 1);
+	free(line);
 }

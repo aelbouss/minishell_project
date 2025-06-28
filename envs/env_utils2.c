@@ -24,7 +24,7 @@ void	create_env_list(t_data_shell *p, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		newnode = build_node(p, envp[i]);
+		newnode = build_node(envp[i]);
 		if (!newnode)
 		{
 			printf("Bad Allocation\n");
@@ -58,21 +58,19 @@ char	**turn_list_to_arr(t_env *lst, t_data_shell *p)
 	if (!lst || !p)
 		return (perror("Bad Allocation\n") ,NULL);
 	tmp = lst;
-	i = 0;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
+	i = cnt_nodes(tmp);
    	arr = gc_malloc((sizeof(char *) * (i+1)), &p->line.head);
 	if (!arr)
 		return (perror("Bad Allocation\n"), NULL);
 	i = 0;
 	while (lst)
 	{
-		arr[i++] = concat_and_free(p, lst->name, lst->value); 
-		if (!arr[i-1])
-			return (perror("Bad Allocation"), NULL);
+		if (lst->d_flag == 0)
+		{
+			arr[i++] = concat_and_free(p, lst->name, lst->value); 
+			if (!arr[i-1])
+				return (perror("Bad Allocation"), NULL);
+		}
 		lst = lst->next;
 	}
 	arr[i] = NULL;

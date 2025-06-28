@@ -46,13 +46,9 @@ int	file_creation(char *name)
 
 int	heardoc_heandler(t_data_shell *p, t_cline *lst)
 {
-	t_redr	*sl;
+	t_redr		*sl;
 	static int	idx;
-	//int			fd;
-	//int			wait;
-	//pid_t		pid;
 
-	//wait = 0;
 	if (!p || !lst)
 		return	(1);
 	while (lst)
@@ -62,7 +58,8 @@ int	heardoc_heandler(t_data_shell *p, t_cline *lst)
 		{
 			if (ft_strcmp(sl->str, "<<") == 0)
 			{
-				here_doc_routine(sl, p, idx);
+				if (here_doc_routine(sl, p, idx) == 1)
+					return (1);
 			}
 			sl = sl->next;
 		}
@@ -90,14 +87,12 @@ pid_t	heardoc(t_data_shell *mshell,  char *keyword, int fd, int expand)
 			signal(SIGQUIT, SIG_IGN);
 	 		line = readline("heardoc> ");
 		 	if (!line)
-				return (perror("error"), 1);
+				return (printf("Minishell:  warning here-docuent delimited by `%s`\n",keyword), 1);
 			if (ft_strcmp(keyword, line) == 0)
 				break;
 			if( ft_strchr(line, '$') != NULL && expand == 0)
 				line = her_fcts(mshell, line);
-			write(fd, line, ft_strlen(line));
-			write(fd, "\n", 1);
-			free(line);
+			write_and_free(line, fd);
 		}
 		exit(0);
 	}

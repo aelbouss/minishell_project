@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/28 15:42:19 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:36:36 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,17 +243,18 @@ void	handler_2(int sig);
 
 //////////////////////////////// envs /////////////////////////
 
-char	*extract_name(t_data_shell *p, char *str);
-char	*extract_value(t_data_shell *p, char *str);
-int	split_each_env(t_data_shell *p,	char *str, char **name, char **value);
-t_env	*build_node(t_data_shell *p,  char *str);
-int	build_env_list(t_data_shell *p, char *str);
+char	*extract_name(char *str);
+char	*extract_value(char *str);
+int		split_each_env(char *str, char **name, char **value);
+t_env	*build_node(char *str);
+int		build_env_list(t_data_shell *p, char *str);
 void	add_to_linkedlist(t_env **lst, t_env *new);
 void	create_env_list(t_data_shell *p, char **envp);
 char	**turn_list_to_arr(t_env *lst, t_data_shell *p);
 int		list_len(t_cline *lst);
 char	*concat_and_free(t_data_shell *p, char *s1, char *s2);
-void	secondary_env_list(t_data_shell *mshell);
+void	secondary_env_list(void);
+int		cnt_nodes(t_env *lst);
 
 
 ///////////////////////////////// builtins ///////////////////////////////////
@@ -299,9 +300,11 @@ void	error_case(char **cmd,  t_data_shell *p);
 void	execve_fail(t_data_shell *p);
 void	wait_for_child(pid_t pid, t_data_shell *p);
 void	prompt_synchronisation(int exit);
-void	here_doc_routine(t_redr	*sl, t_data_shell *p, int idx);
+int		here_doc_routine(t_redr	*sl, t_data_shell *p, int idx);
 void	generate_name(int *n, t_redr *file);
 int		file_creation(char *name);
+void	write_and_free(char	*line, int fd);
+void	faileur(int ex, t_data_shell *p);
 
 /////////////////////////// final garbage ///////////////////////////////
 
@@ -311,9 +314,9 @@ void	fg_add_to_list(t_fg **list, t_fg *node);
 void	fg_free_gc(t_fg **list);
 char	*fg_stdup(t_data_shell *p ,const char *src, int len);
 char	**fg_split(t_data_shell *p ,char const *s, char c);
-char	*s_strdup(t_data_shell *p, char *src);
-char	*s_substr(t_data_shell *p, const char *s, unsigned int start, size_t len);
-char	*s_strjoin(t_data_shell * p,  char const *s1, char const *s2);
+char	*s_strjoin(char const *s1, char const *s2);
+char	*s_strdup(char *src);
+char	*s_substr(const char *s, unsigned int start, size_t len);
 int		build_env_list(t_data_shell *p, char *str);
 void	clear_ressources(t_data_shell *p);
 

@@ -1,8 +1,5 @@
 #include "../minishell.h"
 
-// |||||||||||||||||||| utils  needed  for  execution .
-
-// get path env ;
 
 char	*extract_path_env(char **envp)
 {
@@ -20,7 +17,6 @@ char	*extract_path_env(char **envp)
 	return (NULL);
 }
 
-// get the splited  path
 
 char	**get_splited_path(char *path, t_data_shell *p)
 {
@@ -32,7 +28,6 @@ char	**get_splited_path(char *path, t_data_shell *p)
 	return (sp);
 }
 
-// join cmd with  /
 
 char	*build_absolute_path(char *path, char *cmd, t_data_shell *p)
 {
@@ -106,11 +101,7 @@ int	execute_exe(char **cmd, char **envp , t_data_shell *p)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		if (__check_is_dir__(p, cmd[0])!= 0)
-		{
-			fg_free_gc(&p->fgc);
-			free_gc(&p->line.head);
-			exit(126);
-		}
+			faileur(126, p);
 		fcmd = check_if_exe(envp, cmd[0], p);
 		if (!fcmd)
 			error_case(cmd, p);

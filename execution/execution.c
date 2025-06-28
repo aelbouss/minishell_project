@@ -79,11 +79,11 @@ void __setup_utils__(t_data_shell *mshell, char **envp, t_exec *container)
 	if (envp[0])
 		create_env_list(mshell, envp);
 	else
-		secondary_env_list(mshell);
+		secondary_env_list();
 	mshell->exec = container;
 }
 
-void	secondary_env_list(t_data_shell *mshell)
+void	secondary_env_list(void)
 {
 	char	*tmp;
 	char	*pwd;
@@ -94,20 +94,17 @@ void	secondary_env_list(t_data_shell *mshell)
 	tmp = getcwd(NULL, 0);
 	if (!tmp)
 		return ;
-	pwd = s_strjoin(mshell, "PWD=", s_strdup(mshell, tmp));
+	pwd = s_strjoin("PWD=", s_strdup(tmp));
 	free(tmp);
 	if (!pwd)
 		return ;
-	node = build_node(mshell, pwd);
+	node = build_node(pwd);
 	if (!node)
 		return ;
-	add_to_linkedlist(&mshell->env_list, node);
-	node1 = build_node(mshell, "SHLVL=1");
+	node1 = build_node("SHLVL=1");
 	if (!node1)
 		return ;
-	add_to_linkedlist(&mshell->env_list, node1);
-	node2 = build_node(mshell, "_=/usr/bin/env");
+	node2 = build_node("_=/usr/bin/env");
 	if (!node)
 		return ;
-	add_to_linkedlist(&mshell->env_list, node2);
 }

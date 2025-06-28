@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 20:07:00 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/27 18:18:50 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/28 15:51:55 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_putstr_fd("11\n", STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -40,7 +40,7 @@ void	handler_2(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("22\n");
+		printf("\n");
 		exit(130);
 	}
 }

@@ -14,7 +14,7 @@
 
 #include <stdlib.h>
 
-char	*s_strdup(t_data_shell *p, char *src)
+char	*s_strdup(char *src)
 {
 	char	*new;
 	int		i;
@@ -25,7 +25,8 @@ char	*s_strdup(t_data_shell *p, char *src)
 	size = 0;
 	while (src[size])
 		++size;
-	if (!(new = fg_malloc((sizeof(char) * (size + 1)), &p->fgc)))
+	new = malloc((sizeof(char) * (size + 1)));
+	if (!new)
 		return (NULL);
 	i = 0;
 	while (src[i])
@@ -37,13 +38,13 @@ char	*s_strdup(t_data_shell *p, char *src)
 	return (new);
 }
 
-char	*s_substr(t_data_shell *p, const char *s, unsigned int start, size_t len)
+char	*s_substr(const char *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	size_t	j;
 	char	*str;
 
-	str = (char *)fg_malloc((sizeof(*s) * (len + 1)), &p->fgc);
+	str = (char *)malloc((sizeof(*s) * (len + 1)));
 	if (!str)
 		return (NULL);
 	i = 0;
@@ -61,13 +62,13 @@ char	*s_substr(t_data_shell *p, const char *s, unsigned int start, size_t len)
 	return (str);
 }
 
-char	*s_strjoin(t_data_shell * p,  char const *s1, char const *s2)
+char	*s_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
 	size_t	i;
 	size_t	j;
 
-	str = (char*)fg_malloc((sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1)), &p->fgc);
+	str = (char*)malloc((sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1)));
 	if (!str)
 		return (NULL);
 	i = 0;
