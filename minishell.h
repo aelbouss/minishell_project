@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/26 22:59:46 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/28 15:42:19 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +298,10 @@ int		__check_is_dir__(t_data_shell *p ,char *path);
 void	error_case(char **cmd,  t_data_shell *p);
 void	execve_fail(t_data_shell *p);
 void	wait_for_child(pid_t pid, t_data_shell *p);
+void	prompt_synchronisation(int exit);
+void	here_doc_routine(t_redr	*sl, t_data_shell *p, int idx);
+void	generate_name(int *n, t_redr *file);
+int		file_creation(char *name);
 
 /////////////////////////// final garbage ///////////////////////////////
 

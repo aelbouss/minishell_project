@@ -15,7 +15,6 @@ int	ft_env(t_data_shell *p)
 					printf("%s",ptr->name);
 				if (ptr->value)
 					printf("=%s",ptr->value);
-				printf(" the D flag  is  : %d", ptr->d_flag);
 				printf("\n");
 			}
 		ptr = ptr->next;

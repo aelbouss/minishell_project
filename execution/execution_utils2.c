@@ -24,6 +24,8 @@ int	core_process(t_data_shell *p,  char **envp, t_cline *lst, int **aop, int i)
 
 	if (!p || !*lst->options)	
 		exit (1);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
     if (handle_pipes(p->nc - 1, aop, i) != 0)
             exit(1);
     if (check_is_builtin(lst, p, p->env_list) != 0)
@@ -64,18 +66,22 @@ void	_wait_childs_(pid_t	*pids, t_data_shell *p)
 	int		i;
 	int		status;
 
-	if (!pids || ! p)
+	if (!pids || !p)
 		return ;
 	i = 0;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	while (i < p->nc)
 	{
-		 waitpid(pids[i], &status, 0);
-		if (i == p->nc - 1)
-   		{
-        	if (WIFEXITED(status))
-            	p->exit_status = WEXITSTATUS(status);
-        	else if (WIFSIGNALED(status))
-            	p->exit_status = 128 + WTERMSIG(status);
+		waitpid(pids[i], &status, 0);
+        if (WIFEXITED(status))
+		{
+            p->exit_status = WEXITSTATUS(status);
+		}
+        else if (WIFSIGNALED(status))
+		{
+            p->exit_status = 128 + WTERMSIG(status);
+			prompt_synchronisation(p->exit_status);
 		}
 		i++;
 	}
@@ -121,7 +127,7 @@ int many_commands(t_data_shell *p, t_cline *lst, char **envp)
 }
 
 int	loop_and_execute(t_cline *lst, char **envp, t_data_shell *p)
-{
+{ 
 	int fd_i;
 	int fd_o;
 

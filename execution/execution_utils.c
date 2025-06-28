@@ -103,6 +103,8 @@ int	execute_exe(char **cmd, char **envp , t_data_shell *p)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (__check_is_dir__(p, cmd[0])!= 0)
 		{
 			fg_free_gc(&p->fgc);

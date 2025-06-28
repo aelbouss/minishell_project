@@ -19,11 +19,16 @@ void	wait_for_child(pid_t pid, t_data_shell *p)
 {
 	int status;
 
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		p->exit_status = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))
+	{
 		p->exit_status = 128 + WTERMSIG(status);
+		prompt_synchronisation(p->exit_status);
+	}
 }
 
 int		__check_permission(t_data_shell *p, char *path)
@@ -37,4 +42,25 @@ int		__check_permission(t_data_shell *p, char *path)
 		return (1);
 	}
 	return (0);
+}
+
+void	here_doc_routine(t_redr	*sl, t_data_shell *p, int idx)
+{
+	pid_t	pid;
+	int		fd;
+	int		wait;
+
+	generate_name(&idx, sl);
+	fd = file_creation(sl->f_path);
+	if (fd < 0)
+		return ;
+	pid = heardoc(p, sl->file, fd, sl->h_expand);
+	signal(SIGINT, SIG_IGN);
+	waitpid(pid, &wait, 0);
+	close(fd);
+	if (WEXITSTATUS(wait) == 130)
+	{
+		p->exit_status = 130;
+		return ;
+	}
 }

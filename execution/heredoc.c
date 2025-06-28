@@ -48,11 +48,11 @@ int	heardoc_heandler(t_data_shell *p, t_cline *lst)
 {
 	t_redr	*sl;
 	static int	idx;
-	int			fd;
-	int			wait;
-	pid_t		pid;
+	//int			fd;
+	//int			wait;
+	//pid_t		pid;
 
-	wait = 0;
+	//wait = 0;
 	if (!p || !lst)
 		return	(1);
 	while (lst)
@@ -62,14 +62,7 @@ int	heardoc_heandler(t_data_shell *p, t_cline *lst)
 		{
 			if (ft_strcmp(sl->str, "<<") == 0)
 			{
-				generate_name(&idx, sl);
-				fd = file_creation(sl->f_path);
-				pid = heardoc(p, sl->file, fd, sl->h_expand);
-				signal(SIGINT, SIG_IGN);
-				waitpid(pid, &wait, 0);
-				close(fd);
-				if (WEXITSTATUS(wait) == 130)
-					return (p->exit_status = 130, 1);
+				here_doc_routine(sl, p, idx);
 			}
 			sl = sl->next;
 		}
