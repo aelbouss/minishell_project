@@ -39,3 +39,16 @@ void	free_env_stuff(t_env *lst)
 		free(tmp);
 	}
 }
+
+void	_clear_2d_arr_(char **arr)
+{
+	int		i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}

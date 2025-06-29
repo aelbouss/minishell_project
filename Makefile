@@ -14,7 +14,7 @@ LIBFT_DIR =libft
 LIBFT =$(LIBFT_DIR)/libft.a
 CC = cc 
 
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address -g3
 
 
 all : $(LIBFT) $(NAME)

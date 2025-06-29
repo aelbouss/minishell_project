@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/29 01:32:38 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/29 01:53:07 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,5 +305,6 @@ char	*s_strjoin(char const *s1, char const *s2);
 char	*s_strdup(char *src);
 char	*s_substr(const char *s, unsigned int start, size_t len);
 void	clear_ressources(t_data_shell *p);
+void	_clear_2d_arr_(char **arr);
 
 #endif

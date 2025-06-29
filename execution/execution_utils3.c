@@ -4,6 +4,7 @@ void	error_case(char **cmd,  t_data_shell *p)
 {
 	printf("%s : command not found\n",cmd[0]);
 	clear_ressources(p);
+	(void)p;
 	exit(127);
 }
 
