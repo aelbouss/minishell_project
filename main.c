@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:00:25 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/27 14:45:10 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/29 01:08:34 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int ac, char **av, char **env)
 		{
 			ft_putstr_fd("exit", 2);
 			free_gc(&mshell.line.head);
-			fg_free_gc(&mshell.fgc);
+			free_env_stuff(mshell.env_list);
 			return (0);
 		}
 		free(mshell.line.rl);

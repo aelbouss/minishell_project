@@ -29,7 +29,7 @@ int	wordlen(const char *str, char c)
 	return (start);
 }
 
-char	*fg_stdup(t_data_shell *p ,const char *src, int len)
+char	*fg_stdup(const char *src, int len)
 {
 	char	*str;
 	int		i;
@@ -37,7 +37,7 @@ char	*fg_stdup(t_data_shell *p ,const char *src, int len)
 	i = 0;
 	if (!src)
 		return (NULL);
-	str = (char *)fg_malloc(((len + 1) * sizeof(char)), &p->fgc);
+	str = (char *)malloc(((len + 1) * sizeof(char)));
 	if (!str)
 		return (NULL);
 	while (i < len)
@@ -60,7 +60,7 @@ void	free_split(char **arr, int arrlen)
 }
 
 
-char	**fg_split(t_data_shell *p ,char const *s, char c)
+char	**fg_split(char const *s, char c)
 {
 	char	**str;
 
@@ -69,7 +69,7 @@ char	**fg_split(t_data_shell *p ,char const *s, char c)
 	i = 0;
 	if (!s)
 		return (NULL);
-	str = fg_malloc(((count_word(s, c) + 1) * sizeof(char *)), &p->fgc);
+	str = malloc(((count_word(s, c) + 1) * sizeof(char *)));
 	if (!str)
 		return (NULL);
 	while (s[i])
@@ -78,7 +78,7 @@ char	**fg_split(t_data_shell *p ,char const *s, char c)
 			i++;
 		else
 		{
-			str[j++] = fg_stdup(p, (s + i), wordlen(s + i, c));
+			str[j++] = fg_stdup((s + i), wordlen(s + i, c));
 			if (!str[j - 1])
 			{
 				return (free_split(str, j - 1), NULL);

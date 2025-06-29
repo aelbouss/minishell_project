@@ -4,7 +4,7 @@ int	ft_pwd(t_data_shell *p)
 {
   char	*wdir;
 
-  wdir = get_env_value(p, p->env_list, "PWD");
+  wdir = get_env_value(p->env_list, "PWD");
   if (!wdir)
   {
     wdir = getcwd(NULL, 0);

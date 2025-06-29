@@ -65,12 +65,9 @@ char	**turn_list_to_arr(t_env *lst, t_data_shell *p)
 	i = 0;
 	while (lst)
 	{
-		if (lst->d_flag == 0)
-		{
-			arr[i++] = concat_and_free(p, lst->name, lst->value); 
-			if (!arr[i-1])
-				return (perror("Bad Allocation"), NULL);
-		}
+		arr[i++] = concat_and_free(p, lst->name, lst->value); 
+		if (!arr[i-1])
+			return (perror("Bad Allocation"), NULL);
 		lst = lst->next;
 	}
 	arr[i] = NULL;

@@ -2,7 +2,7 @@
 
 void	faileur(int ex, t_data_shell *p)
 {
-	fg_free_gc(&p->fgc);
+	free_env_stuff(p->env_list);
 	free_gc(&p->line.head);
 	exit(ex);
 }
@@ -16,9 +16,26 @@ int		cnt_nodes(t_env *lst)
 	i = 0;
 	while (lst)
 	{
-		if (lst->d_flag == 0)
-			i++;
+		i++;
 		lst = lst->next;
 	}
 	return (i);
+}
+
+void	free_env_stuff(t_env *lst)
+{
+	t_env	*tmp;
+
+	if (!lst)
+		return ;
+	while (lst)
+	{
+		tmp = lst;
+		lst = lst->next;
+		if (tmp->name)
+			free(tmp->name);
+		if (tmp->value)
+			free(tmp->value);
+		free(tmp);
+	}
 }

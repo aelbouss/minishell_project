@@ -62,12 +62,11 @@ t_env	*build_node(char *str)
 	if (split_each_env(str, &node->name, &node->value)!= 0)
 		return (NULL);
 	node->flag = 0;
-	node->d_flag = 0;
 	node->next = NULL;
 	return (node);
 }
 
-int	build_env_list(t_data_shell *p, char *str)
+int	build_env_list(char *str)
 {
 	t_env	*node;
 

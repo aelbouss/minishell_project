@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/29 00:36:36 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/29 01:32:38 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,6 @@ typedef struct s_gc
 	void			*add;
 	struct s_gc		*next;
 }					t_gc;
-
-typedef	struct	s_fg
-{
-	void			*add;
-	struct s_fg		*next;
-}					t_fg;
-
 
 typedef struct s_token
 {
@@ -95,7 +88,6 @@ typedef struct s_env
 	char			*name;
 	char			*value;
 	int				flag;
-	int				d_flag;
 	struct s_env	*next;
 }					t_env;
 
@@ -114,7 +106,6 @@ typedef struct s_data_shell
 	t_exec			*exec;
 	int				exit_status;
 	int				nc;
-	t_fg			*fgc;
 	int				r_sign;
 	
 }					t_data_shell;
@@ -247,15 +238,14 @@ char	*extract_name(char *str);
 char	*extract_value(char *str);
 int		split_each_env(char *str, char **name, char **value);
 t_env	*build_node(char *str);
-int		build_env_list(t_data_shell *p, char *str);
+int		build_env_list(char *str);
 void	add_to_linkedlist(t_env **lst, t_env *new);
 void	create_env_list(t_data_shell *p, char **envp);
 char	**turn_list_to_arr(t_env *lst, t_data_shell *p);
 int		list_len(t_cline *lst);
 char	*concat_and_free(t_data_shell *p, char *s1, char *s2);
-void	secondary_env_list(void);
 int		cnt_nodes(t_env *lst);
-
+void	secondary_env_list(t_data_shell *mshell);
 
 ///////////////////////////////// builtins ///////////////////////////////////
 
@@ -266,14 +256,14 @@ int		ft_pwd(t_data_shell *p);
 int		ft_env(t_data_shell *p);
 int		ft_exit(t_cline *node, t_data_shell *p);
 int		ft_unset(t_data_shell *p, t_env **lst);
-char	*get_env_value(t_data_shell *p, t_env *eh, char *env_name);
+char	*get_env_value(t_env *eh, char *env_name);
 int		check_to_modify(t_data_shell *p, char *name, char *new_value);
 int		ft_export(t_data_shell *p, t_cline *node);
 int		search_for_char(char *s, int n);
 int		print_envs(t_env *lst);
 int		is_valid_identifier(int c);
 int		home_path(t_data_shell *p, t_env *env_lst);
-int		modify_env_var(t_data_shell *p , t_env *lst, char *name, char *newvalue);
+int		modify_env_var(t_env *lst, char *name, char *newvalue);
 
 //////////////////////////// execution /////////////////////////
 
@@ -305,19 +295,15 @@ void	generate_name(int *n, t_redr *file);
 int		file_creation(char *name);
 void	write_and_free(char	*line, int fd);
 void	faileur(int ex, t_data_shell *p);
+void	free_env_stuff(t_env *lst);
 
-/////////////////////////// final garbage ///////////////////////////////
+/////////////////////////// clear env garbage ///////////////////////////////
 
-t_fg	*fg_new(void *ptr);
-void	*fg_malloc(size_t allocate, t_fg **list);
-void	fg_add_to_list(t_fg **list, t_fg *node);
-void	fg_free_gc(t_fg **list);
-char	*fg_stdup(t_data_shell *p ,const char *src, int len);
-char	**fg_split(t_data_shell *p ,char const *s, char c);
+char	*fg_stdup(const char *src, int len);
+char	**fg_split(char const *s, char c);
 char	*s_strjoin(char const *s1, char const *s2);
 char	*s_strdup(char *src);
 char	*s_substr(const char *s, unsigned int start, size_t len);
-int		build_env_list(t_data_shell *p, char *str);
 void	clear_ressources(t_data_shell *p);
 
 #endif

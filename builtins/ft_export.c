@@ -21,11 +21,11 @@ void	ft_select_flag(char *s, int *p)
 	}
 }
 
-t_env	*create_node(t_data_shell *p, char *name, char *value, int flag)
+t_env	*create_node(char *name, char *value, int flag)
 {
 	t_env	*node;
 
-	node = fg_malloc(sizeof(t_env), &p->fgc);
+	node = malloc(sizeof(t_env));
 	if (!node)
 		return (NULL);
 	node->name = name;
@@ -34,12 +34,11 @@ t_env	*create_node(t_data_shell *p, char *name, char *value, int flag)
 	node->value = value;
 	node->next = NULL;
 	node->flag = flag;
-	node->d_flag = 0;
 	if (!value)
 	{
 		if (flag == 1)
 		{
-			node->value = s_strdup(p, "");
+			node->value = s_strdup("");
 			if (!node->value)
 				return (perror("Bad Allocation"), NULL);
 		}
@@ -77,7 +76,7 @@ int	creation_routine(t_data_shell *p, t_cline *node)
 	t_env	*new;
 
 	flag = 0;
-	arr = fg_split(p, node->options[1], '=');
+	arr = fg_split(node->options[1], '=');
 	if (!arr)
 		return (perror("Bad Allocation\n"), 1);
 	if (check_to_modify(p, arr[0], arr[1]) == 0)
@@ -89,7 +88,7 @@ int	creation_routine(t_data_shell *p, t_cline *node)
 		p->exit_status = 1;
 		return (1);
 	}
-	new = create_node(p, arr[0], arr[1], flag);
+	new = create_node(arr[0], arr[1], flag);
 	if (!new)
 		return (perror("Bad Allocation\n"), 1);
 	add_to_linkedlist(&p->env_list, new);

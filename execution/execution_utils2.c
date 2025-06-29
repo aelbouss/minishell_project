@@ -51,8 +51,7 @@ void	count_her(t_data_shell *mshell)
 			if (count >16)
 			{
 				ft_putstr_fd("max  here-docs  is  16\n", 2);
-				free_gc(&(mshell->line.head));
-				fg_free_gc(&(mshell->fgc));
+				clear_ressources(mshell);
 				exit(2);
 			}
 			tmp2 = tmp2->next;		
@@ -152,5 +151,5 @@ void	clear_ressources(t_data_shell *p)
 {
 	free(p->line.rl);
 	free_gc(&p->line.head);
-	fg_free_gc(&p->fgc);
+	free_env_stuff(p->env_list);
 }
