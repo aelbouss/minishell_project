@@ -33,16 +33,13 @@ int	modify_env_var(t_env *lst, char *name, char *newvalue)
 		if (ft_strcmp(lst->name, name) == 0)
 		{
 			if (lst->value)
-			{
 				free(lst->value);
-				lst->value = NULL;
-				lst->value = s_strdup(newvalue);
-				if (!lst->value)
-					return (printf("Bad Allocation\n"), 1);
-				return (0);
-			}
-			else
-				return (perror("empty env variable\n") , 1);
+			lst->value = NULL;
+			lst->value = s_strdup(newvalue);
+			if (!lst->value)
+				return (perror("Bad Allocation\n"), 1);
+			lst->flag = 0;
+			return (0);
 		}
 		lst = lst->next;
 	}

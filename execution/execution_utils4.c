@@ -37,7 +37,6 @@ int		__check_permission(t_data_shell *p, char *path)
 	{
 		printf("minishell : %s : permission denied \n", path);
 		p->exit_status = 126;
-		clear_ressources(p);
 		return (1);
 	}
 	return (0);

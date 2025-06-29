@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/29 02:38:10 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/29 17:36:39 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,7 @@ int		file_creation(char *name);
 void	write_and_free(char	*line, int fd);
 void	faileur(int ex, t_data_shell *p);
 void	free_env_stuff(t_env *lst);
+int		ft_len(int nbr);
 
 /////////////////////////// clear env garbage ///////////////////////////////
 
@@ -307,5 +308,6 @@ char	*s_strdup(char *src);
 char	*s_substr(const char *s, unsigned int start, size_t len);
 void	clear_ressources(t_data_shell *p);
 void	_clear_2d_arr_(char **arr);
+char	*s_itoa(int n);
 
 #endif

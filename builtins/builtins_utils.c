@@ -48,8 +48,8 @@ int	print_envs(t_env *lst)
 		{
 			printf("=");
 			printf("%s",lst->value);
-			printf("\n");
 		}
+		printf("\n");
 		lst = lst -> next;
 	}
 	return (0);

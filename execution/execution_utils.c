@@ -55,8 +55,6 @@ char	*build_absolute_path(char *path, char *cmd, t_data_shell *p)
 	return (fcmd);
 }
 
-// check if  executable
-
 char	*check_if_exe(char **envp, char *cmd, t_data_shell *p)
 {
 	int		i;

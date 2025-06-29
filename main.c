@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:00:25 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/29 01:08:34 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/29 19:02:06 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ int	main(int ac, char **av, char **env)
 		}
 		else
 		{
-			ft_putstr_fd("exit", 2);
-			free_gc(&mshell.line.head);
-			free_env_stuff(mshell.env_list);
+			ft_putstr_fd("exit\n", 2);
+			clear_ressources(&mshell);
 			return (0);
 		}
 		free(mshell.line.rl);
@@ -42,6 +41,4 @@ int	main(int ac, char **av, char **env)
 	}
 	return (0);
 }
-
-// cat + cntl c
-// heredoc cntl + d
+// must handle  a  leak ./ or  /

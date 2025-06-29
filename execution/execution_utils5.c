@@ -3,6 +3,7 @@
 void	faileur(int ex, t_data_shell *p)
 {
 	free_env_stuff(p->env_list);
+	p->env_list = NULL;
 	free_gc(&p->line.head);
 	exit(ex);
 }
@@ -52,3 +53,6 @@ void	_clear_2d_arr_(char **arr)
 	}
 	free(arr);
 }
+
+
+

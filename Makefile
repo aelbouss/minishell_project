@@ -7,7 +7,7 @@ SRC = main.c parsing/garbage_collector.c parsing/making_list/token.c parsing/mak
 	builtins/ft_cd.c builtins/ft_echo.c builtins/ft_pwd.c builtins/ft_env.c builtins/ft_export.c envs/env_utils3.c\
 	envs/fg_split.c builtins/ft_unset.c execution/heredoc.c execution/operators.c  execution/execution_utils.c \
 	execution/execution.c builtins/ft_exit.c execution/execution_utils3.c execution/execution_utils4.c \
-	execution/execution_utils5.c herdoc_expand/fcts_her.c\
+	execution/execution_utils5.c herdoc_expand/fcts_her.c execution/execution_utils6.c\
 
 OBJ =$(SRC:.c=.o)
 LIBFT_DIR =libft
