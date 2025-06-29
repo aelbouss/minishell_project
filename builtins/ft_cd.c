@@ -34,6 +34,7 @@ int	modify_env_var(t_env *lst, char *name, char *newvalue)
 		{
 			if (lst->value)
 			{
+				free(lst->value);
 				lst->value = NULL;
 				lst->value = s_strdup(newvalue);
 				if (!lst->value)

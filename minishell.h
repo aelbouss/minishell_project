@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/29 01:53:07 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/29 02:38:10 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,7 @@ int		list_len(t_cline *lst);
 char	*concat_and_free(t_data_shell *p, char *s1, char *s2);
 int		cnt_nodes(t_env *lst);
 void	secondary_env_list(t_data_shell *mshell);
+t_env	*create_node(char *name, char *value, int flag);
 
 ///////////////////////////////// builtins ///////////////////////////////////
 

@@ -76,9 +76,15 @@ void __setup_utils__(t_data_shell *mshell, char **envp, t_exec *container)
 	mshell->nc = 0;
 	mshell->r_sign = 0;
 	if (envp[0])
+	{
 		create_env_list(mshell, envp);
+		modify_env_var(mshell->env_list, "SHLVL", "2");
+	}
 	else
+	{
 		secondary_env_list(mshell);
+		modify_env_var(mshell->env_list, "SHLVL", "2");
+	}
 	mshell->exec = container;
 }
 
@@ -89,6 +95,7 @@ void	secondary_env_list(t_data_shell *mshell)
 	t_env	*node;
 	t_env	*node1;
 	t_env	*node2;
+	t_env	*node3;
 	
 	tmp = getcwd(NULL, 0);
 	if (!tmp)
@@ -109,4 +116,8 @@ void	secondary_env_list(t_data_shell *mshell)
 	if (!node)
 		return ;
 	add_to_linkedlist(&mshell->env_list, node2);
+	node3 = build_node("OLDPWD=");
+	if (!node3)
+		return ;
+	add_to_linkedlist(&mshell->env_list, node3);
 }

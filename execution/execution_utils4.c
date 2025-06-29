@@ -49,6 +49,7 @@ int	here_doc_routine(t_redr	*sl, t_data_shell *p, int idx)
 	int		fd;
 	int		wait;
 
+	wait = 0;
 	generate_name(&idx, sl);
 	fd = file_creation(sl->f_path);
 	if (fd < 0)
