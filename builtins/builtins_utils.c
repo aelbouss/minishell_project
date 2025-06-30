@@ -15,7 +15,7 @@ int	check_is_builtin(t_cline *node, t_data_shell *p, t_env *lst)
 	if (ft_strcmp(node->options[0], "pwd") == 0)
 		return (ft_pwd(p), 0);
 	if (ft_strcmp(node->options[0], "unset") == 0)
-		return (ft_unset(p, &p->env_list), 0);
+		return (ft_unset(p, &p->env_list, node), 0);
 	if (ft_strcmp(node->options[0], "exit") == 0)
 		return (ft_exit(node, p), 0);
 	return (1);
@@ -68,12 +68,13 @@ int		home_path(t_data_shell *p, t_env *env_lst)
 	char	*curr_dir;
 	char	*home_path;
 
+	printf("here hhhh\n");
 	old_pwd = s_strdup(get_env_value(env_lst, "PWD"));
 	if (!old_pwd)
-		return (perror("Bad Allocation\n"), 1);
-	home_path = get_env_value(env_lst, "OLDPWD");
+		return (1);
+	home_path = get_env_value(env_lst, "HOME");
 	if (chdir(home_path) == -1)
-		return (printf("Minishell : missed home env\n"),p->exit_status = 1, 1);
+		return (printf("Minishell : cd : Home not set\n"),p->exit_status = 1, 1);
 	curr_dir = getcwd(NULL, 0);
 	if (!curr_dir)
 		return (perror("Bad Allocation\n"), 1);

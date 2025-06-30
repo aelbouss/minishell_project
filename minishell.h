@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/29 17:36:39 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/30 19:38:31 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ int		ft_echo(char **args);
 int		ft_pwd(t_data_shell *p);
 int		ft_env(t_data_shell *p);
 int		ft_exit(t_cline *node, t_data_shell *p);
-int		ft_unset(t_data_shell *p, t_env **lst);
+int		ft_unset(t_data_shell *p, t_env **lst, t_cline *node);
 char	*get_env_value(t_env *eh, char *env_name);
 int		check_to_modify(t_data_shell *p, char *name, char *new_value);
 int		ft_export(t_data_shell *p, t_cline *node);
@@ -298,6 +298,8 @@ void	write_and_free(char	*line, int fd);
 void	faileur(int ex, t_data_shell *p);
 void	free_env_stuff(t_env *lst);
 int		ft_len(int nbr);
+void	__default_setup__(t_data_shell *mshell);
+void	shell_lvl_handling(t_data_shell *mshell);
 
 /////////////////////////// clear env garbage ///////////////////////////////
 

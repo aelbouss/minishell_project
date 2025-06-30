@@ -68,30 +68,54 @@ int	handle_pipes(int np, int **pipes, int idx)
 void __setup_utils__(t_data_shell *mshell, char **envp, t_exec *container)
 {
 
-	int nbr;
+	/*int nbr;
 	char	*s_nbr;
+	char	*gnbr;*/
 
 	if (!mshell)
 		exit(1);
-	mshell->line.head = NULL; 
-	mshell->exit_status = 0;
-	mshell->env_list = NULL;
-	mshell->nc = 0;
-	mshell->r_sign = 0;
-	s_nbr = NULL;
+	__default_setup__(mshell);
+	//s_nbr = NULL;
 	if (envp[0])
 		create_env_list(mshell, envp);
 	else
 		secondary_env_list(mshell);
-	s_nbr = get_env_value(mshell->env_list, "SHLVL");
+	/*s_nbr = get_env_value(mshell->env_list, "SHLVL");
 	if (s_nbr)
 	{
 		nbr = ft_atoi(s_nbr);
 		nbr++;
 		free(s_nbr);
-		modify_env_var(mshell->env_list, "SHLVL", s_itoa(nbr));
-	}
+		gnbr = s_itoa(nbr);
+		if (gnbr)
+		{
+			modify_env_var(mshell->env_list, "SHLVL", gnbr);
+			free(gnbr);
+		}
+	}*/
+	shell_lvl_handling(mshell);
 	mshell->exec = container;
+}
+
+void	create_minimal_envs(t_data_shell *mshell)
+{
+	t_env	*node1;
+	t_env	*node2;
+	t_env	*node3;
+
+	node1 = build_node("SHLVL=1");
+	if (!node1)
+		return ;
+	add_to_linkedlist(&mshell->env_list, node1);
+	node2 = build_node("_=/usr/bin/env");
+	if (!node2)
+		return ;
+	add_to_linkedlist(&mshell->env_list, node2);
+	node3 = build_node("OLDPWD");
+	if (!node3)
+		return ;
+	add_to_linkedlist(&mshell->env_list, node3);
+	node3->flag = 1;
 }
 
 void	secondary_env_list(t_data_shell *mshell)
@@ -99,9 +123,9 @@ void	secondary_env_list(t_data_shell *mshell)
 	char	*tmp;
 	char	*pwd;
 	t_env	*node;
-	t_env	*node1;
+	/*t_env	*node1;
 	t_env	*node2;
-	t_env	*node3;
+	t_env	*node3;*/
 	
 	tmp = getcwd(NULL, 0);
 	if (!tmp)
@@ -111,15 +135,18 @@ void	secondary_env_list(t_data_shell *mshell)
 	if (!pwd)
 		return ;
 	node = build_node(pwd);
+	free(pwd);
 	if (!node)
 		return ;
 	add_to_linkedlist(&mshell->env_list, node);
+	create_minimal_envs(mshell);
+	/*
 	node1 = build_node("SHLVL=1");
 	if (!node1)
 		return ;
 	add_to_linkedlist(&mshell->env_list, node1);
 	node2 = build_node("_=/usr/bin/env");
-	if (!node)
+	if (!node2)
 		return ;
 	add_to_linkedlist(&mshell->env_list, node2);
 	node3 = build_node("OLDPWD");
@@ -127,4 +154,5 @@ void	secondary_env_list(t_data_shell *mshell)
 		return ;
 	add_to_linkedlist(&mshell->env_list, node3);
 	node3->flag = 1;
+	*/
 }

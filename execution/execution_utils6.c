@@ -37,3 +37,33 @@ char		*s_itoa(int n)
 		alpha[0] = '-';
 	return (alpha);
 }
+
+void	__default_setup__(t_data_shell *mshell)
+{
+	mshell->line.head = NULL; 
+	mshell->exit_status = 0;
+	mshell->env_list = NULL;
+	mshell->nc = 0;
+	mshell->r_sign = 0;
+}
+
+void	shell_lvl_handling(t_data_shell *mshell)
+{
+	int nbr;
+	char	*s_nbr;
+	char	*gnbr;
+
+	s_nbr = get_env_value(mshell->env_list, "SHLVL");
+	if (s_nbr)
+	{
+		nbr = ft_atoi(s_nbr);
+		nbr++;
+		free(s_nbr);
+		gnbr = s_itoa(nbr);
+		if (gnbr)
+		{
+			modify_env_var(mshell->env_list, "SHLVL", gnbr);
+			free(gnbr);
+		}
+	}
+}
