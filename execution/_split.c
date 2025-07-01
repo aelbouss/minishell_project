@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   _split.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/01 22:54:44 by aelbouss          #+#    #+#             */
+/*   Updated: 2025/07/01 22:54:45 by aelbouss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 static	int	count_word(char const *str, char c)
@@ -58,7 +70,7 @@ static	void	free_split(char **arr, int arrlen)
 	free(arr);
 }
 
-char	**s_split(t_data_shell *p ,char const *s, char c)
+char	**s_split(t_data_shell *p, char const *s, char c)
 {
 	char	**str;
 

@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:47:04 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/06/30 21:56:26 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/01 23:29:58 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	one_cmd(t_data_shell *p, t_cline *lst, char **envp)
 	return (0);
 }
 
-int	core_process(t_data_shell *p, char **envp, t_cline *lst, int **aop, int i)
+int	core_process(t_data_shell *p, char **envp, t_cline *lst, int i)
 {
 	if (!p || !*lst->options)
 		exit (1);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	if (handle_pipes(p->nc - 1, aop, i) != 0)
+	if (handle_pipes(p->nc - 1, p->aop, i) != 0)
 		exit(1);
 	if (check_is_builtin(lst, p, p->env_list) != 0)
 		execute_exe(lst->options, envp, p);
@@ -101,11 +101,10 @@ int	main_process(t_data_shell *p, t_cline *lst, char **envp)
 {
 	int		pid;
 	int		*pids;
-	int		**aop;
 	int		i;
 
-	aop = open_pipes(p);
-	if (!aop)
+	p->aop = open_pipes(p);
+	if (!p->aop)
 		return (perror("Bad Allocation\n"), 1);
 	pids = gc_malloc((sizeof(pid_t) * p->nc), &p->line.head);
 	i = 0;
@@ -116,12 +115,12 @@ int	main_process(t_data_shell *p, t_cline *lst, char **envp)
 		if (pid < 0)
 			return (perror ("fork failed"), 1);
 		if (pid == 0)
-			core_process(p, envp, lst, aop, i);
+			core_process(p, envp, lst, i);
 		else if (pid > 0)
 			pids[i++] = pid;
 		lst = lst->next;
 	}
-	close_pipes(aop);
+	close_pipes(p->aop);
 	_wait_childs_(pids, p);
 	return (0);
 }

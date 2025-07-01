@@ -1,18 +1,16 @@
-#include "../minishell.h"
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   env_utils3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtouffet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/06 12:05:33 by vtouffet          #+#    #+#             */
-/*   Updated: 2017/11/06 12:06:36 by vtouffet         ###   ########.fr       */
+/*   Created: 2025/07/01 22:53:48 by aelbouss          #+#    #+#             */
+/*   Updated: 2025/07/01 22:54:09 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "../minishell.h"
 
 char	*s_strdup(char *src)
 {
@@ -68,7 +66,7 @@ char	*s_strjoin(char const *s1, char const *s2)
 	size_t	i;
 	size_t	j;
 
-	str = (char*)malloc((sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1)));
+	str = (char *)malloc((sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1)));
 	if (!str)
 		return (NULL);
 	i = 0;

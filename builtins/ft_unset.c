@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:44:14 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/01 22:21:41 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/01 22:50:33 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +24,44 @@ int	clear_node(t_env *node)
 	return (0);
 }
 
+int	inner_check(t_env **lst, t_env *holder, t_cline *node, int i)
+{
+	t_env	*tmp;
+
+	if (!lst || node)
+		return (1);
+	tmp = (*lst);
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->name, node->options[i]) == 0)
+		{
+			if (!holder)
+				(*lst) = tmp->next;
+			else
+				holder->next = tmp->next;
+			if (clear_node(tmp) != 0)
+				return (1);
+			break ;
+		}
+		holder = tmp;
+		tmp = tmp->next;
+	}
+	return (0);
+}
 
 int	ft_unset(t_data_shell *p, t_env **lst, t_cline *node)
 {
 	int		i;
 	t_env	*holder;
-	t_env	*tmp;
 
 	if (!p || !lst || !*lst || ! node)
 		return (1);
 	i = 1;
 	while (node->options[i])
 	{
-		tmp = (*lst);
 		holder = NULL;
-		while (tmp)
-		{
-			if (ft_strcmp(tmp->name, node->options[i]) == 0)
-			{
-				if (!holder)
-					(*lst) = tmp->next;
-				else
-					holder->next = tmp->next;
-				clear_node(tmp);
-				break;
-			}
-			holder = tmp;
-			tmp = tmp->next;
-		}
+		if (inner_check(lst, holder, node, i) != 0)
+			return (perror("unset failed"), 1);
 		i++;
 	}
 	return (0);

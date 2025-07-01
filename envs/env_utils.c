@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/01 22:51:42 by aelbouss          #+#    #+#             */
+/*   Updated: 2025/07/01 22:51:43 by aelbouss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*extract_name(char *str)
 {
-	int	i;
+	int		i;
 	char	*name;
 
 	if (!str)
@@ -16,12 +28,12 @@ char	*extract_name(char *str)
 	return (name);
 }
 
-char *extract_value(char *str)
+char	*extract_value(char *str)
 {
-	int	i;
-	char	*value;
+	int			i;
+	char		*value;
 
-	if(!str)
+	if (!str)
 		return (NULL);
 	i = 0;
 	while (str[i])
@@ -32,7 +44,7 @@ char *extract_value(char *str)
 			value = s_strdup(&str[i]);
 			if (!value)
 				return (NULL);
-			return(value);
+			return (value);
 		}
 		i++;
 	}

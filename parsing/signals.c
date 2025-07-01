@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 20:07:00 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/28 15:51:55 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/01 23:38:33 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	handler(int sig)
 		g_exit_status = 130;
 	}
 }
-
 
 void	apply_signals(t_data_shell *mshell)
 {
@@ -47,8 +46,8 @@ void	handler_2(int sig)
 
 void	prompt_synchronisation(int exit)
 {
-		if (exit == 130)
-			printf("\n");
-		if (exit == 131)
-			printf("quit\n");
+	if (exit == 130)
+		printf("\n");
+	if (exit == 131)
+		printf("quit\n");
 }

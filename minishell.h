@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/01 16:45:01 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/01 23:29:06 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_data_shell
 	int				exit_status;
 	int				nc;
 	int				r_sign;
+	int				**aop;
 }					t_data_shell;
 
 typedef struct s_exp_info
@@ -230,6 +231,8 @@ char				*expand_inside_dq_her(t_data_shell *mshell, char *str,
 						t_exp_info *her);
 void				signals_herdoc(t_data_shell *mshell);
 void				handler_2(int sig);
+int					core_process(t_data_shell *p,
+						char **envp, t_cline *lst, int i);
 
 //////////////////////////////// envs /////////////////////////
 

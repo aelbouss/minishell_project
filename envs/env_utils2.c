@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_utils2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/01 22:51:49 by aelbouss          #+#    #+#             */
+/*   Updated: 2025/07/01 22:52:39 by aelbouss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	add_to_linkedlist(t_env **lst, t_env *new)
@@ -44,29 +56,29 @@ char	*concat_and_free(t_data_shell *p, char *s1, char *s2)
 	if (!str1)
 		return (perror("Bad Allocation\n"), NULL);
 	str2 = ft_strjoin(p, str1, s2);
-		if (!str2)
+	if (!str2)
 		return (perror("Bad Allocation\n"), NULL);
-	return(str2);
+	return (str2);
 }
 
 char	**turn_list_to_arr(t_env *lst, t_data_shell *p)
 {
-	int	i;
+	int		i;
 	char	**arr;
 	t_env	*tmp;
 
 	if (!lst || !p)
-		return (perror("Bad Allocation\n") ,NULL);
+		return (perror("Bad Allocation\n"), NULL);
 	tmp = lst;
 	i = cnt_nodes(tmp);
-   	arr = gc_malloc((sizeof(char *) * (i+1)), &p->line.head);
+	arr = gc_malloc((sizeof(char *) * (i + 1)), &p->line.head);
 	if (!arr)
 		return (perror("Bad Allocation\n"), NULL);
 	i = 0;
 	while (lst)
 	{
-		arr[i++] = concat_and_free(p, lst->name, lst->value); 
-		if (!arr[i-1])
+		arr[i++] = concat_and_free(p, lst->name, lst->value);
+		if (!arr[i - 1])
 			return (perror("Bad Allocation"), NULL);
 		lst = lst->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:15:31 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/21 17:36:19 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/01 23:43:37 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	check_syntax(t_data_shell *mshell, t_cmd *line, t_cline **list)
 	if (line->rl)
 	{
 		if (check_quotes(line) == 1)
-			return(error_function(mshell));
+			return (error_function(mshell));
 		else
 		{
 			line->token_list = NULL;
@@ -124,4 +124,3 @@ int	check_syntax(t_data_shell *mshell, t_cmd *line, t_cline **list)
 	}
 	return (0);
 }
-

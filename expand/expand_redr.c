@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_redr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 06:20:28 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/18 21:17:20 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/01 23:44:47 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int 	error_function(t_data_shell *mshell)
+int	error_function(t_data_shell *mshell)
 {
 	ft_putstr_fd("ERROR\n Syntaxe invalide\n", 2);
 	free_gc(&(mshell->line.head));

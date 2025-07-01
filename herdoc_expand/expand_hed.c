@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_hed.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 00:16:09 by mery              #+#    #+#             */
-/*   Updated: 2025/06/18 21:35:34 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/01 23:43:21 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,5 @@ char	*her_fcts(t_data_shell *mshell, char *line)
 		new2 = ft_strjoin(mshell, new2, new);
 	}
 	free(line);
-	return new2;
+	return (new2);
 }
