@@ -1,35 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/30 21:39:06 by aelbouss          #+#    #+#             */
+/*   Updated: 2025/06/30 21:40:48 by aelbouss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-long double    ft_atold(const char *str)
+long double	ft_atold(const char *str)
 {
-    long double    result;
-    int    i;
-    int    sign;
-    int    check;
+	long double		result;
+	int				i;
+	int				sign;
+	int				check;
 
-    i = 0;
-    result = 0;
-    sign = 1;
-    check = 0;
-    while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-        i++;
-    if (str[i] == '-' || str[i] == '+')
-    {
-        if (str[i] == '-')
-            sign *= -1;
-        i++;
-    }
-    while (str[i] >= '0' && str[i] <= '9')
-    {
-        result = result * 10 + (str[i++] - 48);
-        check++;
-    }
-    return (result * sign);
+	i = 0;
+	result = 0;
+	sign = 1;
+	check = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + (str[i++] - 48);
+		check++;
+	}
+	return (result * sign);
 }
 
 int	validate_argument(char *arg)
 {
-	int	i;
+	int			i;
 	long double	nbr;
 
 	i = 0;
@@ -67,5 +79,5 @@ int	ft_exit(t_cline *node, t_data_shell *p)
 	else
 		exit_status = p->exit_status;
 	ft_putstr_fd("exit\n", 2);
-	exit(exit_status % 256) ;
+	exit(exit_status % 256);
 }

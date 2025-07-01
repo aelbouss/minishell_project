@@ -6,18 +6,17 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:00:25 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/29 19:02:06 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/06/30 22:26:23 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 int	main(int ac, char **av, char **env)
 {
 	t_data_shell	mshell;
 	t_exec			container;
-	
+
 	((void)ac), ((void)av);
 	__setup_utils__(&mshell, env, &container);
 	while (1)
@@ -41,4 +40,3 @@ int	main(int ac, char **av, char **env)
 	}
 	return (0);
 }
-// must handle  a  leak ./ or  /

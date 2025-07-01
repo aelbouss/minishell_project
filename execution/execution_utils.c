@@ -1,5 +1,16 @@
-#include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/01 16:42:37 by aelbouss          #+#    #+#             */
+/*   Updated: 2025/07/01 16:43:29 by aelbouss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../minishell.h"
 
 char	*extract_path_env(char **envp)
 {
@@ -11,12 +22,11 @@ char	*extract_path_env(char **envp)
 	while (envp[i])
 	{
 		if (strncmp(envp[i], path, 6) == 0)
-			return(envp[i]);
+			return (envp[i]);
 		i++;
 	}
 	return (NULL);
 }
-
 
 char	**get_splited_path(char *path, t_data_shell *p)
 {
@@ -27,7 +37,6 @@ char	**get_splited_path(char *path, t_data_shell *p)
 		return (NULL);
 	return (sp);
 }
-
 
 char	*build_absolute_path(char *path, char *cmd, t_data_shell *p)
 {
@@ -84,27 +93,27 @@ char	*check_if_exe(char **envp, char *cmd, t_data_shell *p)
 	return (NULL);
 }
 
-int	execute_exe(char **cmd, char **envp , t_data_shell *p)
+int	execute_exe(char **cmd, char **envp, t_data_shell *p)
 {
-	int	pid;
+	int		pid;
 	char	*fcmd;
 
 	if (!envp || ! p)
-		return(perror("Bad Address\n"), 1);
-	if (!cmd || !*cmd )
+		return (perror("Bad Address\n"), 1);
+	if (!cmd || !*cmd)
 		return (0);
 	pid = fork();
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		if (__check_is_dir__(p, cmd[0])!= 0)
+		if (__check_is_dir__(p, cmd[0]) != 0)
 			faileur(126, p);
 		fcmd = check_if_exe(envp, cmd[0], p);
 		if (!fcmd)
 			error_case(cmd, p);
 		execve(fcmd, cmd, p->exec->gep);
-			execve_fail(p);
+		execve_fail(p);
 	}
 	else
 		wait_for_child(pid, p);

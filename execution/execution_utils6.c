@@ -1,46 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_utils6.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/30 22:00:58 by aelbouss          #+#    #+#             */
+/*   Updated: 2025/06/30 22:27:34 by aelbouss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int	ft_len(int nbr)
+int	nbr_len(int n)
 {
-	int len;
+	int	cnt;
 
-	len = 0;
-	len = (nbr <= 0 ? 1 : 0);
+	if (n == 0)
+		return (1);
+	cnt = 0;
+	while (n != 0)
+	{
+		cnt++;
+		n /= 10 ;
+	}
+	return (cnt);
+}
+
+int	check_if_negative(int n)
+{
+	if (n < 0)
+		return (1);
+	return (0);
+}
+
+char	*s_itoa(int n)
+{
+	int			len;
+	char		*ptoc;
+	long int	nbr;
+
+	nbr = (long int) n;
+	len = nbr_len(n);
+	if (check_if_negative(nbr) == 1)
+	{
+		nbr = nbr * -1;
+		len += 1;
+	}
+	ptoc = malloc(len + 1 * sizeof(char));
+	if (ptoc == NULL)
+		return (NULL);
+	if (nbr_len(nbr) == 1)
+		ptoc[0] = '0';
+	ptoc[len--] = '\0';
+	if (check_if_negative(n) == 1)
+		ptoc[0] = '-';
 	while (nbr != 0)
 	{
-		nbr = nbr / 10;
-		len++;
-	}
-	return (len);
-}
-char		*s_itoa(int n)
-{
-	unsigned int	nbr;
-	int				sign;
-	int				len;
-	char			*alpha;
-
-	sign = (n < 0 ? 1 : 0);
-	alpha = NULL;
-	len = ft_len(n);
-	nbr = (n < 0 ? -n : n);
-	if ((alpha = malloc(sizeof(char) * len + 1)) == NULL)
-		return (NULL);
-	alpha[len--] = '\0';
-	while (len >= 0)
-	{
-		alpha[len] = nbr % 10 + '0';
+		ptoc[len--] = (nbr % 10 + '0');
 		nbr /= 10;
-		len--;
 	}
-	if (sign == 1)
-		alpha[0] = '-';
-	return (alpha);
+	return (ptoc);
 }
 
 void	__default_setup__(t_data_shell *mshell)
 {
-	mshell->line.head = NULL; 
+	mshell->line.head = NULL;
 	mshell->exit_status = 0;
 	mshell->env_list = NULL;
 	mshell->nc = 0;
@@ -49,7 +74,7 @@ void	__default_setup__(t_data_shell *mshell)
 
 void	shell_lvl_handling(t_data_shell *mshell)
 {
-	int nbr;
+	int		nbr;
 	char	*s_nbr;
 	char	*gnbr;
 

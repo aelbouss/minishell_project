@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/06/30 19:38:31 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:45:01 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-typedef	struct	s_exec
+typedef struct s_exec
 {
 	char	*path;
 	char	**sp;
@@ -107,9 +107,7 @@ typedef struct s_data_shell
 	int				exit_status;
 	int				nc;
 	int				r_sign;
-	
 }					t_data_shell;
-
 
 typedef struct s_exp_info
 {
@@ -197,7 +195,8 @@ void				add_to_list(t_gc **list, t_gc *node);
 t_gc				*ft_gc_new(void *ptr);
 void				free_gc(t_gc **list);
 void				token_line(t_data_shell *mshell, t_cmd *file);
-int					check_syntax(t_data_shell *mshell, t_cmd *line, t_cline **list);
+int					check_syntax(t_data_shell *mshell,
+						t_cmd *line, t_cline **list);
 void				making_list(t_cmd *file, t_cline **list);
 void				check_to_split(t_data_shell *mshell, t_cline *tmp,
 						t_exp_info *vr, int *j);
@@ -229,87 +228,107 @@ char				*no_expand_her(t_data_shell *mshell, char *str, int *j,
 						char c);
 char				*expand_inside_dq_her(t_data_shell *mshell, char *str,
 						t_exp_info *her);
-void	signals_herdoc(t_data_shell *mshell);
-void	handler_2(int sig);
+void				signals_herdoc(t_data_shell *mshell);
+void				handler_2(int sig);
 
 //////////////////////////////// envs /////////////////////////
 
-char	*extract_name(char *str);
-char	*extract_value(char *str);
-int		split_each_env(char *str, char **name, char **value);
-t_env	*build_node(char *str);
-int		build_env_list(char *str);
-void	add_to_linkedlist(t_env **lst, t_env *new);
-void	create_env_list(t_data_shell *p, char **envp);
-char	**turn_list_to_arr(t_env *lst, t_data_shell *p);
-int		list_len(t_cline *lst);
-char	*concat_and_free(t_data_shell *p, char *s1, char *s2);
-int		cnt_nodes(t_env *lst);
-void	secondary_env_list(t_data_shell *mshell);
-t_env	*create_node(char *name, char *value, int flag);
+char				*extract_name(char *str);
+char				*extract_value(char *str);
+int					split_each_env(char *str, char **name, char **value);
+t_env				*build_node(char *str);
+int					build_env_list(char *str);
+void				add_to_linkedlist(t_env **lst, t_env *new);
+void				create_env_list(t_data_shell *p, char **envp);
+char				**turn_list_to_arr(t_env *lst, t_data_shell *p);
+int					list_len(t_cline *lst);
+char				*concat_and_free(t_data_shell *p, char *s1, char *s2);
+int					cnt_nodes(t_env *lst);
+void				secondary_env_list(t_data_shell *mshell);
+t_env				*create_node(char *name, char *value, int flag);
 
 ///////////////////////////////// builtins ///////////////////////////////////
 
-int		check_is_builtin(t_cline *node, t_data_shell *p, t_env *lst);
-int		ft_cd(t_data_shell *p, t_env *env_lst ,char *path);
-int		ft_echo(char **args);
-int		ft_pwd(t_data_shell *p);
-int		ft_env(t_data_shell *p);
-int		ft_exit(t_cline *node, t_data_shell *p);
-int		ft_unset(t_data_shell *p, t_env **lst, t_cline *node);
-char	*get_env_value(t_env *eh, char *env_name);
-int		check_to_modify(t_data_shell *p, char *name, char *new_value);
-int		ft_export(t_data_shell *p, t_cline *node);
-int		search_for_char(char *s, int n);
-int		print_envs(t_env *lst);
-int		is_valid_identifier(int c);
-int		home_path(t_data_shell *p, t_env *env_lst);
-int		modify_env_var(t_env *lst, char *name, char *newvalue);
+int					check_is_builtin(t_cline *node,
+						t_data_shell *p, t_env *lst);
+int					ft_cd(t_data_shell *p, t_env *env_lst, char *path);
+int					ft_echo(char **args);
+int					ft_pwd(t_data_shell *p);
+int					ft_env(t_data_shell *p);
+int					ft_exit(t_cline *node, t_data_shell *p);
+int					ft_unset(t_data_shell *p, t_env **lst, t_cline *node);
+char				*get_env_value(t_env *eh, char *env_name);
+int					check_to_modify(t_data_shell *p,
+						char *name, char *new_value);
+int					ft_export(t_data_shell *p, t_cline *node);
+int					search_for_char(char *s, int n);
+int					print_envs(t_env *lst);
+int					is_valid_identifier(int c);
+int					home_path(t_data_shell *p, t_env *env_lst);
+int					modify_env_var(t_env *lst, char *name, char *newvalue);
 
 //////////////////////////// execution /////////////////////////
 
-char	*extract_path_env(char **envp);
-char	**get_splited_path(char *path, t_data_shell *p);
-char	*build_absolute_path(char *path, char *cmd, t_data_shell *p);
-char	*check_if_exe(char **envp, char *cmd, t_data_shell *p);
-int		execute_exe(char **cmd, char **envp , t_data_shell *p);
-int		loop_and_execute(t_cline *lst, char **envp, t_data_shell *p);
-char	**s_split(t_data_shell *p ,char const *s, char c);
-int		handle_operators(t_data_shell *p  ,t_redr *operator, char	**commands);
-int		operator_handler(t_data_shell *p, t_redr *operator, char **commands);
-int		**open_pipes(t_data_shell *p);
-void	close_pipes(int **pipes);
-int		handle_pipes(int np, int **pipes, int idx);
-int		heardoc(t_data_shell *mshell,  char *keyword, int fd, int expand);
-void	__setup_utils__(t_data_shell *mshell, char **envp, t_exec *container);
-int		heardoc_heandler(t_data_shell *p, t_cline *lst);
-int		is_here_doc(t_data_shell *p, t_redr *operator);
-int		file_opener(char *name);
-int		__check_permission(t_data_shell *p, char *path);
-int		__check_is_dir__(t_data_shell *p ,char *path);
-void	error_case(char **cmd,  t_data_shell *p);
-void	execve_fail(t_data_shell *p);
-void	wait_for_child(pid_t pid, t_data_shell *p);
-void	prompt_synchronisation(int exit);
-int		here_doc_routine(t_redr	*sl, t_data_shell *p, int idx);
-void	generate_name(int *n, t_redr *file);
-int		file_creation(char *name);
-void	write_and_free(char	*line, int fd);
-void	faileur(int ex, t_data_shell *p);
-void	free_env_stuff(t_env *lst);
-int		ft_len(int nbr);
-void	__default_setup__(t_data_shell *mshell);
-void	shell_lvl_handling(t_data_shell *mshell);
+char				*extract_path_env(char **envp);
+char				**get_splited_path(char *path, t_data_shell *p);
+char				*build_absolute_path(char *path, char *cmd,
+						t_data_shell *p);
+char				*check_if_exe(char **envp, char *cmd, t_data_shell *p);
+int					execute_exe(char **cmd, char **envp, t_data_shell *p);
+int					loop_and_execute(t_cline *lst, char **envp,
+						t_data_shell *p);
+char				**s_split(t_data_shell *p, char const *s, char c);
+int					handle_operators(t_data_shell *p,
+						t_redr *operator, char **commands);
+int					operator_handler(t_data_shell *p,
+						t_redr *operator, char **commands);
+int					**open_pipes(t_data_shell *p);
+void				close_pipes(int **pipes);
+int					handle_pipes(int np, int **pipes, int idx);
+int					heardoc(t_data_shell *mshell, char *keyword,
+						int fd, int expand);
+void				__setup_utils__(t_data_shell *mshell, char **envp,
+						t_exec *container);
+int					heardoc_heandler(t_data_shell *p, t_cline *lst);
+int					is_here_doc(t_data_shell *p, t_redr *operator);
+int					file_opener(char *name);
+int					__check_permission(t_data_shell *p, char *path);
+int					__check_is_dir__(t_data_shell *p, char *path);
+void				error_case(char **cmd, t_data_shell *p);
+void				execve_fail(t_data_shell *p);
+void				wait_for_child(pid_t pid, t_data_shell *p);
+void				prompt_synchronisation(int exit);
+int					here_doc_routine(t_redr	*sl, t_data_shell *p, int idx);
+void				generate_name(int *n, t_redr *file);
+int					file_creation(char *name);
+void				write_and_free(char	*line, int fd);
+void				faileur(int ex, t_data_shell *p);
+void				free_env_stuff(t_env *lst);
+int					ft_len(int nbr);
+void				__default_setup__(t_data_shell *mshell);
+void				shell_lvl_handling(t_data_shell *mshell);
+int					loop_and_execute(t_cline *lst,
+						char **envp, t_data_shell *p);
+void				clear_ressources(t_data_shell *p);
+int					many_commands(t_data_shell *p, t_cline *lst, char **envp);
+int					main_process(t_data_shell *p, t_cline *lst, char **envp);
+void				secondary_env_list(t_data_shell *mshell);
+void				puterr(char *keyword);
+int					one_cmd(t_data_shell *p, t_cline *lst, char **envp);
+void				count_her(t_data_shell *mshell);
+void				create_minimal_envs(t_data_shell *mshell);
 
 /////////////////////////// clear env garbage ///////////////////////////////
 
-char	*fg_stdup(const char *src, int len);
-char	**fg_split(char const *s, char c);
-char	*s_strjoin(char const *s1, char const *s2);
-char	*s_strdup(char *src);
-char	*s_substr(const char *s, unsigned int start, size_t len);
-void	clear_ressources(t_data_shell *p);
-void	_clear_2d_arr_(char **arr);
-char	*s_itoa(int n);
+char				*fg_stdup(const char *src, int len);
+char				**fg_split(char const *s, char c);
+char				*s_strjoin(char const *s1, char const *s2);
+char				*s_strdup(char *src);
+char				*s_substr(const char *s, unsigned int start, size_t len);
+void				clear_ressources(t_data_shell *p);
+void				_clear_2d_arr_(char **arr);
+char				*s_itoa(int n);
+int					nbr_len(int n);
+int					check_if_negative(int n);
 
 #endif

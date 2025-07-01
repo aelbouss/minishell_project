@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_utils4.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/30 21:59:52 by aelbouss          #+#    #+#             */
+/*   Updated: 2025/06/30 22:00:39 by aelbouss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int		__check_is_dir__(t_data_shell *p ,char *path)
+int	__check_is_dir__(t_data_shell *p, char *path)
 {
-	struct stat infos;
+	struct stat	infos;
 
 	if (stat(path, &infos) != 0)
 		return (0);
@@ -17,7 +29,7 @@ int		__check_is_dir__(t_data_shell *p ,char *path)
 
 void	wait_for_child(pid_t pid, t_data_shell *p)
 {
-	int status;
+	int	status;
 
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
@@ -31,9 +43,9 @@ void	wait_for_child(pid_t pid, t_data_shell *p)
 	}
 }
 
-int		__check_permission(t_data_shell *p, char *path)
+int	__check_permission(t_data_shell *p, char *path)
 {
-	if (access(path, W_OK | R_OK  | X_OK) != 0)
+	if (access(path, W_OK | R_OK | X_OK) != 0)
 	{
 		printf("minishell : %s : permission denied \n", path);
 		p->exit_status = 126;

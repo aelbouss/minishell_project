@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/30 22:13:52 by aelbouss          #+#    #+#             */
+/*   Updated: 2025/06/30 22:14:53 by aelbouss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	**open_pipes(t_data_shell *p)
@@ -9,7 +21,7 @@ int	**open_pipes(t_data_shell *p)
 	if (!pipes)
 		return (perror("Bad A llocation\n"), NULL);
 	i = 0;
-	while(i < p->nc - 1)
+	while (i < p->nc - 1)
 	{
 		pipes[i] = gc_malloc(2 * sizeof(int), &p->line.head);
 		if (!pipes[i])
@@ -31,10 +43,10 @@ void	close_pipes(int **pipes)
 {
 	int	i;
 
-	if(!pipes)
+	if (!pipes)
 		return ;
 	i = 0;
-	while(pipes[i])
+	while (pipes[i])
 	{
 		close(pipes[i][0]);
 		close(pipes[i][1]);
@@ -65,34 +77,15 @@ int	handle_pipes(int np, int **pipes, int idx)
 	return (0);
 }
 
-void __setup_utils__(t_data_shell *mshell, char **envp, t_exec *container)
+void	__setup_utils__(t_data_shell *mshell, char **envp, t_exec *container)
 {
-
-	/*int nbr;
-	char	*s_nbr;
-	char	*gnbr;*/
-
 	if (!mshell)
 		exit(1);
 	__default_setup__(mshell);
-	//s_nbr = NULL;
 	if (envp[0])
 		create_env_list(mshell, envp);
 	else
 		secondary_env_list(mshell);
-	/*s_nbr = get_env_value(mshell->env_list, "SHLVL");
-	if (s_nbr)
-	{
-		nbr = ft_atoi(s_nbr);
-		nbr++;
-		free(s_nbr);
-		gnbr = s_itoa(nbr);
-		if (gnbr)
-		{
-			modify_env_var(mshell->env_list, "SHLVL", gnbr);
-			free(gnbr);
-		}
-	}*/
 	shell_lvl_handling(mshell);
 	mshell->exec = container;
 }
@@ -116,43 +109,4 @@ void	create_minimal_envs(t_data_shell *mshell)
 		return ;
 	add_to_linkedlist(&mshell->env_list, node3);
 	node3->flag = 1;
-}
-
-void	secondary_env_list(t_data_shell *mshell)
-{
-	char	*tmp;
-	char	*pwd;
-	t_env	*node;
-	/*t_env	*node1;
-	t_env	*node2;
-	t_env	*node3;*/
-	
-	tmp = getcwd(NULL, 0);
-	if (!tmp)
-		return ;
-	pwd = s_strjoin("PWD=", s_strdup(tmp));
-	free(tmp);
-	if (!pwd)
-		return ;
-	node = build_node(pwd);
-	free(pwd);
-	if (!node)
-		return ;
-	add_to_linkedlist(&mshell->env_list, node);
-	create_minimal_envs(mshell);
-	/*
-	node1 = build_node("SHLVL=1");
-	if (!node1)
-		return ;
-	add_to_linkedlist(&mshell->env_list, node1);
-	node2 = build_node("_=/usr/bin/env");
-	if (!node2)
-		return ;
-	add_to_linkedlist(&mshell->env_list, node2);
-	node3 = build_node("OLDPWD");
-	if (!node3)
-		return ;
-	add_to_linkedlist(&mshell->env_list, node3);
-	node3->flag = 1;
-	*/
 }

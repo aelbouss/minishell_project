@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/30 21:36:32 by aelbouss          #+#    #+#             */
+/*   Updated: 2025/06/30 21:36:38 by aelbouss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	looking_for_char(char *s, int n)
@@ -21,16 +33,16 @@ int	ft_echo(char **args)
 	if (!args || !args[1])
 		return (printf("\n"), 0);
 	i = 1;
-	while(args[i])
+	while (args[i])
 	{
-		if (args[i][0] == '-' && looking_for_char(args[i],'n') == 0)
+		if (args[i][0] == '-' && looking_for_char(args[i], 'n') == 0)
 			i++;
 		else
 			break ;
 	}
 	while (args[i])
 	{
-		printf("%s",args[i]);
+		printf("%s", args[i]);
 		if (i > 0)
 			printf(" ");
 		i++;

@@ -48,7 +48,7 @@ int	split_each_env(char *str, char **name, char **value)
 		return (1);
 	*value = extract_value(str);
 	if (!value)
-		return(1);
+		return (1);
 	return (0);
 }
 
@@ -59,7 +59,7 @@ t_env	*build_node(char *str)
 	node = malloc(sizeof(t_env));
 	if (!node)
 		return (NULL);
-	if (split_each_env(str, &node->name, &node->value)!= 0)
+	if (split_each_env(str, &node->name, &node->value) != 0)
 		return (NULL);
 	node->flag = 0;
 	node->next = NULL;
@@ -73,10 +73,9 @@ int	build_env_list(char *str)
 	node = malloc(sizeof(t_env));
 	if (!node)
 		return (1);
-	if (split_each_env(str, &node->name, &node->value)!= 0)
+	if (split_each_env(str, &node->name, &node->value) != 0)
 		return (1);
 	node->flag = 0;
 	node->next = NULL;
 	return (0);
 }
- 

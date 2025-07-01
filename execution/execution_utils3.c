@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_utils3.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/30 21:59:11 by aelbouss          #+#    #+#             */
+/*   Updated: 2025/06/30 21:59:46 by aelbouss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void	error_case(char **cmd,  t_data_shell *p)
+void	error_case(char **cmd, t_data_shell *p)
 {
-	printf("%s : command not found\n",cmd[0]);
+	printf("%s : command not found\n", cmd[0]);
 	clear_ressources(p);
 	exit(127);
 }
@@ -12,9 +24,9 @@ int	list_cnt(t_env *lst)
 	int	i;
 
 	if (!lst)
-		return(0);
+		return (0);
 	i = 0;
-	while(lst)
+	while (lst)
 	{
 		i++;
 		lst = lst->next;
@@ -26,7 +38,7 @@ int	file_opener(char *name)
 {
 	int	fd;
 
-	fd = open(name,  O_CREAT || O_RDWR || O_TRUNC);
+	fd = open(name, O_CREAT || O_RDWR || O_TRUNC);
 	if (fd < 0)
 		return (perror("error"), 1);
 	return (fd);
@@ -45,6 +57,7 @@ int	is_here_doc(t_data_shell *p, t_redr *operator)
 	close(fd);
 	return (0);
 }
+
 void	execve_fail(t_data_shell *p)
 {
 	perror("execve");
