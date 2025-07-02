@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:44:14 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/01 22:50:33 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/02 20:40:03 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	inner_check(t_env **lst, t_env *holder, t_cline *node, int i)
 {
 	t_env	*tmp;
 
-	if (!lst || node)
+	if (!lst || !node)
 		return (1);
 	tmp = (*lst);
 	while (tmp)
