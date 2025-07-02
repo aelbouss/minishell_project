@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/01 23:29:06 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/02 20:17:26 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,6 +320,7 @@ void				puterr(char *keyword);
 int					one_cmd(t_data_shell *p, t_cline *lst, char **envp);
 void				count_her(t_data_shell *mshell);
 void				create_minimal_envs(t_data_shell *mshell);
+void				clear_2d_arr(char **arr);
 
 /////////////////////////// clear env garbage ///////////////////////////////
 

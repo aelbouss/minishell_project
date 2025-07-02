@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:47:04 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/01 23:29:58 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/02 20:10:24 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	one_cmd(t_data_shell *p, t_cline *lst, char **envp)
 		return (1);
 	while (lst)
 	{
-		handle_operators(p, lst->r_list, lst->options);
+		if (handle_operators(p, lst->r_list, lst->options) != 0)
+			return (1);
 		if (check_is_builtin(lst, p, p->env_list) != 0)
 		{
 			execute_exe(lst->options, envp, p);
@@ -110,7 +111,8 @@ int	main_process(t_data_shell *p, t_cline *lst, char **envp)
 	i = 0;
 	while (lst)
 	{
-		handle_operators(p, lst->r_list, lst->options);
+		if (handle_operators(p, lst->r_list, lst->options) != 0)
+			return (1);
 		pid = fork();
 		if (pid < 0)
 			return (perror ("fork failed"), 1);

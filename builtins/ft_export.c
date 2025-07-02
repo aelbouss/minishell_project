@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:42:13 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/01 18:34:02 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/02 20:28:51 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,10 @@ int	creation_routine(t_data_shell *p, t_cline *node, int idx)
 		p->exit_status = 1;
 		return (1);
 	}
-	new = create_node(arr[0], arr[1], flag);
+	new = create_node(s_strdup(arr[0]), s_strdup(arr[1]), flag);
 	if (!new)
 		return (perror("Bad Allocation\n"), 1);
+	clear_2d_arr(arr);
 	add_to_linkedlist(&p->env_list, new);
 	return (0);
 }
