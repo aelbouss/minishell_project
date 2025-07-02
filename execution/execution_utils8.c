@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 20:16:01 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/02 20:17:06 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/03 00:01:11 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,11 @@ void	clear_2d_arr(char **arr)
 		i++;
 	}
 	free (arr);
+}
+
+void	close_fds(t_data_shell *p, int fd)
+{
+	close(p->fds[0]);
+	close(p->fds[1]);
+	close(fd);
 }

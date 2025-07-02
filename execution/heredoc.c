@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 22:15:00 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/06/30 22:23:27 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/03 00:27:06 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ pid_t	heardoc(t_data_shell *mshell, char *keyword, int fd, int expand)
 				line = her_fcts(mshell, line);
 			write_and_free(line, fd);
 		}
+		close_fds(mshell, fd);
 		exit(0);
 	}
 	return (pid);

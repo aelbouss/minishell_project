@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 22:00:46 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/06/30 22:00:51 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/02 22:35:13 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	faileur(int ex, t_data_shell *p)
 	free_env_stuff(p->env_list);
 	p->env_list = NULL;
 	free_gc(&p->line.head);
+	close(p->fds[0]);
+	close(p->fds[1]);
 	exit(ex);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:53:21 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/06/30 22:22:51 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/03 00:41:03 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	loop_and_execute(t_cline *lst, char **envp, t_data_shell *p)
 
 	fd_i = dup(STDIN_FILENO);
 	fd_o = dup(STDOUT_FILENO);
+	p->fds[0] = fd_i;
+	p->fds[1] = fd_o;
 	count_her(p);
 	p->nc = list_len(lst);
 	if (p->nc > 1)
@@ -31,6 +33,8 @@ int	loop_and_execute(t_cline *lst, char **envp, t_data_shell *p)
 		dup2(fd_o, STDOUT_FILENO);
 		p->r_sign = 0;
 	}
+	close(fd_i);
+	close(fd_o);
 	return (0);
 }
 
