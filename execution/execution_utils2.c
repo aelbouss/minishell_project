@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:47:04 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/02 20:10:24 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/03 01:06:53 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	core_process(t_data_shell *p, char **envp, t_cline *lst, int i)
 	if (check_is_builtin(lst, p, p->env_list) != 0)
 		execute_exe(lst->options, envp, p);
 	clear_ressources(p);
+	close(p->fds[0]);
+	close(p->fds[1]);
 	exit(0);
 }
 
