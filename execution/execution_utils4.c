@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils4.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:59:52 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/05 17:58:31 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 20:28:34 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,7 @@ void	write_and_free(char	*line, int fd)
 {
 	write(fd, line, ft_strlen(line));
 	write(fd, "\n", 1);
-	free(line);
+	////// check before free
+	if(line)
+		free(line);
 }

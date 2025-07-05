@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 20:07:00 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/02 23:23:50 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 20:22:19 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,26 @@ void	handler(int sig)
 		g_exit_status = 130;
 	}
 }
-
-void	apply_signals(t_data_shell *mshell)
+void after_read(t_data_shell *mshell)
 {
-	g_exit_status = 0;
-	signal(SIGINT, handler);
-	signal(SIGQUIT, SIG_IGN);
-	if (g_exit_status == 130)
-		mshell->exit_status = g_exit_status;
+    if (g_exit_status == 130)
+        mshell->exit_status = g_exit_status;
 }
+void    apply_signals(t_data_shell *mshell)
+{
+    (void )mshell;
+    g_exit_status = 0;
+    signal(SIGINT, handler);
+    signal(SIGQUIT, SIG_IGN);
+}
+// void	apply_signals(t_data_shell *mshell)
+// {
+// 	g_exit_status = 0;
+// 	signal(SIGINT, handler);
+// 	signal(SIGQUIT, SIG_IGN);
+// 	if (g_exit_status == 130)
+// 		mshell->exit_status = g_exit_status;
+// }
 
 void	handler_2(int sig)
 {

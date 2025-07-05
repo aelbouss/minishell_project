@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/05 18:12:33 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 20:30:49 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ void				expand(t_data_shell *mshell);
 char				*check_expnd(t_data_shell *mshell, t_cline *tmp);
 void				apply_signals(t_data_shell *mshell);
 void				handler1(int sig);
-char				*her_fcts(t_data_shell *mshell, char *line);
+void				her_fcts(int fd, t_data_shell *mshell, char *line);
 char				*out_quotes_her(t_data_shell *mshell, char *line, int *j);
 char				*no_expand_her(t_data_shell *mshell, char *str, int *j,
 						char c);
@@ -235,6 +235,7 @@ void				signals_herdoc(t_data_shell *mshell);
 void				handler_2(int sig);
 int					core_process(t_data_shell *p,
 						char **envp, t_cline *lst, int i);
+void after_read(t_data_shell *mshell);
 
 //////////////////////////////// envs /////////////////////////
 

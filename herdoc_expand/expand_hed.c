@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_hed.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 00:16:09 by mery              #+#    #+#             */
-/*   Updated: 2025/07/01 23:43:21 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 20:20:21 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,29 @@ char	*dq_fct_her(t_data_shell *mshell, char *str, t_exp_info *her)
 		return (no_expand(mshell, str, &(her->j2)));
 }
 
-char	*her_fcts(t_data_shell *mshell, char *line)
+void	her_fcts(int fd, t_data_shell *mshell, char *line)
 {
-	char		*new;
-	char		*new2;
-	t_exp_info	her;
+    char        *new;
+    char        *new2;
+    t_exp_info    her;
 
-	her.j2 = 0;
-	new2 = NULL;
-	while (line[her.j2])
-	{
-		new = NULL;
-		if (line[her.j2] == '$')
-			new = out_quotes_her(mshell, line, &(her.j2));
-		else if (line[her.j2] == '"' || line[her.j2] == '\'')
-		{
-			her.q_char = line[her.j2];
-			new = dq_fct_her(mshell, line, &her);
-		}
-		else
-			new = no_expand(mshell, line, &(her.j2));
-		new2 = ft_strjoin(mshell, new2, new);
-	}
-	free(line);
-	return (new2);
+    her.j2 = 0;
+    new2 = NULL;
+    while (line[her.j2])
+    {
+        new = NULL;
+        if (line[her.j2] == '$')
+            new = out_quotes_her(mshell, line, &(her.j2));
+        else if (line[her.j2] == '"' || line[her.j2] == '\'')
+        {
+            her.q_char = line[her.j2];
+            new = dq_fct_her(mshell, line, &her);
+        }
+        else
+            new = no_expand(mshell, line, &(her.j2));
+        new2 = ft_strjoin(mshell, new2, new);
+    }
+    free(line);
+    write(fd, new2, ft_strlen(new2));
+    write(fd, "\n", 1);
 }

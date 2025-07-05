@@ -6,7 +6,7 @@
 /*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 12:41:03 by memahamo          #+#    #+#             */
-/*   Updated: 2025/05/27 22:52:58 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/05 20:27:47 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	**remove_null(t_data_shell *mshell, t_cline *tmp, int len)
 		return (NULL);
 	while (i < tmp->len_options)
 	{
-		if (tmp->options[i] != NULL)
+		if (tmp->options[i] != NULL && tmp->options[i][0] != '\0')
 		{
 			new_options[j] = tmp->options[i];
 			j++;
@@ -104,7 +104,7 @@ void	resize_options(t_data_shell *mshell)
 		new_len = 0;
 		while (i < tmp->len_options)
 		{
-			if (tmp->options[i] != NULL)
+			if (tmp->options[i] != NULL && *tmp->options[i] != 0)
 				new_len++;
 			i++;
 		}

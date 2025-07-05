@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:59:11 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/05 17:58:07 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 20:31:24 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	file_opener(char *name)
 {
 	int	fd;
 
-	fd = open(name, O_CREAT || O_RDWR || O_TRUNC);
+	fd = open(name, O_CREAT | O_RDWR | O_TRUNC);
 	if (fd < 0)
 		return (perror("open"), 1);
 	return (fd);

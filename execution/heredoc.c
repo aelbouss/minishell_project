@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 22:15:00 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/05 18:05:49 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 20:30:20 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,13 @@ pid_t	heardoc(t_data_shell *mshell, char *keyword, int fd, int expand)
 			if (ft_strcmp(keyword, line) == 0)
 				break ;
 			if (ft_strchr(line, '$') != NULL && expand == 0)
-				line = her_fcts(mshell, line);
-			write_and_free(line, fd);
+				her_fcts(fd ,mshell, line);
+			else///// double free
+				write_and_free(line, fd);
+			line = NULL;
 		}
 		close_fds_exit(mshell, fd);
+		exit(0);
 	}
 	return (pid);
 }
