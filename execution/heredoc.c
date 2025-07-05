@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 22:15:00 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/04 19:03:58 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 18:05:49 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,14 @@ pid_t	heardoc(t_data_shell *mshell, char *keyword, int fd, int expand)
 			signal(SIGQUIT, SIG_IGN);
 			line = readline("heardoc> ");
 			if (!line)
-				puterr(keyword);
+				perr_exit(keyword);
 			if (ft_strcmp(keyword, line) == 0)
 				break ;
 			if (ft_strchr(line, '$') != NULL && expand == 0)
 				line = her_fcts(mshell, line);
 			write_and_free(line, fd);
 		}
-		close_fds(mshell, fd);
-		exit(0);
+		close_fds_exit(mshell, fd);
 	}
 	return (pid);
 }

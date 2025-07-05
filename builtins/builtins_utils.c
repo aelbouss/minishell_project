@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:32:17 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/06/30 21:33:29 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 18:54:59 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,28 @@ int	home_path(t_data_shell *p, t_env *env_lst)
 	char	*curr_dir;
 	char	*home_path;
 
-	printf("here hhhh\n");
-	old_pwd = s_strdup(get_env_value(env_lst, "PWD"));
-	if (!old_pwd)
-		return (1);
+	old_pwd = get_env_value(env_lst, "PWD");
 	home_path = get_env_value(env_lst, "HOME");
 	if (chdir(home_path) == -1)
+	{
+		if (old_pwd)
+			free(old_pwd);
 		return (printf("Minishell : cd : Home not set\n"),
 			p->exit_status = 1, 1);
+	}
 	curr_dir = getcwd(NULL, 0);
-	if (!curr_dir)
-		return (perror("Bad Allocation\n"), 1);
-	if (modify_env_var(env_lst, "OLDPWD", old_pwd) != 0)
+	if (old_pwd)
+	{
+		if (modify_env_var(env_lst, "OLDPWD", old_pwd) != 0)
 		return (1);
-	if (modify_env_var(env_lst, "PWD", curr_dir) != 0)
-		return (free(curr_dir), 1);
-	free(curr_dir);
+		free(old_pwd);
+	}
+	if (curr_dir)
+	{
+		if (modify_env_var(env_lst, "PWD", curr_dir) != 0)
+			return (free(curr_dir), 1);
+		free(curr_dir);
+	}
+	free(home_path);
 	return (0);
 }

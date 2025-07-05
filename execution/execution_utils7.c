@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:53:21 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/04 19:03:50 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:15:59 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	secondary_env_list(t_data_shell *mshell)
 	tmp = getcwd(NULL, 0);
 	if (!tmp)
 		return ;
-	pwd = s_strjoin("PWD=", s_strdup(tmp));
+	pwd = s_strjoin("PWD=", tmp);
 	free(tmp);
 	if (!pwd)
 		return ;

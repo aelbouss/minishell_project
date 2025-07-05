@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:59:11 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/05 04:32:15 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:58:07 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	file_opener(char *name)
 
 	fd = open(name, O_CREAT || O_RDWR || O_TRUNC);
 	if (fd < 0)
-		return (perror("error"), 1);
+		return (perror("open"), 1);
 	return (fd);
 }
 
@@ -54,7 +54,7 @@ int	is_here_doc(t_data_shell *p, t_redr *operator)
 
 	fd = open(operator->f_path, O_RDWR);
 	if (fd < 0)
-		return (perror("error"), 1);
+		return (perror("open"), 1);
 	if (dup2(fd, STDIN_FILENO) == -1)
 		return (perror("dup2"), 1);
 	p->r_sign = 1;

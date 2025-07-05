@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:59:52 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/04 19:00:45 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:58:31 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	here_doc_routine(t_redr	*sl, t_data_shell *p)
 		p->exit_status = 130;
 		return (1);
 	}
-	printf("the  file was (%s)\n",sl->f_path);
 	return (0);
 }
 

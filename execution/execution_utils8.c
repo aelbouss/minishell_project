@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 20:16:01 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/04 19:04:34 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 18:12:19 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,22 @@ void	close_fds(t_data_shell *p, int fd)
 	close(fd);
 }
 
-/*void	loking_for_heredoc()
+void	perr_exit(char *keyword)
 {
-	if (ft_strcmp(operator->str, "<<") == 0)
-	{
-		if (is_here_doc(p, operator) != 0)
-			return (1);
-		return (p->r_sign = 1, 0);
-	}
+	puterr(keyword);
+	exit(0);
 }
-*/
+
+void	close_fds_exit(t_data_shell *mshell, int fd)
+{
+	close_fds(mshell, fd);
+	exit(0);
+}
+
+void	sub_free(char *old_pwd, char *prev)
+{
+	if (old_pwd)
+		free(old_pwd);
+	if (prev)
+		free(prev);
+}

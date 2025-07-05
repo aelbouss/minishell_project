@@ -8,14 +8,14 @@ SRC = main.c parsing/garbage_collector.c parsing/making_list/token.c parsing/mak
 	envs/fg_split.c builtins/ft_unset.c execution/heredoc.c execution/operators.c  execution/execution_utils.c \
 	execution/execution.c builtins/ft_exit.c execution/execution_utils3.c execution/execution_utils4.c \
 	execution/execution_utils5.c herdoc_expand/fcts_her.c execution/execution_utils6.c execution/execution_utils7.c\
-	execution/execution_utils8.c
+	execution/execution_utils8.c execution/execution_utils9.c
 
 OBJ =$(SRC:.c=.o)
 LIBFT_DIR =libft
 LIBFT =$(LIBFT_DIR)/libft.a
 CC = cc 
 
-CFLAGS = -Wall -Wextra -Werror -g -g3 #-fsanitize=address 
+CFLAGS = -Wall -Wextra -Werror -g -g3 -fsanitize=address 
 
 
 all : $(LIBFT) $(NAME)
