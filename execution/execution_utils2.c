@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:47:04 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/03 01:06:53 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 01:59:18 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ int	core_process(t_data_shell *p, char **envp, t_cline *lst, int i)
 {
 	if (!p || !*lst->options)
 		exit (1);
+	(void)i;
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	if (handle_pipes(p->nc - 1, p->aop, i) != 0)
-		exit(1);
 	if (check_is_builtin(lst, p, p->env_list) != 0)
 		execute_exe(lst->options, envp, p);
 	clear_ressources(p);
@@ -113,13 +112,17 @@ int	main_process(t_data_shell *p, t_cline *lst, char **envp)
 	i = 0;
 	while (lst)
 	{
-		if (handle_operators(p, lst->r_list, lst->options) != 0)
-			return (1);
 		pid = fork();
 		if (pid < 0)
 			return (perror ("fork failed"), 1);
 		if (pid == 0)
+		{
+			if (handle_pipes(p->nc - 1, p->aop, i) != 0)
+				exit(1);
+			if (handle_operators(p, lst->r_list, lst->options) != 0)
+				exit(1);
 			core_process(p, envp, lst, i);
+		}
 		else if (pid > 0)
 			pids[i++] = pid;
 		lst = lst->next;

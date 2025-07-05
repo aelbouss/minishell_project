@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/02 23:59:12 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/04 22:17:16 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_redr
 	int				ambiguous;
 	int				h_expand;
 	t_types			type;
-	char			f_path[10];
+	char			f_path[11];
 	struct s_redr	*next;
 }					t_redr;
 
@@ -108,6 +108,7 @@ typedef struct s_data_shell
 	int				nc;
 	int				r_sign;
 	int				**aop;
+	char			lr;
 	int				fds[2];
 }					t_data_shell;
 
@@ -289,6 +290,7 @@ int					operator_handler(t_data_shell *p,
 int					**open_pipes(t_data_shell *p);
 void				close_pipes(int **pipes);
 int					handle_pipes(int np, int **pipes, int idx);
+//int					handle_pipes(t_data_shell *p , int np, int **pipes, int idx);
 int					heardoc(t_data_shell *mshell, char *keyword,
 						int fd, int expand);
 void				__setup_utils__(t_data_shell *mshell, char **envp,
@@ -302,8 +304,8 @@ void				error_case(char **cmd, t_data_shell *p);
 void				execve_fail(t_data_shell *p);
 void				wait_for_child(pid_t pid, t_data_shell *p);
 void				prompt_synchronisation(int exit);
-int					here_doc_routine(t_redr	*sl, t_data_shell *p, int idx);
-void				generate_name(int *n, t_redr *file);
+int					here_doc_routine(t_redr	*sl, t_data_shell *p);
+void				generate_name(t_redr *file);
 int					file_creation(char *name);
 void				write_and_free(char	*line, int fd);
 void				faileur(int ex, t_data_shell *p);

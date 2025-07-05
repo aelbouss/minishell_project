@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 22:23:48 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/03 02:02:57 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 01:27:16 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,6 @@ int	handle_operators(t_data_shell *p, t_redr *operator, char **commands)
 		return (0);
 	while (operator)
 	{
-		if (operator->ambiguous == 1)
-		{
-			printf("Minishell: %s ambigious redirect :\n", operator->file);
-			return (1);
-		}
 		if (operator_handler(p, operator, commands) != 0)
 			return (p->exit_status = 1, 1);
 		operator = operator->next;

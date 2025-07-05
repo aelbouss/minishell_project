@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:59:11 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/02 22:35:30 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/05 04:32:15 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	error_case(char **cmd, t_data_shell *p)
 {
-	printf("%s : command not found\n", cmd[0]);
+	ft_putstr_fd("command not found : ", 2);
+	ft_putstr_fd(cmd[0], 2);
+	write(2, "\n", 1);
 	clear_ressources(p);
 	close(p->fds[0]);
 	close(p->fds[1]);

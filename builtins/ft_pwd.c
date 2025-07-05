@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 23:37:51 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/01 23:45:13 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/03 16:02:46 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ int	ft_pwd(t_data_shell *p)
 	if (!wdir)
 	{
 		wdir = getcwd(NULL, 0);
-		printf("%s", wdir);
+		printf("%s\n", wdir);
 		free(wdir);
 		return (0);
 	}
 	printf("%s\n", wdir);
 	return (0);
 }
+// save  the  PWD inside  a variable .

@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:53:21 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/03 00:41:03 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:03:50 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,5 @@ void	secondary_env_list(t_data_shell *mshell)
 void	puterr(char *keyword)
 {
 	printf("Minishell: warning here-docuentdelimited by `%s`\n", keyword);
+	exit(0);
 }

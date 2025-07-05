@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:59:52 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/06/30 22:00:39 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:00:45 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ int	__check_permission(t_data_shell *p, char *path)
 	return (0);
 }
 
-int	here_doc_routine(t_redr	*sl, t_data_shell *p, int idx)
+int	here_doc_routine(t_redr	*sl, t_data_shell *p)
 {
 	pid_t	pid;
 	int		fd;
 	int		wait;
 
 	wait = 0;
-	generate_name(&idx, sl);
+	generate_name(sl);
 	fd = file_creation(sl->f_path);
 	if (fd < 0)
 		return (1);
@@ -74,6 +74,7 @@ int	here_doc_routine(t_redr	*sl, t_data_shell *p, int idx)
 		p->exit_status = 130;
 		return (1);
 	}
+	printf("the  file was (%s)\n",sl->f_path);
 	return (0);
 }
 

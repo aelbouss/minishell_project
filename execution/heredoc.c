@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 22:15:00 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/03 00:27:06 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:03:58 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,30 @@ int	count_heredoc(t_cline *lst)
 	return (cnt);
 }
 
-void	generate_name(int *n, t_redr *file)
+void	generate_name(t_redr *file)
 {
+	int	fd;
+	int	rb;
+
 	file->f_path[0] = '/';
 	file->f_path[1] = 't';
 	file->f_path[2] = 'm';
 	file->f_path[3] = 'p';
 	file->f_path[4] = '/';
 	file->f_path[5] = 'f';
-	file->f_path[6] = *n + '0';
-	file->f_path[7] = '\0';
-	*n = *n + 1 ;
+	fd = open("/dev/random",O_RDONLY);
+	if (fd < 0)
+	{
+		perror("error");
+		exit(1);
+	}
+	rb = read(fd, file->f_path + 6, 4);
+	if (rb <= 0)
+	{
+		perror("error");
+		exit(1);
+	}
+	file->f_path[10] = '\0';
 }
 
 int	file_creation(char *name)
@@ -58,7 +71,6 @@ int	file_creation(char *name)
 int	heardoc_heandler(t_data_shell *p, t_cline *lst)
 {
 	t_redr		*sl;
-	static int	idx;
 
 	if (!p || !lst)
 		return (1);
@@ -69,7 +81,7 @@ int	heardoc_heandler(t_data_shell *p, t_cline *lst)
 		{
 			if (ft_strcmp(sl->str, "<<") == 0)
 			{
-				if (here_doc_routine(sl, p, idx) == 1)
+				if (here_doc_routine(sl, p) == 1)
 					return (1);
 			}
 			sl = sl->next;
@@ -95,7 +107,7 @@ pid_t	heardoc(t_data_shell *mshell, char *keyword, int fd, int expand)
 			signal(SIGQUIT, SIG_IGN);
 			line = readline("heardoc> ");
 			if (!line)
-				return (puterr(keyword), 1);
+				puterr(keyword);
 			if (ft_strcmp(keyword, line) == 0)
 				break ;
 			if (ft_strchr(line, '$') != NULL && expand == 0)
