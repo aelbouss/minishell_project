@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:32:17 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/08 08:16:37 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:31:25 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	home_path(t_data_shell *p, t_env *env_lst)
 	char	*curr_dir;
 	char	*home_path;
 
-	printf("here hhhh\n");
 	old_pwd = s_strdup(get_env_value(env_lst, "PWD"));
 	if (!old_pwd)
 		return (1);

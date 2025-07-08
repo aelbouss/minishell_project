@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/08 17:25:07 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:15:53 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,8 +291,6 @@ void				close_pipes(int **pipes);
 int					handle_pipes(int np, int **pipes, int idx);
 int					heardoc(t_data_shell *mshell, char *keyword,
 						int fd, int expand);
-void				__setup_utils__(t_data_shell *mshell, char **envp,
-						t_exec *container);
 int					heardoc_heandler(t_data_shell *p, t_cline *lst);
 int					is_here_doc(t_data_shell *p, t_redr *operator);
 int					file_opener(char *name);
@@ -309,7 +307,7 @@ void				write_and_free(char	*line, int fd);
 void				faileur(int ex, t_data_shell *p);
 void				free_env_stuff(t_env *lst);
 int					ft_len(int nbr);
-void				__default_setup__(t_data_shell *mshell);
+void				default_setup(t_data_shell *mshell);
 void				shell_lvl_handling(t_data_shell *mshell);
 int					loop_and_execute(t_cline *lst,
 						char **envp, t_data_shell *p);
@@ -328,6 +326,7 @@ char				*get_value(char *str);
 char				*get_name(char *str);
 int					check_if_exists(t_env *lst, char *name);
 int					numeric_string(char *s);
+void				setup_utils(t_data_shell *mshell, char **envp, t_exec *container);
 
 /////////////////////////// clear env garbage ///////////////////////////////
 

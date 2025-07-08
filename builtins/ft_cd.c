@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:35:41 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/06/30 21:35:53 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:30:10 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	ft_cd(t_data_shell *p, t_env *env_lst, char *path)
 		return (home_path(p, env_lst), 0);
 	if (ft_strcmp(path, "-") == 0)
 		return (prev_dir(p, env_lst), 0);
-	old_pwd = s_strdup(get_env_value(env_lst, "PWD"));
+	old_pwd = get_env_value(env_lst, "PWD");
 	if (!old_pwd)
 		return (1);
 	if (chdir(path) != 0)
@@ -111,7 +111,8 @@ int	ft_cd(t_data_shell *p, t_env *env_lst, char *path)
 	if (!curr_dir)
 		return (perror("Bad Allocation\n"), 1);
 	if (modify_env_var(env_lst, "OLDPWD", old_pwd) != 0)
-		return (1);
+		return (free(old_pwd), 1);
+	free(old_pwd);
 	if (modify_env_var(env_lst, "PWD", curr_dir) != 0)
 		return (free(curr_dir), 1);
 	free(curr_dir);

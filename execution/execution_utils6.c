@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 22:00:58 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/06/30 22:27:34 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:15:34 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*s_itoa(int n)
 	return (ptoc);
 }
 
-void	__default_setup__(t_data_shell *mshell)
+void	default_setup(t_data_shell *mshell)
 {
 	mshell->line.head = NULL;
 	mshell->exit_status = 0;

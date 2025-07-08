@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:00:25 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/02 17:31:48 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:15:17 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av, char **env)
 	t_exec			container;
 
 	((void)ac), ((void)av);
-	__setup_utils__(&mshell, env, &container);
+	setup_utils(&mshell, env, &container);
 	while (1)
 	{
 		apply_signals(&mshell);
