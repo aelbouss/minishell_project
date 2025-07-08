@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:32:17 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/05 18:54:59 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/09 00:04:34 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	print_envs(t_env *lst)
 		if (lst->value)
 		{
 			printf("=");
-			printf("%s", lst->value);
+			printf("\"%s\"", lst->value);
 		}
 		printf("\n");
 		lst = lst -> next;

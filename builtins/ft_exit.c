@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:39:06 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/06/30 21:40:48 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/08 23:54:21 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ long double	ft_atold(const char *str)
 	return (result * sign);
 }
 
-int	validate_argument(char *arg)
+int	validate_argument(t_data_shell *p,  char *arg)
 {
 	int			i;
 	long double	nbr;
@@ -54,7 +54,7 @@ int	validate_argument(char *arg)
 		if (!(arg[i] >= '0' && arg[i] <= '9'))
 		{
 			printf("Minishell: exit: %s : numeric argument required\n", arg);
-			exit(2);
+			return(p->exit_status = 2, 1);
 		}
 		i++;
 	}
@@ -62,7 +62,7 @@ int	validate_argument(char *arg)
 	if (nbr > LLONG_MAX || nbr < LLONG_MIN)
 	{
 		printf("Minishell: exit: %.0Lf: numeric argument required\n", nbr);
-		exit(2);
+		return(p->exit_status = 2, 1);
 	}
 	return (0);
 }
@@ -71,9 +71,18 @@ int	ft_exit(t_cline *node, t_data_shell *p)
 {
 	int	exit_status;
 
+	if (node->options[1] && node->options[2])
+	{
+		if (numeric_string(node->options[1]) == 0 || numeric_string(node->options[2]) == 0)
+		{
+			ft_putstr_fd("Minishell : exit : too many arguments\n", 2);
+			return (p->exit_status = 1, 1);
+		}
+	}
 	if (node->options[1])
 	{
-		validate_argument(node->options[1]);
+		if (validate_argument(p, node->options[1]) != 0)
+			return (1);
 		exit_status = ft_atold(node->options[1]);
 	}
 	else

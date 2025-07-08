@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 22:51:42 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/01 22:51:43 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/09 00:24:23 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*extract_value(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '=' && str[i + 1])
+		if (str[i] == '=')
 		{
 			i++;
 			value = s_strdup(&str[i]);
