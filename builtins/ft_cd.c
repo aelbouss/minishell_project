@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:35:41 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/08 20:30:10 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:39:26 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,27 @@ int	prev_path_case(t_env *env_lst)
 	char	*curr_dir;
 	char	*prev;
 
-	old_pwd = s_strdup(get_env_value(env_lst, "PWD"));
-	if (!old_pwd)
-		return (perror("Bad Allocation\n"), 1);
+	old_pwd = get_env_value(env_lst, "PWD");
 	prev = get_env_value(env_lst, "OLDPWD");
 	if (chdir(prev) == -1)
-		return (printf("Minishell : cd  - :  No such file or directory\n"), 1);
+	{
+		sub_free(old_pwd, prev);
+		return (ft_putstr_fd("Minishell : cd  - :  No such file or directory\n", 2), 1);
+	}
 	curr_dir = getcwd(NULL, 0);
-	if (!curr_dir)
-		return (perror("Bad Allocation\n"), 1);
-	if (modify_env_var(env_lst, "OLDPWD", old_pwd) != 0)
-		return (1);
-	if (modify_env_var(env_lst, "PWD", curr_dir) != 0)
-		return (free(curr_dir), 1);
-	free(curr_dir);
+	if (old_pwd)
+	{
+		if (modify_env_var(env_lst, "OLDPWD", old_pwd) != 0)
+			return (1);
+		free(old_pwd);
+	}
+	if (curr_dir)
+	{
+		if (modify_env_var(env_lst, "PWD", curr_dir) != 0)
+			return (free(curr_dir), 1);
+		free(curr_dir);
+	}
+	free(prev);
 	return (0);
 }
 
@@ -102,19 +109,21 @@ int	ft_cd(t_data_shell *p, t_env *env_lst, char *path)
 	if (ft_strcmp(path, "-") == 0)
 		return (prev_dir(p, env_lst), 0);
 	old_pwd = get_env_value(env_lst, "PWD");
-	if (!old_pwd)
-		return (1);
 	if (chdir(path) != 0)
 		return (printf("Minishell : cd %s:  No such file or directory\n", path),
 			p->exit_status = 1, 1);
 	curr_dir = getcwd(NULL, 0);
-	if (!curr_dir)
-		return (perror("Bad Allocation\n"), 1);
-	if (modify_env_var(env_lst, "OLDPWD", old_pwd) != 0)
-		return (free(old_pwd), 1);
-	free(old_pwd);
-	if (modify_env_var(env_lst, "PWD", curr_dir) != 0)
-		return (free(curr_dir), 1);
-	free(curr_dir);
+	if (old_pwd)
+	{
+		if (modify_env_var(env_lst, "OLDPWD", old_pwd) != 0)
+		return (1);
+		free(old_pwd);
+	}
+	if (curr_dir)
+	{
+		if (modify_env_var(env_lst, "PWD", curr_dir) != 0)
+			return (free(curr_dir), 1);
+		free(curr_dir);
+	}
 	return (0);
 }
