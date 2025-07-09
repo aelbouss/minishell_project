@@ -6,32 +6,11 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:42:13 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/09 00:32:41 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/09 02:44:24 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ft_select_flag(char *s, int *p)
-{
-	int	i;
-
-	if (search_for_char(s, '=') != 1)
-	{
-		*p = 2;
-		return ;
-	}
-	i = 0;
-	while (s[i])
-	{
-		if (s[i + 1] == '\0' && s[i] == '=')
-		{
-			*p = 1;
-			return ;
-		}
-		i++;
-	}
-}
 
 t_env	*create_node(char *name, char *value)
 {

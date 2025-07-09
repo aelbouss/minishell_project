@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/09 01:10:39 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/09 21:46:13 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,6 +334,7 @@ int					check_if_exists(t_env *lst, char *name);
 int					numeric_string(char *s);
 t_env				*create_node(char *name, char *value);
 void				perr_exit(char *keyword, t_data_shell *p , int fd);
+int					prev_path_case(t_data_shell *p, t_env *env_lst);
 
 /////////////////////////// clear env garbage ///////////////////////////////
 

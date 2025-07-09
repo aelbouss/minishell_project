@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:32:17 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/09 00:04:34 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/09 22:06:45 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,6 @@ int	print_envs(t_env *lst)
 	return (0);
 }
 
-int	is_valid_identifier(int c)
-{
-	if (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) || (c == '_'))
-		return (0);
-	return (1);
-}
-
 int	home_path(t_data_shell *p, t_env *env_lst)
 {
 	char	*old_pwd;
@@ -82,18 +75,21 @@ int	home_path(t_data_shell *p, t_env *env_lst)
 
 	old_pwd = get_env_value(env_lst, "PWD");
 	home_path = get_env_value(env_lst, "HOME");
-	if (chdir(home_path) == -1)
+	if (!home_path)
 	{
 		if (old_pwd)
 			free(old_pwd);
-		return (printf("Minishell : cd : Home not set\n"),
-			p->exit_status = 1, 1);
+		ft_putstr_fd("Minishell : cd : Home not set\n", 2);
+		return (p->exit_status = 1, 1);
 	}
+	chdir(home_path);
+	free(home_path);
+	p->exit_status = 0;
 	curr_dir = getcwd(NULL, 0);
 	if (old_pwd)
 	{
 		if (modify_env_var(env_lst, "OLDPWD", old_pwd) != 0)
-		return (1);
+			return (free(old_pwd), free(curr_dir), 1);
 		free(old_pwd);
 	}
 	if (curr_dir)
@@ -102,6 +98,5 @@ int	home_path(t_data_shell *p, t_env *env_lst)
 			return (free(curr_dir), 1);
 		free(curr_dir);
 	}
-	free(home_path);
 	return (0);
 }

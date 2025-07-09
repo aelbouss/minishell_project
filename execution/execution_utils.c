@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 16:42:37 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/09 02:34:37 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/09 02:41:18 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,6 @@ char	*check_if_exe(char **envp, char *cmd, t_data_shell *p)
 	if (!p->exec->sp)
 		return (NULL);
 	i = 0;
-	if (access(cmd) == 0)
-	{
-		execve(cmd);
-	}
 	while (p->exec->sp[i])
 	{
 		fcmd = build_absolute_path(p->exec->sp[i], cmd, p);
@@ -113,6 +109,11 @@ int	execute_exe(char **cmd, char **envp, t_data_shell *p)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
+		if (access(cmd[0], X_OK) == 0)
+		{
+			execve(cmd[0], cmd, envp);
+			execve_fail(p);
+		}
 		if (__check_is_dir__(p, cmd[0]) != 0)
 			faileur(126, p);
 		fcmd = check_if_exe(envp, cmd[0], p);
