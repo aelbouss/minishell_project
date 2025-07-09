@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 20:16:01 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/05 18:12:19 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/09 01:11:46 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,12 @@ void	close_fds(t_data_shell *p, int fd)
 	close(fd);
 }
 
-void	perr_exit(char *keyword)
+void	perr_exit(char *keyword, t_data_shell *p , int fd)
 {
 	puterr(keyword);
+	close(fd);
+	close(p->fds[0]);
+	close(p->fds[1]);
 	exit(0);
 }
 

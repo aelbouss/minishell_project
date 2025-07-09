@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 22:15:00 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/05 20:30:20 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/09 01:14:35 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	generate_name(t_redr *file)
 		exit(1);
 	}
 	file->f_path[10] = '\0';
+	close(fd);
 }
 
 int	file_creation(char *name)
@@ -107,12 +108,12 @@ pid_t	heardoc(t_data_shell *mshell, char *keyword, int fd, int expand)
 			signal(SIGQUIT, SIG_IGN);
 			line = readline("heardoc> ");
 			if (!line)
-				perr_exit(keyword);
+				perr_exit(keyword, mshell, fd);
 			if (ft_strcmp(keyword, line) == 0)
 				break ;
 			if (ft_strchr(line, '$') != NULL && expand == 0)
 				her_fcts(fd ,mshell, line);
-			else///// double free
+			else
 				write_and_free(line, fd);
 			line = NULL;
 		}

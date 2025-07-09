@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 16:42:37 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/02 22:27:45 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/09 02:34:37 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,20 @@ char	*build_absolute_path(char *path, char *cmd, t_data_shell *p)
 	char	*fcmd;
 	char	*tmp;
 
-	if (!path || !cmd || !p)
+	if (!path || !cmd  || cmd[0] == '\0' || !p)
 		return (NULL);
+	if (access(cmd, X_OK) == 0)
+		return (cmd);
 	if (cmd[0] == '.' && cmd[1] == '/')
 	{
 		if (__check_permission(p, cmd) != 0)
 		{
 			clear_ressources(p);
+			close(p->fds[0]);
+			close(p->fds[1]);
 			exit(126);
 		}
 	}
-	if (access(cmd, X_OK) == 0)
-		return (cmd);
 	tmp = ft_strjoin(p, path, "/");
 	if (!tmp)
 		return (perror("Bad Allocation\n"), NULL);
@@ -81,6 +83,10 @@ char	*check_if_exe(char **envp, char *cmd, t_data_shell *p)
 	if (!p->exec->sp)
 		return (NULL);
 	i = 0;
+	if (access(cmd) == 0)
+	{
+		execve(cmd);
+	}
 	while (p->exec->sp[i])
 	{
 		fcmd = build_absolute_path(p->exec->sp[i], cmd, p);

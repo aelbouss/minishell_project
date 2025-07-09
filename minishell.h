@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/09 00:28:17 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/09 01:10:39 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,13 +327,13 @@ void				create_minimal_envs(t_data_shell *mshell);
 void				clear_2d_arr(char **arr);
 void				close_fds(t_data_shell *p, int fd);
 void				puterr(char *keyword);
-void				perr_exit(char *keyword);
 void				close_fds_exit(t_data_shell *mshell, int fd);
 void				sub_free(char *old_pwd, char *prev);
 char				**extract_identifier_and_value(t_data_shell *p, char *str);
 int					check_if_exists(t_env *lst, char *name);
 int					numeric_string(char *s);
 t_env				*create_node(char *name, char *value);
+void				perr_exit(char *keyword, t_data_shell *p , int fd);
 
 /////////////////////////// clear env garbage ///////////////////////////////
 
