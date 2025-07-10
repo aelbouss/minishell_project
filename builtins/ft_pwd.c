@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 23:37:51 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/05 20:28:12 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/10 00:26:06 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,20 @@ int	ft_pwd(t_data_shell *p)
 	if (!wdir)
 	{
 		wdir = getcwd(NULL, 0);
+		if(!wdir)
+		{
+			wdir = p->pwd;
+			printf("%s\n", wdir);
+			p->exit_status = 0;
+			return(0);
+		}
 		printf("%s\n", wdir);
 		free(wdir);
+		p->exit_status = 0;
 		return (0);
 	}
 	printf("%s\n", wdir);
-	////////free wdir
 	free(wdir);
+	p->exit_status = 0;
 	return (0);
 }
-// save  the  PWD inside  a variable .

@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:53:21 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/09 01:15:52 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 02:56:25 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	clear_ressources(t_data_shell *p)
 	free(p->line.rl);
 	free_gc(&p->line.head);
 	free_env_stuff(p->env_list);
+	if (p->pwd)
+		free(p->pwd);
 }
 
 int	many_commands(t_data_shell *p, t_cline *lst, char **envp)

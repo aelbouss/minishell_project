@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:35:41 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/09 22:15:49 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 03:00:26 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,26 +101,31 @@ int	prev_dir(t_data_shell *p, t_env *env_lst)
 	return (0);
 }
 
-int	ft_cd(t_data_shell *p, t_env *env_lst, char *path)
+int	ft_cd(t_data_shell *p, t_env *env_lst, char **path)
 {
 	char	*old_pwd;
 	char	*curr_dir;
 
 	if (!p)
 		return (1);
-	if (!path)
+	if (path[1] && path[2])
+		return (ft_putstr_fd("Minishell : cd : too many arguments\n", 2), p->exit_status = 1, 1);
+	if (!path[1])
 		return (home_path(p, env_lst), 0);
-	if (ft_strcmp(path, "-") == 0)
+	if (ft_strcmp(path[1], "-") == 0)
 		return (prev_dir(p, env_lst), 0);
 	old_pwd = get_env_value(env_lst, "PWD");
-	if (chdir(path) != 0)
+	if (chdir(path[1]) != 0)
 	{
 		if (old_pwd)
 			free(old_pwd);
-		return (printf("Minishell : cd %s:  No such file or directory\n", path),
-		p->exit_status = 1, 1);	
+		return (printf("Minishell : cd %s:  No such file or directory\n", path[1]),
+		p->exit_status = 1, 1);
 	}
 	p->exit_status = 0;
+	if (p->pwd)
+		free(p->pwd);
+	p->pwd = s_strdup(path[1]);
 	curr_dir = getcwd(NULL, 0);
 	if (old_pwd)
 	{

@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 22:00:58 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/06/30 22:27:34 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 00:04:17 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	__default_setup__(t_data_shell *mshell)
 	mshell->env_list = NULL;
 	mshell->nc = 0;
 	mshell->r_sign = 0;
+	mshell->pwd = NULL;
 }
 
 void	shell_lvl_handling(t_data_shell *mshell)

@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/09 21:46:13 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/09 23:52:03 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct s_data_shell
 	int				nc;
 	int				r_sign;
 	int				**aop;
+	char			*pwd;
 	char			lr;
 	int				fds[2];
 }					t_data_shell;
@@ -257,7 +258,7 @@ t_env				*create_node(char *name, char *value);
 
 int					check_is_builtin(t_cline *node,
 						t_data_shell *p, t_env *lst);
-int					ft_cd(t_data_shell *p, t_env *env_lst, char *path);
+int					ft_cd(t_data_shell *p, t_env *env_lst, char **path);
 int					ft_echo(char **args);
 int					ft_pwd(t_data_shell *p);
 int					ft_env(t_data_shell *p);

@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:32:17 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/09 22:06:45 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/09 23:48:24 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_is_builtin(t_cline *node, t_data_shell *p, t_env *lst)
 	if (!p || !node || !node->options || !node->options[0] || !lst)
 		return (1);
 	if (ft_strcmp(node->options[0], "cd") == 0)
-		return (ft_cd(p, lst, node->options[1]), 0);
+		return (ft_cd(p, lst, node->options), 0);
 	if (ft_strcmp(node->options[0], "env") == 0)
 		return (ft_env(p), 0);
 	if (ft_strcmp(node->options[0], "export") == 0)
