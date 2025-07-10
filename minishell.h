@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/09 23:52:03 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 05:52:05 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,6 +336,10 @@ int					numeric_string(char *s);
 t_env				*create_node(char *name, char *value);
 void				perr_exit(char *keyword, t_data_shell *p , int fd);
 int					prev_path_case(t_data_shell *p, t_env *env_lst);
+int					modification_process(t_env *env_lst, char *old_pwd, char *curr_dir);
+void				change_dir_fail(t_data_shell *p , char *old_pwd, char *path);
+void				signals_heredoc(void);
+void				close_fds_a(t_data_shell *p);
 
 /////////////////////////// clear env garbage ///////////////////////////////
 

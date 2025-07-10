@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:32:17 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/09 23:48:24 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 04:15:13 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,7 @@ int	home_path(t_data_shell *p, t_env *env_lst)
 	free(home_path);
 	p->exit_status = 0;
 	curr_dir = getcwd(NULL, 0);
-	if (old_pwd)
-	{
-		if (modify_env_var(env_lst, "OLDPWD", old_pwd) != 0)
-			return (free(old_pwd), free(curr_dir), 1);
-		free(old_pwd);
-	}
-	if (curr_dir)
-	{
-		if (modify_env_var(env_lst, "PWD", curr_dir) != 0)
-			return (free(curr_dir), 1);
-		free(curr_dir);
-	}
+	if (modification_process(env_lst, old_pwd, curr_dir) != 0)
+		return (1);
 	return (0);
 }

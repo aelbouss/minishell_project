@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:35:41 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 03:00:26 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 04:18:26 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,8 @@ int	prev_path_case(t_data_shell *p, t_env *env_lst)
 	free(prev);
 	p->exit_status = 0;
 	curr_dir = getcwd(NULL, 0);
-	if (old_pwd)
-	{
-		if (modify_env_var(env_lst, "OLDPWD", old_pwd) != 0)
-			return (free(old_pwd), 1);
-		free(old_pwd);
-	}
-	if (curr_dir)
-	{
-		if (modify_env_var(env_lst, "PWD", curr_dir) != 0)
-			return (free(curr_dir), 1);
-		free(curr_dir);
-	}
+	if (modification_process(env_lst, old_pwd, curr_dir)!= 0)
+		return(1);
 	return (0);
 }
 
@@ -109,35 +99,23 @@ int	ft_cd(t_data_shell *p, t_env *env_lst, char **path)
 	if (!p)
 		return (1);
 	if (path[1] && path[2])
-		return (ft_putstr_fd("Minishell : cd : too many arguments\n", 2), p->exit_status = 1, 1);
+	{
+		ft_putstr_fd("Minishell : cd : too many arguments\n", 2);
+		return (p->exit_status = 1, 1);
+	}
 	if (!path[1])
 		return (home_path(p, env_lst), 0);
 	if (ft_strcmp(path[1], "-") == 0)
 		return (prev_dir(p, env_lst), 0);
 	old_pwd = get_env_value(env_lst, "PWD");
 	if (chdir(path[1]) != 0)
-	{
-		if (old_pwd)
-			free(old_pwd);
-		return (printf("Minishell : cd %s:  No such file or directory\n", path[1]),
-		p->exit_status = 1, 1);
-	}
+		return(change_dir_fail(p, old_pwd, path[1]), 1);
 	p->exit_status = 0;
 	if (p->pwd)
 		free(p->pwd);
 	p->pwd = s_strdup(path[1]);
 	curr_dir = getcwd(NULL, 0);
-	if (old_pwd)
-	{
-		if (modify_env_var(env_lst, "OLDPWD", old_pwd) != 0)
-		return (free(old_pwd), free(curr_dir), 1);
-		free(old_pwd);
-	}
-	if (curr_dir)
-	{
-		if (modify_env_var(env_lst, "PWD", curr_dir) != 0)
-			return (free(curr_dir), 1);
-		free(curr_dir);
-	}
+	if (modification_process(env_lst, old_pwd, curr_dir) != 0)
+		return(1);
 	return (0);
 }

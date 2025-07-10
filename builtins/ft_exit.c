@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:39:06 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/08 23:54:21 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 05:55:42 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	validate_argument(t_data_shell *p,  char *arg)
 		if (!(arg[i] >= '0' && arg[i] <= '9'))
 		{
 			printf("Minishell: exit: %s : numeric argument required\n", arg);
-			return(p->exit_status = 2, 1);
+			close_fds_a(p);
+			exit (2);
 		}
 		i++;
 	}
@@ -73,7 +74,7 @@ int	ft_exit(t_cline *node, t_data_shell *p)
 
 	if (node->options[1] && node->options[2])
 	{
-		if (numeric_string(node->options[1]) == 0 || numeric_string(node->options[2]) == 0)
+		if (numeric_string(node->options[1]) == 0 && numeric_string(node->options[2]) == 0)
 		{
 			ft_putstr_fd("Minishell : exit : too many arguments\n", 2);
 			return (p->exit_status = 1, 1);
