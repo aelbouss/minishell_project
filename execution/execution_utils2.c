@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:47:04 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/05 01:59:18 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:40:49 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,13 +116,7 @@ int	main_process(t_data_shell *p, t_cline *lst, char **envp)
 		if (pid < 0)
 			return (perror("fork failed"), 1);
 		if (pid == 0)
-		{
-			if (handle_pipes(p->nc - 1, p->aop, i) != 0)
-				exit(1);
-			if (handle_operators(p, lst->r_list, lst->options) != 0)
-				exit(1);
-			core_process(p, envp, lst, i);
-		}
+			child_behaviour(p, i, envp, lst);
 		else if (pid > 0)
 			pids[i++] = pid;
 		lst = lst->next;

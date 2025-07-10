@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:00:25 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/10 16:55:16 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:31:18 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ int	main(int ac, char **av, char **env)
 	t_exec			container;
 
 	((void)ac), ((void)av);
-	//////change name of function : delete (__)
-	__setup_utils__(&mshell, env, &container);
+	setup_utils(&mshell, env, &container);
 	while (1)
 	{
 		apply_signals(&mshell);
@@ -35,11 +34,9 @@ int	main(int ac, char **av, char **env)
 		else
 		{
 			ft_putstr_fd("exit\n", 2);
-			clear_ressources(&mshell);
-			return (0);
+			return (clear_ressources(&mshell), 0);
 		}
-		free(mshell.line.rl);
-		free_gc(&mshell.line.head);
+		clear_garbage(&mshell);
 	}
 	return (mshell.exit_status);
 }

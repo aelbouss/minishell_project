@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/10 17:17:48 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:53:00 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,6 +339,14 @@ void				change_dir_fail(t_data_shell *p, char *old_pwd, char *path);
 void				signals_heredoc(void);
 void				close_fds_a(t_data_shell *p);
 int					print_envs(t_env *lst, t_data_shell *p);
+void				setup_utils(t_data_shell *mshell, char **envp,
+						t_exec *container);
+void				default_setup(t_data_shell *mshell);
+void				clear_garbage(t_data_shell *p);
+void				child_behaviour(t_data_shell *p, int i, char **envp,
+						t_cline *lst);
+void				access_cmd(char **cmd, char **envp, t_data_shell *p);
+void				put_err(char *str);
 
 /////////////////////////// clear env garbage ///////////////////////////////
 

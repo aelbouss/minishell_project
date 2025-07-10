@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:18:26 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/10 17:18:27 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:53:30 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ char	*get_name(char *str)
 	if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'A'))
 		&& (str[i] != '_'))
 	{
-		ft_putstr_fd("Minishell : ", 2);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd(" : non valid identifier\n", 2);
+		put_err(str);
 		return (NULL);
 	}
 	while (str[i] && str[i] != '=')
@@ -75,7 +73,7 @@ int	check_if_exists(t_env *lst, char *name)
 
 int	numeric_string(char *s)
 {
-	int i;
+	int	i;
 
 	if (!s)
 		return (1);

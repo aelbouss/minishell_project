@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 22:13:52 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/04 22:16:57 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:25:52 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ int	handle_pipes(int np, int **pipes, int idx)
 	return (0);
 }
 
-void	__setup_utils__(t_data_shell *mshell, char **envp, t_exec *container)
+void	setup_utils(t_data_shell *mshell, char **envp, t_exec *container)
 {
 	if (!mshell)
 		exit(1);
-	__default_setup__(mshell);
+	default_setup(mshell);
 	if (envp[0])
 		create_env_list(mshell, envp);
 	else

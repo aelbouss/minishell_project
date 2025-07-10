@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 22:15:00 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 04:21:57 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:49:21 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,6 @@ pid_t	heardoc(t_data_shell *mshell, char *keyword, int fd, int expand)
 	{
 		while (1)
 		{
-			/*
-			signal(SIGINT, handler_2);
-			signal(SIGQUIT, SIG_IGN);*/
 			signals_heredoc();
 			line = readline("heardoc> ");
 			if (!line)
@@ -120,7 +117,6 @@ pid_t	heardoc(t_data_shell *mshell, char *keyword, int fd, int expand)
 			line = NULL;
 		}
 		close_fds_exit(mshell, fd);
-		exit(0);
 	}
 	return (pid);
 }

@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 16:42:37 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 16:49:30 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:48:18 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,7 @@ int	execute_exe(char **cmd, char **envp, t_data_shell *p)
 		if (__check_is_dir__(p, cmd[0]) != 0)
 			faileur(126, p);
 		if (access(cmd[0], X_OK) == 0)
-		{
-			execve(cmd[0], cmd, envp);
-			execve_fail(p);
-		}
+			access_cmd(cmd, envp, p);
 		fcmd = check_if_exe(envp, cmd[0], p);
 		if (!fcmd)
 			error_case(cmd, p);
