@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:32:17 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 16:56:36 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:02:22 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	search_for_char(char *s, int n)
 	return (0);
 }
 
-int	print_envs(t_env *lst)
+int	print_envs(t_env *lst, t_data_shell *p)
 {
 	while (lst)
 	{
@@ -65,6 +65,7 @@ int	print_envs(t_env *lst)
 		printf("\n");
 		lst = lst -> next;
 	}
+	p->exit_status = 0;
 	return (0);
 }
 

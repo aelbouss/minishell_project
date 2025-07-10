@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:36:32 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 16:55:53 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:59:57 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_echo(char **args, t_data_shell *p)
 	int	i;
 
 	if (!args || !args[1])
-		return (printf("\n"), 0);
+		return (printf("\n"),p->exit_status = 0 ,0);
 	i = 1;
 	while (args[i])
 	{

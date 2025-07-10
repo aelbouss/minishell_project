@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:42:13 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 16:55:05 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:03:31 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ft_export(t_data_shell *p, t_cline *node)
 		return (1);
 	if (!node->options[1])
 	{
-		if (print_envs(p->env_list) == 1)
+		if (print_envs(p->env_list, p) == 1)
 			return (1);
 	}
 	else

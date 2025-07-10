@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:36:45 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 16:54:56 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:01:26 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_env(t_data_shell *p)
 
 	ptr = p->env_list;
 	if (!ptr)
-		return (1);
+		return (p->exit_status = 0, 1);
 	while (ptr)
 	{
 		if (ptr->flag == 0)

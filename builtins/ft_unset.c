@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:44:14 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/02 22:16:46 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:05:07 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ int	ft_unset(t_data_shell *p, t_env **lst, t_cline *node)
 			return (perror("unset failed"), 1);
 		i++;
 	}
+	p->exit_status = 0;
 	return (0);
 }

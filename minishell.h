@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/10 16:56:22 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:02:51 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,7 +269,6 @@ int					check_to_modify(t_data_shell *p,
 						char *name, char *new_value);
 int					ft_export(t_data_shell *p, t_cline *node);
 int					search_for_char(char *s, int n);
-int					print_envs(t_env *lst);
 int					is_valid_identifier(int c);
 int					home_path(t_data_shell *p, t_env *env_lst);
 int					modify_env_var(t_env *lst, char *name, char *newvalue);
@@ -340,6 +339,7 @@ int					modification_process(t_env *env_lst, char *old_pwd, char *curr_dir);
 void				change_dir_fail(t_data_shell *p , char *old_pwd, char *path);
 void				signals_heredoc(void);
 void				close_fds_a(t_data_shell *p);
+int					print_envs(t_env *lst, t_data_shell *p);
 
 /////////////////////////// clear env garbage ///////////////////////////////
 
