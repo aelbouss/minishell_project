@@ -6,7 +6,7 @@
 /*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 21:32:14 by mery              #+#    #+#             */
-/*   Updated: 2025/07/10 17:13:38 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:35:53 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,32 @@ int	countsep(char const *s)
 	return (num);
 }
 
+int	expand_tool(t_data_shell *mshell, t_cline *tmp, int *j, char **result)
+{
+	(*j)++;
+	if (tmp->options[tmp->index_2][*j] && tmp->options[tmp->index_2][*j] == '?')
+	{
+		*result = ft_itoa(mshell, mshell->exit_status, j);
+		return (0);
+	}
+	else if (tmp->options[tmp->index_2][*j]
+		&& ft_isdigit(tmp->options[tmp->index_2][*j]))
+	{
+		*result = join_q(mshell, NULL, '\0');
+		(*j)++;
+		return (0);
+	}
+	return (1);
+}
+
 char	*out_quotes(t_data_shell *mshell, t_cline *tmp, int *j, t_exp_info *vr)
 {
 	char	*result;
 	int		i;
 
 	i = 0;
-	(*j)++;
-	if (tmp->options[tmp->index_2][*j] && tmp->options[tmp->index_2][*j] == '?')
-		result = ft_itoa(mshell, mshell->exit_status, j);
+	if (expand_tool(mshell, tmp, j, &result) == 0)
+		return (result);
 	else
 	{
 		while (tmp->options[tmp->index_2][*j + i]

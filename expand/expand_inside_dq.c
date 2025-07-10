@@ -6,7 +6,7 @@
 /*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:22:43 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/10 17:13:55 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:38:53 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ char	*expand_inside_dq(t_data_shell *mshell, char *str, int *j, int i)
 	(*j)++;
 	if (str[*j] && str[*j] == '?')
 		new = ft_itoa(mshell, mshell->exit_status, j);
+	else if (str[*j] && ft_isdigit(str[*j]))
+	{
+		new = join_q(mshell, NULL, '\0');
+		(*j)++;
+	}
 	else
 	{
 		while (str[*j + i] && str[*j + i] != '"'
