@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:42:13 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/09 02:44:24 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:55:05 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	ft_export(t_data_shell *p, t_cline *node)
 {
 	int	i;
 
-	if (!p || !p->env_list)
+	if (!p)
 		return (1);
 	if (!node->options[1])
 	{
@@ -98,5 +98,6 @@ int	ft_export(t_data_shell *p, t_cline *node)
 			i++;
 		}
 	}
+	p->exit_status = 0;
 	return (0);
 }

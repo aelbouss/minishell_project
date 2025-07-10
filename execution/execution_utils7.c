@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:53:21 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 16:19:45 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:37:16 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	loop_and_execute(t_cline *lst, char **envp, t_data_shell *p)
 	int	fd_i;
 	int	fd_o;
 
+	if (!p || !lst)
+		return (1);
 	fd_i = dup(STDIN_FILENO);
 	fd_o = dup(STDOUT_FILENO);
 	p->fds[0] = fd_i;

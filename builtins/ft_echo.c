@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:36:32 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 03:20:46 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:55:53 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_search(char *s, char  c)
 	return (1);
 }
 
-int	ft_echo(char **args)
+int	ft_echo(char **args, t_data_shell *p)
 {
 	int	i;
 
@@ -67,5 +67,6 @@ int	ft_echo(char **args)
 	}
 	if (!ft_search(args[1], 'n'))
 		printf("\n");
+	p->exit_status = 0;
 	return (0);
 }

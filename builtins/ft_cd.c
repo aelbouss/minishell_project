@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:35:41 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 04:18:26 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:40:22 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	ft_cd(t_data_shell *p, t_env *env_lst, char **path)
 	char	*old_pwd;
 	char	*curr_dir;
 
-	if (!p)
+	if (!p || !env_lst)
 		return (1);
 	if (path[1] && path[2])
 	{
