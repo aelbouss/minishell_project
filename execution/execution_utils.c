@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 16:42:37 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 03:40:35 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:17:39 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ int	execute_exe(char **cmd, char **envp, t_data_shell *p)
 	int		pid;
 	char	*fcmd;
 
-	if (!envp || ! p)
-		return (perror("Bad Address\n"), 1);
+	if (!envp || !p)
+		return (1);
 	if (!cmd || !*cmd)
 		return (0);
 	pid = fork();
