@@ -14,7 +14,6 @@
 
 int	check_is_builtin(t_cline *node, t_data_shell *p, t_env *lst)
 {
-
 	if (!p || !node || !node->options || !node->options[0])
 		return (1);
 	if (ft_strcmp(node->options[0], "cd") == 0)
@@ -63,7 +62,7 @@ int	print_envs(t_env *lst, t_data_shell *p)
 			printf("\"%s\"", lst->value);
 		}
 		printf("\n");
-		lst = lst -> next;
+		lst = lst->next;
 	}
 	p->exit_status = 0;
 	return (0);

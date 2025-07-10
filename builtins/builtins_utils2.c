@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins_utils2.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 17:18:26 by memahamo          #+#    #+#             */
+/*   Updated: 2025/07/10 17:18:27 by memahamo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*get_name(char *str)
@@ -8,12 +20,13 @@ char	*get_name(char *str)
 	if (!str)
 		return (NULL);
 	i = 0;
-	if (!((str[i] >= 'a' &&  str[i] <= 'z') || (str[i] >= 'A' &&str[i] <= 'A')) && (str[i] != '_'))
+	if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'A'))
+		&& (str[i] != '_'))
 	{
 		ft_putstr_fd("Minishell : ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd(" : non valid identifier\n", 2);
-		return(NULL);
+		return (NULL);
 	}
 	while (str[i] && str[i] != '=')
 		i++;
@@ -49,7 +62,7 @@ int	check_if_exists(t_env *lst, char *name)
 {
 	if (!lst)
 		return (0);
-	while(lst)
+	while (lst)
 	{
 		if (ft_strcmp(lst->name, name) == 0)
 		{
@@ -62,16 +75,16 @@ int	check_if_exists(t_env *lst, char *name)
 
 int	numeric_string(char *s)
 {
-	int	i;
+	int i;
 
 	if (!s)
 		return (1);
 	i = 0;
-	while(s[i])
+	while (s[i])
 	{
 		if (ft_isdigit(s[i]) != 2048)
 			return (1);
 		i++;
 	}
-	return(0);
+	return (0);
 }

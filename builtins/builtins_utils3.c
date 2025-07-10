@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 03:56:05 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 05:54:49 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:15:36 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	modification_process(t_env *env_lst, char *old_pwd, char *curr_dir)
 	if (old_pwd)
 	{
 		if (modify_env_var(env_lst, "OLDPWD", old_pwd) != 0)
-		return (free(old_pwd), free(curr_dir), 1);
+			return (free(old_pwd), free(curr_dir), 1);
 		free(old_pwd);
 	}
 	if (curr_dir)
@@ -29,7 +29,7 @@ int	modification_process(t_env *env_lst, char *old_pwd, char *curr_dir)
 	return (0);
 }
 
-void	change_dir_fail(t_data_shell *p , char *old_pwd, char *path)
+void	change_dir_fail(t_data_shell *p, char *old_pwd, char *path)
 {
 	if (old_pwd)
 		free(old_pwd);

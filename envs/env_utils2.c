@@ -17,7 +17,7 @@ void	add_to_linkedlist(t_env **lst, t_env *new)
 	t_env	*tmp;
 
 	if (!lst || !*lst)
-		*lst = new ;
+		*lst = new;
 	else
 	{
 		tmp = *lst;
@@ -32,7 +32,7 @@ void	create_env_list(t_data_shell *p, char **envp)
 	t_env	*newnode;
 	int		i;
 
-	p->env_list = NULL ;
+	p->env_list = NULL;
 	i = 0;
 	while (envp[i])
 	{

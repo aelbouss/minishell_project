@@ -20,12 +20,12 @@ int	ft_pwd(t_data_shell *p)
 	if (!wdir)
 	{
 		wdir = getcwd(NULL, 0);
-		if(!wdir)
+		if (!wdir)
 		{
 			wdir = p->pwd;
 			printf("%s\n", wdir);
 			p->exit_status = 0;
-			return(0);
+			return (0);
 		}
 		printf("%s\n", wdir);
 		free(wdir);

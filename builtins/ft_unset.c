@@ -54,7 +54,7 @@ int	ft_unset(t_data_shell *p, t_env **lst, t_cline *node)
 	int		i;
 	t_env	*holder;
 
-	if (!p || !lst || !*lst || ! node)
+	if (!p || !lst || !*lst || !node)
 		return (1);
 	i = 1;
 	while (node->options[i])

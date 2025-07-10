@@ -22,7 +22,7 @@ int	nbr_len(int n)
 	while (n != 0)
 	{
 		cnt++;
-		n /= 10 ;
+		n /= 10;
 	}
 	return (cnt);
 }
@@ -40,7 +40,7 @@ char	*s_itoa(int n)
 	char		*ptoc;
 	long int	nbr;
 
-	nbr = (long int) n;
+	nbr = (long int)n;
 	len = nbr_len(n);
 	if (check_if_negative(nbr) == 1)
 	{

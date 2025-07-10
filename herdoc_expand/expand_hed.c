@@ -6,7 +6,7 @@
 /*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 00:16:09 by mery              #+#    #+#             */
-/*   Updated: 2025/07/05 20:20:21 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:13:19 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,27 +57,27 @@ char	*dq_fct_her(t_data_shell *mshell, char *str, t_exp_info *her)
 
 void	her_fcts(int fd, t_data_shell *mshell, char *line)
 {
-    char        *new;
-    char        *new2;
-    t_exp_info    her;
+	char		*new;
+	char		*new2;
+	t_exp_info	her;
 
-    her.j2 = 0;
-    new2 = NULL;
-    while (line[her.j2])
-    {
-        new = NULL;
-        if (line[her.j2] == '$')
-            new = out_quotes_her(mshell, line, &(her.j2));
-        else if (line[her.j2] == '"' || line[her.j2] == '\'')
-        {
-            her.q_char = line[her.j2];
-            new = dq_fct_her(mshell, line, &her);
-        }
-        else
-            new = no_expand(mshell, line, &(her.j2));
-        new2 = ft_strjoin(mshell, new2, new);
-    }
-    free(line);
-    write(fd, new2, ft_strlen(new2));
-    write(fd, "\n", 1);
+	her.j2 = 0;
+	new2 = NULL;
+	while (line[her.j2])
+	{
+		new = NULL;
+		if (line[her.j2] == '$')
+			new = out_quotes_her(mshell, line, &(her.j2));
+		else if (line[her.j2] == '"' || line[her.j2] == '\'')
+		{
+			her.q_char = line[her.j2];
+			new = dq_fct_her(mshell, line, &her);
+		}
+		else
+			new = no_expand(mshell, line, &(her.j2));
+		new2 = ft_strjoin(mshell, new2, new);
+	}
+	free(line);
+	write(fd, new2, ft_strlen(new2));
+	write(fd, "\n", 1);
 }

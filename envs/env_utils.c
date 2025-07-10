@@ -30,8 +30,8 @@ char	*extract_name(char *str)
 
 char	*extract_value(char *str)
 {
-	int			i;
-	char		*value;
+	int		i;
+	char	*value;
 
 	if (!str)
 		return (NULL);

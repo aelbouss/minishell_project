@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils8.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 20:16:01 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 04:24:37 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:14:56 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	clear_2d_arr(char **arr)
 		free(arr[i]);
 		i++;
 	}
-	free (arr);
+	free(arr);
 }
 
 void	close_fds(t_data_shell *p, int fd)
@@ -34,7 +34,7 @@ void	close_fds(t_data_shell *p, int fd)
 	close(fd);
 }
 
-void	perr_exit(char *keyword, t_data_shell *p , int fd)
+void	perr_exit(char *keyword, t_data_shell *p, int fd)
 {
 	puterr(keyword);
 	close(fd);

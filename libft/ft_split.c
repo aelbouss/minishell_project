@@ -51,7 +51,7 @@ char	**ft_free_all(char **strs, int j)
 }
 
 char	**ft_makingstrings(t_data_shell *mshell, const char *s, char **strs,
-						char c)
+		char c)
 {
 	const char	*tmp;
 	int			j;

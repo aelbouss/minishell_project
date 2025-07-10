@@ -22,7 +22,7 @@ char	*get_env_value(t_env *eh, char *env_name)
 	{
 		if (ft_strcmp(eh->name, env_name) == 0)
 		{
-			if (eh ->value)
+			if (eh->value)
 			{
 				env_value = s_strdup(eh->value);
 				if (!env_value)
@@ -37,7 +37,7 @@ char	*get_env_value(t_env *eh, char *env_name)
 
 int	modify_env_var(t_env *lst, char *name, char *newvalue)
 {
-	if (!lst ||!name || !newvalue)
+	if (!lst || !name || !newvalue)
 		return (1);
 	while (lst)
 	{
@@ -64,7 +64,7 @@ int	prev_path_case(t_data_shell *p, t_env *env_lst)
 	char	*prev;
 
 	if (!p || !env_lst)
-		return(1);
+		return (1);
 	old_pwd = get_env_value(env_lst, "PWD");
 	prev = get_env_value(env_lst, "OLDPWD");
 	if (!prev)
@@ -76,8 +76,8 @@ int	prev_path_case(t_data_shell *p, t_env *env_lst)
 	free(prev);
 	p->exit_status = 0;
 	curr_dir = getcwd(NULL, 0);
-	if (modification_process(env_lst, old_pwd, curr_dir)!= 0)
-		return(1);
+	if (modification_process(env_lst, old_pwd, curr_dir) != 0)
+		return (1);
 	return (0);
 }
 
@@ -109,13 +109,13 @@ int	ft_cd(t_data_shell *p, t_env *env_lst, char **path)
 		return (prev_dir(p, env_lst), 0);
 	old_pwd = get_env_value(env_lst, "PWD");
 	if (chdir(path[1]) != 0)
-		return(change_dir_fail(p, old_pwd, path[1]), 1);
+		return (change_dir_fail(p, old_pwd, path[1]), 1);
 	p->exit_status = 0;
 	if (p->pwd)
 		free(p->pwd);
 	p->pwd = s_strdup(path[1]);
 	curr_dir = getcwd(NULL, 0);
 	if (modification_process(env_lst, old_pwd, curr_dir) != 0)
-		return(1);
+		return (1);
 	return (0);
 }

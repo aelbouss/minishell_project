@@ -54,7 +54,7 @@ int	__check_permission(t_data_shell *p, char *path)
 	return (0);
 }
 
-int	here_doc_routine(t_redr	*sl, t_data_shell *p)
+int	here_doc_routine(t_redr *sl, t_data_shell *p)
 {
 	pid_t	pid;
 	int		fd;
@@ -77,11 +77,11 @@ int	here_doc_routine(t_redr	*sl, t_data_shell *p)
 	return (0);
 }
 
-void	write_and_free(char	*line, int fd)
+void	write_and_free(char *line, int fd)
 {
 	write(fd, line, ft_strlen(line));
 	write(fd, "\n", 1);
 	////// check before free
-	if(line)
+	if (line)
 		free(line);
 }

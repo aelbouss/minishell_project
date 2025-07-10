@@ -43,7 +43,7 @@ char	*build_absolute_path(char *path, char *cmd, t_data_shell *p)
 	char	*fcmd;
 	char	*tmp;
 
-	if (!path || !cmd  || cmd[0] == '\0' || !p)
+	if (!path || !cmd || cmd[0] == '\0' || !p)
 		return (NULL);
 	if (access(cmd, X_OK) == 0)
 		return (cmd);

@@ -24,7 +24,7 @@ void	faileur(int ex, t_data_shell *p)
 
 int	cnt_nodes(t_env *lst)
 {
-	int		i;
+	int	i;
 
 	if (!lst)
 		return (0);
@@ -57,7 +57,7 @@ void	free_env_stuff(t_env *lst)
 
 void	_clear_2d_arr_(char **arr)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (arr[i])

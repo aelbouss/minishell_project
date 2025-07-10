@@ -25,9 +25,9 @@ int	count_heredoc(t_cline *lst)
 		{
 			if (ft_strcmp("<<", s_lst->str) == 0)
 				cnt++;
-			s_lst = s_lst ->next;
+			s_lst = s_lst->next;
 		}
-		lst = lst -> next;
+		lst = lst->next;
 	}
 	return (cnt);
 }
@@ -43,7 +43,7 @@ void	generate_name(t_redr *file)
 	file->f_path[3] = 'p';
 	file->f_path[4] = '/';
 	file->f_path[5] = 'f';
-	fd = open("/dev/random",O_RDONLY);
+	fd = open("/dev/random", O_RDONLY);
 	if (fd < 0)
 	{
 		perror("error");
@@ -71,7 +71,7 @@ int	file_creation(char *name)
 
 int	heardoc_heandler(t_data_shell *p, t_cline *lst)
 {
-	t_redr		*sl;
+	t_redr	*sl;
 
 	if (!p || !lst)
 		return (1);
@@ -114,7 +114,7 @@ pid_t	heardoc(t_data_shell *mshell, char *keyword, int fd, int expand)
 			if (ft_strcmp(keyword, line) == 0)
 				break ;
 			if (ft_strchr(line, '$') != NULL && expand == 0)
-				her_fcts(fd ,mshell, line);
+				her_fcts(fd, mshell, line);
 			else
 				write_and_free(line, fd);
 			line = NULL;

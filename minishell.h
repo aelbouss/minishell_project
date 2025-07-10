@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/10 17:02:51 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:17:48 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <ctype.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -24,9 +25,8 @@
 # include <string.h>
 # include <sys/stat.h>
 # include <sys/types.h>
-# include <unistd.h>
 # include <sys/wait.h>
-# include <limits.h>
+# include <unistd.h>
 // #include "../minishell / libft.h "
 
 typedef enum s_types
@@ -93,10 +93,10 @@ typedef struct s_env
 
 typedef struct s_exec
 {
-	char	*path;
-	char	**sp;
-	char	**gep;
-}	t_exec;
+	char			*path;
+	char			**sp;
+	char			**gep;
+}					t_exec;
 
 typedef struct s_data_shell
 {
@@ -199,8 +199,8 @@ void				add_to_list(t_gc **list, t_gc *node);
 t_gc				*ft_gc_new(void *ptr);
 void				free_gc(t_gc **list);
 void				token_line(t_data_shell *mshell, t_cmd *file);
-int					check_syntax(t_data_shell *mshell,
-						t_cmd *line, t_cline **list);
+int					check_syntax(t_data_shell *mshell, t_cmd *line,
+						t_cline **list);
 void				making_list(t_cmd *file, t_cline **list);
 void				check_to_split(t_data_shell *mshell, t_cline *tmp,
 						t_exp_info *vr, int *j);
@@ -234,9 +234,9 @@ char				*expand_inside_dq_her(t_data_shell *mshell, char *str,
 						t_exp_info *her);
 void				signals_herdoc(t_data_shell *mshell);
 void				handler_2(int sig);
-int					core_process(t_data_shell *p,
-						char **envp, t_cline *lst, int i);
-void after_read(t_data_shell *mshell);
+int					core_process(t_data_shell *p, char **envp, t_cline *lst,
+						int i);
+void				after_read(t_data_shell *mshell);
 
 //////////////////////////////// envs /////////////////////////
 
@@ -256,8 +256,8 @@ t_env				*create_node(char *name, char *value);
 
 ///////////////////////////////// builtins ///////////////////////////////////
 
-int					check_is_builtin(t_cline *node,
-						t_data_shell *p, t_env *lst);
+int					check_is_builtin(t_cline *node, t_data_shell *p,
+						t_env *lst);
 int					ft_cd(t_data_shell *p, t_env *env_lst, char **path);
 int					ft_echo(char **args, t_data_shell *p);
 int					ft_pwd(t_data_shell *p);
@@ -265,8 +265,8 @@ int					ft_env(t_data_shell *p);
 int					ft_exit(t_cline *node, t_data_shell *p);
 int					ft_unset(t_data_shell *p, t_env **lst, t_cline *node);
 char				*get_env_value(t_env *eh, char *env_name);
-int					check_to_modify(t_data_shell *p,
-						char *name, char *new_value);
+int					check_to_modify(t_data_shell *p, char *name,
+						char *new_value);
 int					ft_export(t_data_shell *p, t_cline *node);
 int					search_for_char(char *s, int n);
 int					is_valid_identifier(int c);
@@ -284,16 +284,15 @@ int					execute_exe(char **cmd, char **envp, t_data_shell *p);
 int					loop_and_execute(t_cline *lst, char **envp,
 						t_data_shell *p);
 char				**s_split(t_data_shell *p, char const *s, char c);
-int					handle_operators(t_data_shell *p,
-						t_redr *operator, char **commands);
-int					operator_handler(t_data_shell *p,
-						t_redr *operator, char **commands);
+int					handle_operators(t_data_shell *p, t_redr *operator,
+						char **commands);
+int					operator_handler(t_data_shell *p, t_redr *operator,
+						char **commands);
 int					**open_pipes(t_data_shell *p);
 void				close_pipes(int **pipes);
 int					handle_pipes(int np, int **pipes, int idx);
-//int					handle_pipes(t_data_shell *p , int np, int **pipes, int idx);
-int					heardoc(t_data_shell *mshell, char *keyword,
-						int fd, int expand);
+int					heardoc(t_data_shell *mshell,
+						char *keyword, int fd, int expand);
 void				__setup_utils__(t_data_shell *mshell, char **envp,
 						t_exec *container);
 int					heardoc_heandler(t_data_shell *p, t_cline *lst);
@@ -305,17 +304,16 @@ void				error_case(char **cmd, t_data_shell *p);
 void				execve_fail(t_data_shell *p);
 void				wait_for_child(pid_t pid, t_data_shell *p);
 void				prompt_synchronisation(int exit);
-int					here_doc_routine(t_redr	*sl, t_data_shell *p);
+int					here_doc_routine(t_redr *sl, t_data_shell *p);
 void				generate_name(t_redr *file);
 int					file_creation(char *name);
-void				write_and_free(char	*line, int fd);
+void				write_and_free(char *line, int fd);
 void				faileur(int ex, t_data_shell *p);
 void				free_env_stuff(t_env *lst);
-int					ft_len(int nbr);
 void				__default_setup__(t_data_shell *mshell);
 void				shell_lvl_handling(t_data_shell *mshell);
-int					loop_and_execute(t_cline *lst,
-						char **envp, t_data_shell *p);
+int					loop_and_execute(t_cline *lst, char **envp,
+						t_data_shell *p);
 void				clear_ressources(t_data_shell *p);
 int					many_commands(t_data_shell *p, t_cline *lst, char **envp);
 int					main_process(t_data_shell *p, t_cline *lst, char **envp);
@@ -333,10 +331,11 @@ char				**extract_identifier_and_value(t_data_shell *p, char *str);
 int					check_if_exists(t_env *lst, char *name);
 int					numeric_string(char *s);
 t_env				*create_node(char *name, char *value);
-void				perr_exit(char *keyword, t_data_shell *p , int fd);
+void				perr_exit(char *keyword, t_data_shell *p, int fd);
 int					prev_path_case(t_data_shell *p, t_env *env_lst);
-int					modification_process(t_env *env_lst, char *old_pwd, char *curr_dir);
-void				change_dir_fail(t_data_shell *p , char *old_pwd, char *path);
+int					modification_process(t_env *env_lst, char *old_pwd,
+						char *curr_dir);
+void				change_dir_fail(t_data_shell *p, char *old_pwd, char *path);
 void				signals_heredoc(void);
 void				close_fds_a(t_data_shell *p);
 int					print_envs(t_env *lst, t_data_shell *p);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   _split.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 22:54:44 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/01 22:54:45 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:15:11 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static	int	count_word(char const *str, char c)
+static int	count_word(char const *str, char c)
 {
 	int	i;
 	int	count;
@@ -30,7 +30,7 @@ static	int	count_word(char const *str, char c)
 	return (count);
 }
 
-static	int	wordlen(const char *str, char c)
+static int	wordlen(const char *str, char c)
 {
 	int	start;
 
@@ -60,7 +60,7 @@ static char	*ft_stdup(t_data_shell *p, const char *src, int len)
 	return (str);
 }
 
-static	void	free_split(char **arr, int arrlen)
+static void	free_split(char **arr, int arrlen)
 {
 	while (arrlen >= 0)
 	{

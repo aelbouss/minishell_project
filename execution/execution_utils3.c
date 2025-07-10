@@ -49,7 +49,7 @@ int	file_opener(char *name)
 
 int	is_here_doc(t_data_shell *p, t_redr *operator)
 {
-	int		fd;
+	int	fd;
 
 	fd = open(operator->f_path, O_RDWR);
 	if (fd < 0)

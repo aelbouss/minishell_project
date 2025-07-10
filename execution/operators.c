@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operators.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 22:23:48 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/05 01:27:16 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:14:43 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	redirection_out(char *file, char **commands)
 		return (perror("error"), 1);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		return (perror("error"), 1);
-	close (fd);
+	close(fd);
 	return (0);
 }
 
@@ -49,7 +49,7 @@ int	redirection_in(char *file)
 	return (0);
 }
 
-int	append_to(char *file, char	**commands)
+int	append_to(char *file, char **commands)
 {
 	int	fd;
 
@@ -65,7 +65,7 @@ int	append_to(char *file, char	**commands)
 		return (perror("error"), 1);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		return (perror("error"), 1);
-	close (fd);
+	close(fd);
 	return (0);
 }
 

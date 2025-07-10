@@ -34,7 +34,7 @@ int	one_cmd(t_data_shell *p, t_cline *lst, char **envp)
 int	core_process(t_data_shell *p, char **envp, t_cline *lst, int i)
 {
 	if (!p || !*lst->options)
-		exit (1);
+		exit(1);
 	(void)i;
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -73,10 +73,10 @@ void	count_her(t_data_shell *mshell)
 	}
 }
 
-void	_wait_childs_(pid_t	*pids, t_data_shell *p)
+void	_wait_childs_(pid_t *pids, t_data_shell *p)
 {
-	int		i;
-	int		status;
+	int	i;
+	int	status;
 
 	if (!pids || !p)
 		return ;
@@ -101,9 +101,9 @@ void	_wait_childs_(pid_t	*pids, t_data_shell *p)
 
 int	main_process(t_data_shell *p, t_cline *lst, char **envp)
 {
-	int		pid;
-	int		*pids;
-	int		i;
+	int	pid;
+	int	*pids;
+	int	i;
 
 	p->aop = open_pipes(p);
 	if (!p->aop)
@@ -114,7 +114,7 @@ int	main_process(t_data_shell *p, t_cline *lst, char **envp)
 	{
 		pid = fork();
 		if (pid < 0)
-			return (perror ("fork failed"), 1);
+			return (perror("fork failed"), 1);
 		if (pid == 0)
 		{
 			if (handle_pipes(p->nc - 1, p->aop, i) != 0)
