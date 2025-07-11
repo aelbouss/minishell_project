@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/10 17:53:00 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/11 19:06:15 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 char				*join_q(t_data_shell *mshell, char const *s1, char s2);
-void	handler(int sig);
+void				handler(int sig);
 
 ///////////////////////////////////////////////////////////////////
 

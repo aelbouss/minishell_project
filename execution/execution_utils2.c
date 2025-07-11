@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:47:04 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 17:40:49 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/11 19:05:53 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	core_process(t_data_shell *p, char **envp, t_cline *lst, int i)
 {
 	if (!p || !*lst->options)
 		exit(1);
-	(void)i;
-	signal(SIGINT,handler);
+	(void)i ;
+	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_DFL);
 	if (check_is_builtin(lst, p, p->env_list) != 0)
 		execute_exe(lst->options, envp, p);

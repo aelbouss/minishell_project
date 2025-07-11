@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:39:06 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 05:55:42 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/11 19:03:41 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ long double	ft_atold(const char *str)
 	return (result * sign);
 }
 
+void	exit_error_case(char *str)
+{
+	ft_putstr_fd("exit\n", 2);
+	ft_putstr_fd("Minishell : exit : ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(" : numeric argument required\n", 2);
+}
+
 int	validate_argument(t_data_shell *p, char *arg)
 {
 	int			i;
@@ -53,7 +61,7 @@ int	validate_argument(t_data_shell *p, char *arg)
 			return (1);
 		if (!(arg[i] >= '0' && arg[i] <= '9'))
 		{
-			printf("Minishell: exit: %s : numeric argument required\n", arg);
+			exit_error_case(arg);
 			close_fds_a(p);
 			exit(2);
 		}
@@ -62,7 +70,7 @@ int	validate_argument(t_data_shell *p, char *arg)
 	nbr = ft_atold(arg);
 	if (nbr > LLONG_MAX || nbr < LLONG_MIN)
 	{
-		printf("Minishell: exit: %.0Lf: numeric argument required\n", nbr);
+		exit_error_case(arg);
 		exit (2);
 	}
 	return (0);
@@ -74,9 +82,9 @@ int	ft_exit(t_cline *node, t_data_shell *p)
 
 	if (node->options[1] && node->options[2])
 	{
-		if (node->options[1] && node->options[2])
+		if (!numeric_string(node->options[1]))
 		{
-			ft_putstr_fd("Minishell : exit : too many arguments\n", 2);
+			ft_putstr_fd("exit\nMinishell : exit : too many arguments\n", 2);
 			return (p->exit_status = 1, 1);
 		}
 	}
