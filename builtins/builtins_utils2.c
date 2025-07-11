@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:18:26 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/10 17:53:30 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:27:17 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,8 @@ char	*get_name(char *str)
 	char	*name;
 	int		i;
 
-	if (!str)
-		return (NULL);
-	i = 0;
-	if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))
-		&& (str[i] != '_'))
-	{
-		put_err(str);
-		return (NULL);
-	}
+	if (validate_name(str) != 0)
+		return (put_err(str), NULL);
 	while (str[i] && str[i] != '=')
 		i++;
 	name = malloc((i + 1) * sizeof(char));

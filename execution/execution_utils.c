@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 16:42:37 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 17:48:18 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:41:44 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ char	*build_absolute_path(char *path, char *cmd, t_data_shell *p)
 
 	if (!path || !cmd || cmd[0] == '\0' || !p)
 		return (NULL);
-	if (access(cmd, X_OK) == 0)
-		return (cmd);
 	if (cmd[0] == '.' && cmd[1] == '/')
 	{
 		if (check_permission(p, cmd) != 0)
@@ -66,16 +64,17 @@ char	*build_absolute_path(char *path, char *cmd, t_data_shell *p)
 	return (fcmd);
 }
 
-char	*check_if_exe(char **envp, char *cmd, t_data_shell *p)
+char	*check_if_exe(char **envp, char **cmd, t_data_shell *p)
 {
 	int		i;
 	char	*fcmd;
 
-	if (!envp || !cmd || !p)
+	if (!envp || !cmd || cmd[0] == 0 || !p)
 		return (NULL);
 	p->exec->gep = turn_list_to_arr(p->env_list, p);
 	if (!p->exec->gep)
 		return (NULL);
+	verify_if_access_path(cmd, p->exec->gep, p);
 	p->exec->path = extract_path_env(p->exec->gep);
 	if (!p->exec->path)
 		return (NULL);
@@ -85,12 +84,11 @@ char	*check_if_exe(char **envp, char *cmd, t_data_shell *p)
 	i = 0;
 	while (p->exec->sp[i])
 	{
-		fcmd = build_absolute_path(p->exec->sp[i], cmd, p);
+		fcmd = build_absolute_path(p->exec->sp[i++], cmd[0], p);
 		if (!fcmd)
 			return (NULL);
 		if (access(fcmd, X_OK) == 0)
 			return (fcmd);
-		i++;
 	}
 	return (NULL);
 }
@@ -111,9 +109,7 @@ int	execute_exe(char **cmd, char **envp, t_data_shell *p)
 		signal(SIGQUIT, SIG_DFL);
 		if (check_is_dir(p, cmd[0]) != 0)
 			faileur(126, p);
-		if (access(cmd[0], F_OK | X_OK) == 0)
-			access_cmd(cmd, envp, p);
-		fcmd = check_if_exe(envp, cmd[0], p);
+		fcmd = check_if_exe(envp, cmd, p);
 		if (!fcmd)
 			error_case(cmd, p);
 		execve(fcmd, cmd, p->exec->gep);

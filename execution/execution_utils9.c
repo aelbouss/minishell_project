@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:27:10 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 17:55:04 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:38:16 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	clear_garbage(t_data_shell *p)
 
 void	child_behaviour(t_data_shell *p, int i, char **envp, t_cline *lst)
 {
+	signal(SIGINT, handler);
+	signal(SIGQUIT, SIG_DFL);
 	if (handle_pipes(p->nc - 1, p->aop, i) != 0)
 		exit(1);
 	if (handle_operators(p, lst->r_list, lst->options) != 0)

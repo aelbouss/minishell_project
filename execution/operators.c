@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operators.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 22:23:48 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 17:14:43 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:31:14 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ int	redirection_out(char *file, char **commands)
 	}
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0664);
 	if (fd < 0)
-		return (perror("error"), 1);
+	{
+		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd(file, 2);
+		return (ft_putstr_fd(": No such file or directory\n", 2), 1);
+	}
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		return (perror("error"), 1);
 	close(fd);
@@ -42,7 +46,11 @@ int	redirection_in(char *file)
 		return (1);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (perror("error"), 1);
+	{
+		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd(file, 2);
+		return (ft_putstr_fd(": No such file or directory\n", 2), 1);
+	}
 	if (dup2(fd, STDIN_FILENO) == -1)
 		return (perror("error"), 1);
 	close(fd);
@@ -62,7 +70,11 @@ int	append_to(char *file, char **commands)
 	}
 	fd = open(file, O_CREAT | O_RDWR | O_APPEND, 0664);
 	if (fd < 0)
-		return (perror("error"), 1);
+	{
+		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd(file, 2);
+		return (ft_putstr_fd(": No such file or directory\n", 2), 1);
+	}
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		return (perror("error"), 1);
 	close(fd);

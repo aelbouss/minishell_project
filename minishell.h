@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/11 19:06:15 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:10:13 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 char				*join_q(t_data_shell *mshell, char const *s1, char s2);
 void				handler(int sig);
+void				verify_if_access_path(char **arg, char **envp, t_data_shell *p);
 
 ///////////////////////////////////////////////////////////////////
 
@@ -279,7 +280,7 @@ char				*extract_path_env(char **envp);
 char				**get_splited_path(char *path, t_data_shell *p);
 char				*build_absolute_path(char *path, char *cmd,
 						t_data_shell *p);
-char				*check_if_exe(char **envp, char *cmd, t_data_shell *p);
+char				*check_if_exe(char **envp, char **cmd, t_data_shell *p);
 int					execute_exe(char **cmd, char **envp, t_data_shell *p);
 int					loop_and_execute(t_cline *lst, char **envp,
 						t_data_shell *p);
@@ -348,6 +349,7 @@ void				child_behaviour(t_data_shell *p, int i, char **envp,
 void				access_cmd(char **cmd, char **envp, t_data_shell *p);
 void				put_err(char *str);
 int					check_path(t_data_shell *p, char **path);
+int					validate_name(char *s);
 
 /////////////////////////// clear env garbage ///////////////////////////////
 

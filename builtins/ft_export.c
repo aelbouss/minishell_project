@@ -6,11 +6,27 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:42:13 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 17:03:31 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:30:35 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	validate_name(char *s)
+{
+	int	i;
+
+	if (!s)
+		return (1);
+	i = 0;
+	while (s[i])
+	{
+		if (ft_isalnum(s[i]) != 8 && s[i] != '_')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 t_env	*create_node(char *name, char *value)
 {
