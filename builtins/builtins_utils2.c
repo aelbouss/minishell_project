@@ -20,7 +20,7 @@ char	*get_name(char *str)
 	if (!str)
 		return (NULL);
 	i = 0;
-	if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'A'))
+	if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))
 		&& (str[i] != '_'))
 	{
 		put_err(str);

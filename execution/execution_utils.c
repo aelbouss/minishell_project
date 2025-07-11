@@ -49,7 +49,7 @@ char	*build_absolute_path(char *path, char *cmd, t_data_shell *p)
 		return (cmd);
 	if (cmd[0] == '.' && cmd[1] == '/')
 	{
-		if (__check_permission(p, cmd) != 0)
+		if (check_permission(p, cmd) != 0)
 		{
 			clear_ressources(p);
 			close(p->fds[0]);
@@ -107,11 +107,11 @@ int	execute_exe(char **cmd, char **envp, t_data_shell *p)
 	pid = fork();
 	if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
+		signal(SIGINT, handler);
 		signal(SIGQUIT, SIG_DFL);
-		if (__check_is_dir__(p, cmd[0]) != 0)
+		if (check_is_dir(p, cmd[0]) != 0)
 			faileur(126, p);
-		if (access(cmd[0], X_OK) == 0)
+		if (access(cmd[0], F_OK | X_OK) == 0)
 			access_cmd(cmd, envp, p);
 		fcmd = check_if_exe(envp, cmd[0], p);
 		if (!fcmd)

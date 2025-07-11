@@ -34,7 +34,7 @@ int	main(int ac, char **av, char **env)
 		else
 		{
 			ft_putstr_fd("exit\n", 2);
-			return (clear_ressources(&mshell), 0);
+			return (clear_ressources(&mshell), mshell.exit_status);
 		}
 		clear_garbage(&mshell);
 	}

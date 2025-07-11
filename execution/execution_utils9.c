@@ -41,3 +41,32 @@ void	put_err(char *str)
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(" : non valid identifier\n", 2);
 }
+
+int	check_path(t_data_shell *p, char **path)
+{
+	struct stat	infos;
+
+	if (stat(path[1], &infos) != 0)
+		return (0);
+	if (!S_ISDIR(infos.st_mode))
+	{
+		ft_putstr_fd(path[1], 2);
+		ft_putstr_fd(" : not a directory\n", 2);
+		p->exit_status = 1;
+		return (1);
+	}
+	if (access(path[1], X_OK) != 0)
+	{
+		ft_putstr_fd("Minishell : cd : ", 2);
+		ft_putstr_fd(path[1], 2);
+		ft_putstr_fd(" : permission  denied\n", 2);
+		p->exit_status = 1;
+		return (1);
+	}
+	if (path[1] && path[2])
+	{
+		ft_putstr_fd("Minishell : cd : too many arguments\n", 2);
+		return (p->exit_status = 1, 1);
+	}
+	return (0);
+}

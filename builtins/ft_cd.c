@@ -98,11 +98,8 @@ int	ft_cd(t_data_shell *p, t_env *env_lst, char **path)
 
 	if (!p || !env_lst)
 		return (1);
-	if (path[1] && path[2])
-	{
-		ft_putstr_fd("Minishell : cd : too many arguments\n", 2);
-		return (p->exit_status = 1, 1);
-	}
+	if (check_path(p, path) != 0)
+		return (1);
 	if (!path[1])
 		return (home_path(p, env_lst), 0);
 	if (ft_strcmp(path[1], "-") == 0)

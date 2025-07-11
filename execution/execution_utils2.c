@@ -36,7 +36,7 @@ int	core_process(t_data_shell *p, char **envp, t_cline *lst, int i)
 	if (!p || !*lst->options)
 		exit(1);
 	(void)i;
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT,handler);
 	signal(SIGQUIT, SIG_DFL);
 	if (check_is_builtin(lst, p, p->env_list) != 0)
 		execute_exe(lst->options, envp, p);

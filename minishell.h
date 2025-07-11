@@ -27,7 +27,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-// #include "../minishell / libft.h "
 
 typedef enum s_types
 {
@@ -190,6 +189,7 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 char				*join_q(t_data_shell *mshell, char const *s1, char s2);
+void	handler(int sig);
 
 ///////////////////////////////////////////////////////////////////
 
@@ -293,13 +293,13 @@ void				close_pipes(int **pipes);
 int					handle_pipes(int np, int **pipes, int idx);
 int					heardoc(t_data_shell *mshell,
 						char *keyword, int fd, int expand);
-void				__setup_utils__(t_data_shell *mshell, char **envp,
+void				setup_utils(t_data_shell *mshell, char **envp,
 						t_exec *container);
 int					heardoc_heandler(t_data_shell *p, t_cline *lst);
 int					is_here_doc(t_data_shell *p, t_redr *operator);
 int					file_opener(char *name);
-int					__check_permission(t_data_shell *p, char *path);
-int					__check_is_dir__(t_data_shell *p, char *path);
+int					check_permission(t_data_shell *p, char *path);
+int					check_is_dir(t_data_shell *p, char *path);
 void				error_case(char **cmd, t_data_shell *p);
 void				execve_fail(t_data_shell *p);
 void				wait_for_child(pid_t pid, t_data_shell *p);
@@ -310,7 +310,7 @@ int					file_creation(char *name);
 void				write_and_free(char *line, int fd);
 void				faileur(int ex, t_data_shell *p);
 void				free_env_stuff(t_env *lst);
-void				__default_setup__(t_data_shell *mshell);
+void				default_setup(t_data_shell *mshell);
 void				shell_lvl_handling(t_data_shell *mshell);
 int					loop_and_execute(t_cline *lst, char **envp,
 						t_data_shell *p);
@@ -347,6 +347,7 @@ void				child_behaviour(t_data_shell *p, int i, char **envp,
 						t_cline *lst);
 void				access_cmd(char **cmd, char **envp, t_data_shell *p);
 void				put_err(char *str);
+int					check_path(t_data_shell *p, char **path);
 
 /////////////////////////// clear env garbage ///////////////////////////////
 

@@ -45,6 +45,7 @@ void	handler_2(int sig)
 	if (sig == SIGINT)
 	{
 		printf("\n");
+		g_exit_status = 130;
 		exit(130);
 	}
 }

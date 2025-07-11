@@ -59,8 +59,7 @@ int	creation_routine(t_data_shell *p, t_cline *node, int idx)
 	char	**arr;
 	t_env	*new;
 
-	(void)idx;
-	arr = extract_identifier_and_value(p, node->options[1]);
+	arr = extract_identifier_and_value(p, node->options[idx]);
 	if (!arr)
 		return (1);
 	if (check_if_exists(p->env_list, arr[0]) == 1)

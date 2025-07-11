@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-int	__check_is_dir__(t_data_shell *p, char *path)
+int	check_is_dir(t_data_shell *p, char *path)
 {
 	struct stat	infos;
 
@@ -43,11 +43,11 @@ void	wait_for_child(pid_t pid, t_data_shell *p)
 	}
 }
 
-int	__check_permission(t_data_shell *p, char *path)
+int	check_permission(t_data_shell *p, char *path)
 {
 	if (access(path, W_OK | R_OK | X_OK) != 0)
 	{
-		printf("minishell : %s : permission denied \n", path);
+		perror("minishell: ");
 		p->exit_status = 126;
 		return (1);
 	}

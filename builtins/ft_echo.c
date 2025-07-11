@@ -32,9 +32,11 @@ int	ft_search(char *s, char c)
 {
 	int	i;
 
-	i = 1;
-	if (!s[i])
+	i = 0;
+	if (s[0] != '-')
 		return (0);
+	else
+		i++;
 	while (s[i])
 	{
 		if (s[i] != c)
@@ -53,6 +55,8 @@ int	ft_echo(char **args, t_data_shell *p)
 	i = 1;
 	while (args[i])
 	{
+		if (args[1][0] == '\0')
+			i++;
 		if (args[i][0] == '-' && !looking_for_char(args[i], 'n'))
 			i++;
 		else
