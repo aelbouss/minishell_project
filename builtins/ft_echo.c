@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:36:32 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 16:59:57 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/11 23:30:26 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_echo(char **args, t_data_shell *p)
 {
 	int	i;
 
-	if (!args || !args[1])
+	if (!args || !args[1] || !args[1][0])
 		return (printf("\n"), p->exit_status = 0, 0);
 	i = 1;
 	while (args[i])

@@ -6,7 +6,7 @@
 #    By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/31 17:04:05 by memahamo          #+#    #+#              #
-#    Updated: 2025/06/18 15:26:43 by memahamo         ###   ########.fr        #
+#    Updated: 2025/07/11 23:26:59 by memahamo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ SRC= ft_isalpha.c\
  
 OBJ= $(SRC:.c=.o)
 CC= cc
-CFLAGS= -Wall -Wextra  -Werror #-fsanitize=address -g3
+CFLAGS= -Wall -Wextra  -Werror -fsanitize=address -g3
 RM= rm -f
 AR= ar -rc
                                                                            

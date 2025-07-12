@@ -6,11 +6,24 @@
 /*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:22:43 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/10 19:38:53 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/12 01:18:03 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	mask_expand(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str && str[i])
+	{
+		if (str[i] != ' ' && (str[i] < 9 || str[i] > 13))
+			str[i] *= -1;
+		i++;
+	}
+}
 
 char	*ability_to_expand(t_data_shell *mshell, char *str)
 {
@@ -23,14 +36,13 @@ char	*ability_to_expand(t_data_shell *mshell, char *str)
 	{
 		if (ft_strcmp(tmp->name, str) == 0)
 		{
-			new = gc_malloc(ft_strlen(tmp->value), &(mshell->line.head));
-			if (!new)
-				return (NULL);
-			new = tmp->value;
+			new = ft_strdup(mshell, tmp->value);
 			break ;
 		}
 		tmp = tmp->next;
 	}
+	if(new)
+		mask_expand(new);
 	return (new);
 }
 

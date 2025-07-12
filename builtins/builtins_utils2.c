@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:18:26 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/11 22:27:17 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/11 23:28:44 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 char	*get_name(char *str)
 {
 	char	*name;
-	int		i;
+	int		i = 0;
 
-	if (validate_name(str) != 0)
-		return (put_err(str), NULL);
+	// if (validate_name(str) != 0)
+	// 	return (put_err(str), NULL);
 	while (str[i] && str[i] != '=')
 		i++;
 	name = malloc((i + 1) * sizeof(char));

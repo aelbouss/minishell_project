@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/11 22:10:13 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/12 00:18:55 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ void				handler_2(int sig);
 int					core_process(t_data_shell *p, char **envp, t_cline *lst,
 						int i);
 void				after_read(t_data_shell *mshell);
+void				apply_changes(t_data_shell *mshell);
 
 //////////////////////////////// envs /////////////////////////
 
