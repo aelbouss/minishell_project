@@ -240,6 +240,7 @@ int					core_process(t_data_shell *p, char **envp, t_cline *lst,
 						int i);
 void				after_read(t_data_shell *mshell);
 void				apply_changes(t_data_shell *mshell);
+int					execute_child(char **cmd, char **envp, t_data_shell *p);
 
 //////////////////////////////// envs /////////////////////////
 

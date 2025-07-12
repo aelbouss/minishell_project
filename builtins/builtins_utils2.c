@@ -17,8 +17,6 @@ char	*get_name(char *str)
 	char	*name;
 	int		i = 0;
 
-	// if (validate_name(str) != 0)
-	// 	return (put_err(str), NULL);
 	while (str[i] && str[i] != '=')
 		i++;
 	name = malloc((i + 1) * sizeof(char));
@@ -31,6 +29,11 @@ char	*get_name(char *str)
 		i++;
 	}
 	name[i] = 0;
+	if (validate_name(name) != 0)
+	{
+		free(name);
+		return (put_err(str), NULL);
+	}
 	return (name);
 }
 
