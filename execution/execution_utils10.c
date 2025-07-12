@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_utils10.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/12 18:13:51 by aelbouss          #+#    #+#             */
+/*   Updated: 2025/07/12 18:21:08 by aelbouss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int execute_child(char **cmd, char **envp, t_data_shell *p)
+int	execute_child(char **cmd, char **envp, t_data_shell *p)
 {
 	char	*fcmd;
 
@@ -14,8 +26,8 @@ int execute_child(char **cmd, char **envp, t_data_shell *p)
 		faileur(126, p);
 	fcmd = check_if_exe(envp, cmd, p);
 	if (!fcmd)
-	error_case(cmd, p);
+		error_case(cmd, p);
 	execve(fcmd, cmd, p->exec->gep);
 	execve_fail(p);
-    return(0);
+	return (0);
 }

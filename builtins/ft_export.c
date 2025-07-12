@@ -6,7 +6,7 @@
 /*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:42:13 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/11 22:30:35 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/12 18:23:27 by aelbouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	validate_name(char *s)
 
 	if (!s)
 		return (1);
-
 	if ((ft_isalpha(s[0]) != 1024) && (s[0] != '_'))
 		return (1);
 	i = 1;
