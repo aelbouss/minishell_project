@@ -19,7 +19,7 @@ void	faileur(int ex, t_data_shell *p)
 	free_gc(&p->line.head);
 	close(p->fds[0]);
 	close(p->fds[1]);
-	exit(ex);
+	(void)ex;
 }
 
 int	cnt_nodes(t_env *lst)

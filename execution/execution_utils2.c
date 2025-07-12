@@ -35,11 +35,11 @@ int	core_process(t_data_shell *p, char **envp, t_cline *lst, int i)
 {
 	if (!p || !*lst->options)
 		exit(1);
-	(void)i ;
+	(void)i;
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_DFL);
 	if (check_is_builtin(lst, p, p->env_list) != 0)
-		execute_exe(lst->options, envp, p);
+		execute_child(lst->options, envp, p);
 	clear_ressources(p);
 	close(p->fds[0]);
 	close(p->fds[1]);

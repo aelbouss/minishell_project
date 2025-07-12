@@ -18,10 +18,13 @@ int	validate_name(char *s)
 
 	if (!s)
 		return (1);
-	i = 0;
+
+	if ((ft_isalpha(s[0]) != 1024) && (s[0] != '_'))
+		return (1);
+	i = 1;
 	while (s[i])
 	{
-		if (ft_isalnum(s[i]) != 8 && s[i] != '_')
+		if ((ft_isalnum(s[i]) != 8) && (s[i] != '_'))
 			return (1);
 		i++;
 	}
