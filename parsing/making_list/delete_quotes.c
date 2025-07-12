@@ -6,7 +6,7 @@
 /*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:11:52 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/12 00:57:34 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/12 02:54:27 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,20 @@ char	*new_options(t_data_shell *mshell, t_redr *node, char *tmp)
 		new_options = ft_strjoin(mshell, new_options, ft_no(mshell, tmp, &j));
 	return (new_options);
 }
+
 void	antimask_expand(char *str)
 {
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] < 0)
 			str[i] *= -1;
 		i++;
 	}
 }
+
 void	apply_changes(t_data_shell *mshell)
 {
 	t_cline	*tmp;
@@ -87,6 +89,7 @@ void	apply_changes(t_data_shell *mshell)
 		tmp = tmp->next;
 	}
 }
+
 void	delete_quotes(t_data_shell *mshell)
 {
 	t_cline	*tmp;

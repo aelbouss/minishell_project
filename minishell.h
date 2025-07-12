@@ -6,7 +6,7 @@
 /*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:03:34 by memahamo          #+#    #+#             */
-/*   Updated: 2025/07/12 00:18:55 by memahamo         ###   ########.fr       */
+/*   Updated: 2025/07/12 02:55:26 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,8 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 char				*join_q(t_data_shell *mshell, char const *s1, char s2);
 void				handler(int sig);
-void				verify_if_access_path(char **arg, char **envp, t_data_shell *p);
+void				verify_if_access_path(char **arg,
+						char **envp, t_data_shell *p);
 
 ///////////////////////////////////////////////////////////////////
 
