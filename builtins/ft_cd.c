@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:35:41 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/10 16:40:22 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/13 01:58:12 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	ft_cd(t_data_shell *p, t_env *env_lst, char **path)
 	char	*old_pwd;
 	char	*curr_dir;
 
-	if (!p || !env_lst)
+	if (!p)
 		return (1);
 	if (check_path(p, path) != 0)
 		return (1);

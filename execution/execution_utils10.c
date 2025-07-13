@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils10.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelbouss <aelbouss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: memahamo <memahamo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 18:13:51 by aelbouss          #+#    #+#             */
-/*   Updated: 2025/07/12 18:21:08 by aelbouss         ###   ########.fr       */
+/*   Updated: 2025/07/12 22:46:40 by memahamo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	execute_child(char **cmd, char **envp, t_data_shell *p)
 {
 	char	*fcmd;
 
-	if (!envp || !p)
+	if (!p)
 		return (1);
 	if (!cmd || !*cmd)
 		return (0);
